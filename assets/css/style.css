@@ -1,0 +1,276 @@
+/*propiedades generales*/
+*{
+    font-family: 'Inter', sans-serif;
+}
+body{
+    margin: 0;
+    background-color: #2B2729;
+}
+/*estilos del header y titulo*/
+header{
+    width: 100%;
+    top: 0;
+    position: sticky;
+    z-index: 1;
+}
+.titulo{
+    font-size: 16px;
+    margin: 0;
+
+}
+/*navbar superior*/
+nav{
+    display: flex;
+    justify-content: space-between;
+
+    border-bottom: 1px solid var(--Black);
+    background-color: #9EE9A1;
+    height: 50px;
+    width: 100%;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+/*contenedor principal del nav*/
+.contenedor-principal{
+    display: flex;
+    flex-direction: column;
+    margin-left : auto;
+    margin-right : auto;
+    width: 90%;
+}
+
+li{
+    list-style: none;
+}
+
+li > ul {
+    list-style: none;
+    left: 0;
+    display: none;
+}
+
+li:hover > ul{
+    display: inline;
+    
+}
+
+
+li:hover > ul > li a{
+    background-color: #9EE9A1;
+    color: #2B2729;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+
+li ul a:nth-child(1){
+    margin-top:  -7px;
+    margin-bottom: 4px;
+}
+
+.nav-botones{
+    display: flex;
+    flex-direction: row;
+    margin-top: 2px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.submenu{
+    font-size: 14px;
+}
+
+
+.nav-botones a{
+    text-decoration: none;
+    color: white;
+    border-radius: 30px;
+    width: 106px;
+    height: 32px;
+    margin-right: 7px;
+    background-color: #2B2729;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+.nav-botones ul .submenu:hover {
+    background-color: #9EE9A1;
+    transform: translate(0px,2px);
+    transform: scale(1.1,1.1);
+    box-shadow: 0 0 20px #2B2729,
+                0 0 40px #2B2729;
+}
+.nav-botones a:hover{
+    background-color: black;
+    transform: translate(0px,2px);
+    transform: scale(1.1,1.1);
+}
+
+
+.nav-logo{
+    width: 42px;
+    height: 40px;
+    margin-top: 7px;
+}
+/*estilo general de las secciones de cada pagina*/
+.seccion-primero{
+    width: 100%;
+    height: 450px;
+    background-color: white;
+}
+.seccion-segundo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 450px;
+    background-color: #D4F4DB;
+}
+.seccion-tercero{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 450px;
+    background-color: white;
+}
+.seccion-cuarto{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 450px;
+    background-color: #D4F4DB;
+}
+.seccion-quinto{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 450px;
+    background-color: white;
+}
+/*estilos del footer o pie de pagina*/
+footer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: #9EE9A1;
+}
+footer :nth-child(1){
+    margin-left: 10px;
+}
+footer :nth-child(3){
+    margin-right: 10px;
+}
+
+/*animacion seccion 1 (seccion de presentacion) */
+.dividir-seccion-uno{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.seccion-uno-derecho{
+    margin-right: 100px;
+    margin-top: 20px;
+}
+.seccion-primero:hover .circulo{
+    transform: translate(10px,-10px);
+}
+#circulo-arriba{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #2B2729;
+    transition:  transform 1s ease-in-out;
+    transition-delay: 0.5s;
+}
+#circulo-medio{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: #2B2729;
+    transition:  transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition-delay: 0.5s;
+}
+#circulo-abajo{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #2B2729;
+    transition:  transform 1s linear;
+    transition-delay: 0.5s;
+}
+#parrafo{
+    width: 400px; color: #4B4B4B; text-align: justify;
+}
+/*diseño responsivo para distintas medidas*/
+@media (max-width:900px)
+{
+    .nav-botones a{
+        font-size: 12px;
+        width: 75px;
+        height: 32px;
+
+    }
+    footer h4:nth-child(2)
+    {
+        display: none;
+    }
+    .seccion-uno-derecho > .circulo{
+        display: none;
+    }
+    #circulo-medio {
+        display: none;
+    }
+    .dividir-seccion-uno{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+}
+@media (max-width:500px)
+{
+    .nav-botones a{
+        font-size: 8px;
+        width: 55px;
+    }
+    #encabezado{
+        margin-top: 20px ;
+    }
+
+    #parrafo{
+        width: 350px; color: #4B4B4B; text-align: justify;
+    }
+    .seccion-primero{
+        height: auto;
+    }
+}
+@media (max-width:450px)
+{
+    .nav-botones a{
+        font-size: 5px;
+        width: 45px;
+    }
+    .contenido-seccion-uno{
+        width: 50%;
+    }
+    footer :nth-child(3)
+    {
+        display: none;
+    }
+    nav a img{
+        display: none;
+    }
+    #parrafo{
+        display: none;
+    }
+    #encabezado{
+        margin-top: 50px ;
+    }
+}
