@@ -130,42 +130,60 @@
             </section>
             <section class="seccion-segundo">
             <div id="bloqueNewReseña">
-                    <form id="escribeturesenia">
+                    <form action="index.php?c=Resenias&f=edit" method="POST" id="escribeturesenia">
                         <div id="datosNewReseña">
                             <label><b>Nombre: </b><span>*</span></label>
                             <div>
                                 <input type="text" name="nombre" id="nombre" placeholder="Escribe tus nombres."
                                     class="caja box" style="width: 170px;" onmouseover="mostrarError('nombre')"
-                                    onmouseout="ocultarError('nombre')">
+                                    onmouseout="ocultarError('nombre')" value="<?php echo $res->nombre; ?>">
                             </div>
                             <label><b>Email: </b><span>*</span></label>
                             <div>
                                 <input type="text" name="email" id="email" placeholder="Escribe tu email."
                                     class="caja box" style="width: 170px;" onmouseover="mostrarError('email')"
-                                    onmouseout="ocultarError('email')">
+                                    onmouseout="ocultarError('email')" value="<?php echo $res->email; ?>">
                             </div>
                             <label><b>Valoración: </b><span>*</span></label>
                             <div>
                                 <select id="valoracion" name="valoracion" class="caja box"
-                                    style="height: 30px; width: 200px;" onmouseover="mostrarError('valoracion')"
-                                    onmouseout="ocultarError('valoracion')">
+                                style="height: 30px; width: 200px;" onmouseover="mostrarError('valoracion')"
+                                onmouseout="ocultarError('valoracion')">
+                                    <?php  
+                                    $selected[]="";
+                                    for ($i = 1; $i < 6; $i++){
+                                        $selected[$i] = "";
+                                        if($res->valoracion == $i){
+                                            $selected[$i] = 'selected="selected"';
+                                            break;
+                                        }
+                                    }
+                                    ?>
                                     <option value="0">Seleccione</option>
-                                    <option value="5">5 estrellas</option>
-                                    <option value="4">4 estrellas</option>
-                                    <option value="3">3 estrellas</option>
-                                    <option value="2">2 estrellas</option>
-                                    <option value="1">1 estrella</option>
+                                    <option value="5" <?php echo $selected[5]; ?>>5 estrellas</option>
+                                    <option value="4" <?php echo $selected[4]; ?>>4 estrellas</option>
+                                    <option value="3" <?php echo $selected[3]; ?>>3 estrellas</option>
+                                    <option value="2" <?php echo $selected[2]; ?>>2 estrellas</option>
+                                    <option value="1" <?php echo $selected[1]; ?>>1 estrella</option>
                                 </select>
                             </div>
                             <label><b>Servicio: </b><span>*</span></label>
                             <div id="contenedorRadios" class="box" onmouseover="mostrarError('radio')"
                                 onmouseout="ocultarError('radio')">
                                 <div id="divRadio1">
-                                    <input type="radio" id="radio1" name="radio" value="1" class="radio">
+                                    <?php      
+                                    $domicilio = ""; $internacional = "";                              
+                                    if($res->servicio == "A domicilio"){
+                                        $domicilio = 'checked';                                        
+                                    }else if ($res->servicio == "Internacional"){
+                                        $internacional = 'checked';                                        
+                                    }
+                                    ?>
+                                    <input type="radio" id="radio1" name="radio" value="1" class="radio" <?php echo $domicilio; ?>>
                                     <label>A domicilio</label>
                                 </div>
                                 <div id="divRadio2">
-                                    <input type="radio" id="radio2" name="radio" value="2" class="radio">
+                                    <input type="radio" id="radio2" name="radio" value="2" class="radio" <?php echo $internacional; ?>>
                                     <label>Internacional</label>
                                 </div>
                             </div>
@@ -176,10 +194,10 @@
                                 <textarea id="resenia" name="nuevaReseña" rows="10" cols="400" class="caja box"
                                     placeholder="Escribe tu reseña." style="width: 290px; height: auto; resize: none;"
                                     onmouseover="mostrarError('resenia')"
-                                    onmouseout="ocultarError('resenia')"></textarea>
+                                    onmouseout="ocultarError('resenia')"><?php echo $res->resenia; ?></textarea>
                             </div><br><br>
                             <div>
-                                <input type="checkbox" id="recibiremail" />
+                                <input type="checkbox" id="recibiremail" <?php echo ($res->recibir_promo == 1)?'checked="checked"':''; ?>/>
                                 <label style="font-size: 10pt;">Recibir alertas de promociones a este email.</label>
                             </div>
                             <input type="submit" id="enviarReseña" value="ENVIAR RESEÑA">

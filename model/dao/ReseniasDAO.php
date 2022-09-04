@@ -73,24 +73,31 @@ class ReseniasDAO {
 
     /*--  EDITAR RESEÑA  --*/
 
+    public function selectById($id){
+        $sql = "SELECT * FROM resenia WHERE resenia_id = :id";
+        $stmt = $this->con->prepare($sql);
+        $data = ['id' => $id];
+        $stmt->execute($data);
+        $resultado = $stmt->fetch(PDO::FETCH_OBJ);
+
+        return $resultado;
+    }
+
     public function update($res){
 
         try{
-            $sql = "UPDATE `resuctos` SET `prod_codigo`=:cod,`prod_nombre`=:nom,`prod_descripcion`=:desc," .
-                    "`prod_estado`=:estado,`prod_precio`=:precio,`prod_idCategoria`=:idCat,`prod_usuarioActualizacion`=:usu," .
-                    "`prod_fechaActualizacion`=:fecha WHERE prod_id=:id";
+            $sql = "UPDATE resenia SET nombre = :nombre, email = :email, valoracion = :valoracion, servicio = :servicio, 
+                                       resenia = :nuevaResenia, recibir_promo = :recibiremail WHERE resenia_id=:id";
 
             $sentencia = $this->con->prepare($sql);
             $data = [
-                'cod' =>  $res->getCodigo(),
-                'nom' =>  $res->getNombre(),
-                'desc' =>  $res->getDescripcion(),
-                'estado' =>  $res->getEstado(),
-                'precio' =>  $res->getPrecio(),
-                'idCat' =>  $res->getIdCategoria(),
-                'usu' =>  $res->getUsuario(),
-                'fecha' =>  $res->getFechaActualizacion(),
-                'id' =>  $res->getId()
+            'id' =>  $res->getReseniaId(),
+            'nombre' =>  $res->getNombre(),
+            'email' =>  $res->getEmail(),
+            'valoracion' =>  $res->getValoracion(),
+            'servicio' =>  $res->getServicio(),
+            'nuevaResenia' =>  $res->getResenia(),
+            'recibiremail' =>  $res->getRecibirPromo()
             ];
             $sentencia->execute($data);
 
@@ -99,7 +106,6 @@ class ReseniasDAO {
             }
 
         }catch(Exception $e){
-            echo $e->getMessage();
             return false;
         }
         

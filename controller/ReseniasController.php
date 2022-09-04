@@ -77,7 +77,10 @@ class ReseniasController {
 
   /*--  EDITAR RESEÑA  --*/
 
-  public function view_edit() {      
+  public function view_edit() {   
+    $id = $_REQUEST['id'];     
+    $res = $this->model->selectById($id);
+
     require_once VRESENIAS.'edit.php';
   }
 
@@ -85,21 +88,25 @@ class ReseniasController {
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
  
       $res = new Resenia();
-      $res->setId(htmlentities($_POST['id']));
-      $res->setCodigo(htmlentities($_POST['codigo']));
+      //$res->setReseniaId(htmlentities($_POST['id']));
       $res->setNombre(htmlentities($_POST['nombre']));
-      $res->setDescripcion(htmlentities($_POST['descripcion']));
-      $res->setPrecio(htmlentities($_POST['precio']));
-      $res->setIdCategoria(htmlentities($_POST['categoria']));
-      $estado = (isset($_POST['estado'])) ? 1 : 0;
-      $res->setEstado($estado);    
- 
-      $exito = $this->model->update($res);
-      $msj = 'Reseña actualizada exitosamente';
-      if (!$exito) {
-        $msj = "No se pudo realizar la actualizacion";
+      $res->setEmail(htmlentities($_POST['email']));
+      $res->setValoracion(htmlentities($_POST['valoracion']));      
+      
+      if (htmlentities($_POST['radio']) == 1) {
+        $res->setServicio("A domicilio");
+      }else if (htmlentities($_POST['radio']) == 2){
+        $res->setServicio("Internacional");
       }
 
+      $res->setResenia(htmlentities($_POST['nuevaResenia']));
+      
+      if (isset($_POST['recibiremail'])) {
+        $res->setRecibirPromo(1);
+      }else{
+        $res->setRecibirPromo(0);
+      }
+      
       header('Location:index.php?c=Resenias&f=view_list');
          
     } 
