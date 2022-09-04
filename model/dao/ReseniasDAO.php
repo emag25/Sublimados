@@ -64,7 +64,6 @@ class ReseniasDAO {
         }catch(Exception $e){
             return false;
         }
-
         return true;
     }
 
@@ -86,8 +85,8 @@ class ReseniasDAO {
     public function update($res){
 
         try{
-            $sql = "UPDATE resenia SET nombre = :nombre, email = :email, valoracion = :valoracion, servicio = :servicio, 
-                                       resenia = :nuevaResenia, recibir_promo = :recibiremail WHERE resenia_id=:id";
+            $sql = "UPDATE 'resenia' SET 'nombre' = :nombre, 'email' = :email, 'valoracion' = :valoracion, 'servicio' = :servicio, 
+                                       'resenia' = :nuevaResenia, 'recibir_promo' = :recibiremail WHERE 'resenia_id'=:id";
 
             $sentencia = $this->con->prepare($sql);
             $data = [
@@ -106,9 +105,9 @@ class ReseniasDAO {
             }
 
         }catch(Exception $e){
+            echo $e;
             return false;
-        }
-        
+        }        
         return true;       
     }
 

@@ -191,7 +191,7 @@
                         <label><b>Reseña: </b><span>*</span></label>
                         <div id="areaNewReseña">
                             <div>
-                                <textarea id="resenia" name="nuevaReseña" rows="10" cols="400" class="caja box"
+                                <textarea id="resenia" name="nuevaResenia" rows="10" cols="400" class="caja box"
                                     placeholder="Escribe tu reseña." style="width: 290px; height: auto; resize: none;"
                                     onmouseover="mostrarError('resenia')"
                                     onmouseout="ocultarError('resenia')"><?php echo $res->resenia; ?></textarea>

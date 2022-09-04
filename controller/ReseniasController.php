@@ -67,8 +67,11 @@ class ReseniasController {
       }else{
         $res->setRecibirPromo(0);
       }
-      
-      header('Location:index.php?c=Resenias&f=view_list');
+            
+      $exito = $this->model->insert($res);
+      if ($exito){
+        header('Location:index.php?c=Resenias&f=view_list');
+      }
     }
   }
   
@@ -88,7 +91,7 @@ class ReseniasController {
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
  
       $res = new Resenia();
-      //$res->setReseniaId(htmlentities($_POST['id']));
+
       $res->setNombre(htmlentities($_POST['nombre']));
       $res->setEmail(htmlentities($_POST['email']));
       $res->setValoracion(htmlentities($_POST['valoracion']));      
@@ -107,8 +110,10 @@ class ReseniasController {
         $res->setRecibirPromo(0);
       }
       
-      header('Location:index.php?c=Resenias&f=view_list');
-         
+      $exito = $this->model->update($res);
+      if ($exito){
+        header('Location:index.php?c=Resenias&f=view_list');
+      }
     } 
   }
 
