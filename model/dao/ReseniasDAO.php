@@ -10,6 +10,15 @@ class ReseniasDAO {
         $this->con = Conexion::getConexion();
     }
 
+    public function selectByState() {      
+        $sql = "SELECT * FROM resenia WHERE estado = :state";
+        $stmt = $this->con->prepare($sql);
+        $data = ['state' => '1'];
+        $stmt->execute($data);
+        $resultados = $stmt->fetchAll(PDO::FETCH_OBJ);
+        
+        return $resultados;
+    }
 
 
 

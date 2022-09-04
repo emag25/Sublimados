@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -260,9 +260,9 @@
             } else if (!letra.test(nombre.value)) {
                 valido = false;
                 mensaje("El campo 'nombre' solo debe contener letras.", nombre);
-            } else if (nombre.value.length > 100) {
+            } else if (nombre.value.length > 50) {
                 valido = false;
-                mensaje("Ingrese máximo 100 caracteres.", nombre);
+                mensaje("Ingrese máximo 50 caracteres.", nombre);
             }
 
             // validación campo email
@@ -272,9 +272,9 @@
             } else if (!correo.test(email.value)) {
                 valido = false;
                 mensaje("Ingrese un email válido.", email);
-            } else if (email.value.length > 100) {
+            } else if (email.value.length > 50) {
                 valido = false;
-                mensaje("Ingrese máximo 100 caracteres.", email);
+                mensaje("Ingrese máximo 50 caracteres.", email);
             }
 
             // validación campo valoracion
@@ -293,9 +293,9 @@
             if (resenia.value === '') {
                 valido = false;
                 mensaje("El campo 'reseña' es requerido.", resenia);
-            } else if (resenia.value.length > 100) {
+            } else if (resenia.value.length > 200) {
                 valido = false;
-                mensaje("Ingrese máximo 100 caracteres.", resenia);
+                mensaje("Ingrese máximo 200 caracteres.", resenia);
             }
 
             if (!valido) {

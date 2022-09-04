@@ -11,7 +11,8 @@ class ReseniasController {
     $this->model = new ReseniasDAO();
   }
 
-  public function index() {
+  public function index() { 
+    $resultados = $this->model->selectByState();
     require_once VRESENIAS.'principal.php';
   }
 

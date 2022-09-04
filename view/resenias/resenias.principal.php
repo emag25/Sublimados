@@ -459,6 +459,18 @@
             var radios = document.getElementsByName("radio");
             var resenia = [];
             var cliente = [];
+            var resultadosResenias = [];
+            var resultadosClientes = [];
+            var c = 0;
+
+            <?php   
+            foreach($resultados as $fila) {  ?>
+                resultadosResenias[c] = "<?php echo $fila->resenia; ?>";
+                resultadosClientes[c] = "<?php echo $fila->nombre; ?>";
+                c++;
+            <?php       
+            } 
+            ?>         
 
             radios[0].addEventListener('click', ponerResenia);      
             radios[1].addEventListener('click', ponerResenia);
@@ -550,28 +562,28 @@
 
                 switch (valor) {
                     case "1":
-                        resenia[0] = "Recibí el producto muy bien empaquetado y protegido. Me llegó en perfectas condiciones. En realidad me quedo muy contento, no solamente con el producto, sino con el servicio que ofrecen.";
-                        cliente[0] = "Michel Doinel";
-                        resenia[1] = "Nunca he tenido una gorra que se vea tan bien. La impresión es nítida y el color es perfecto. La gorra es muy cómoda de llevar y se ajusta perfectamente a mi cabeza. No puedo esperar a usarla más.";
-                        cliente[1] = "Delmira Agustini";
+                        resenia[0] = resultadosResenias[0];
+                        cliente[0] = resultadosClientes[0];
+                        resenia[1] = resultadosResenias[1];
+                        cliente[1] = resultadosClientes[1];
                         break;
                     case "2":
-                        resenia[0] = "Me gusta mucho la taza. La imagen se ve genial y el color es precioso, además, es muy cómoda de sostener. La he lavado varias veces y todavía se ve como nueva. ¡Sus productos son bombi!";
-                        cliente[0] = "Hugo Lombardi";
-                        resenia[1] = "Me encanta mi nuevo abrigo sublimado! Es perfecto para el clima frío y me mantiene caliente sin hacerme sudar. La tela es muy cómoda y se siente muy bien. Estoy muy satisfecha.";
-                        cliente[1] = "Alejandra Zingg";
+                        resenia[0] = resultadosResenias[2];
+                        cliente[0] = resultadosClientes[2];
+                        resenia[1] = resultadosResenias[3];
+                        cliente[1] = resultadosClientes[3];
                         break;
                     case "3":
-                        resenia[0] = "Pedí una camiseta sublimada y quedó increíble. No puedo creer la cantidad de detalle que pueden poner en una camiseta. ¡Se conviritó en mi nueva camiseta favorita, me encanta!";
-                        cliente[0] = "Mario Calderón";
-                        resenia[1] = "La opción de pago contra reembolso fue decisiva para mi. Pagué mi pedido una vez recibido el producto. Es una excelente estrategia y un plus para quienes desconfiamos de las compras online.";
-                        cliente[1] = "Nicolás Mora";
+                        resenia[0] = resultadosResenias[4];
+                        cliente[0] = resultadosClientes[4];
+                        resenia[1] = resultadosResenias[5];
+                        cliente[1] = resultadosClientes[5];
                         break;
                     case "4":
-                        resenia[0] = "La bolsa sublimada es perfecta para llevar todos mis artículos para el gimnasio. Me gusta que tenga una correa para colgarla del hombro, y también tiene una sección para guardar los zapatos.";
-                        cliente[0] = "Margarita Sáenz";
-                        resenia[1] = "La taza se ve muy bonita y parece ser de buena calidad. No se notan las marcas del sublimado y el color es brillante. Estoy muy satisfecha con mi compra, en serio super recomendado este lugar.";
-                        cliente[1] = "Inés Ramírez";
+                        resenia[0] = resultadosResenias[6];
+                        cliente[0] = resultadosClientes[6];
+                        resenia[1] = resultadosResenias[7];
+                        cliente[1] = resultadosClientes[7];
                         break;
                     default:
                         break;

@@ -58,9 +58,10 @@
         }
 
         table {
-            margin: 40px 0 60px 0;
+            margin: 60px 0 60px 0;
             border: #9EE9A1 2px solid;
             border-collapse: collapse;
+            width: 90%;
         }
 
         td, th {
