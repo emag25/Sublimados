@@ -1,105 +1,92 @@
 <?php
-// dto data transfer object
-class Producto {
-    //properties
-    private $id, $codigo, $nombre, $descripcion, $estado, $precio, 
-    $idCategoria, $usuario, $fechaActualizacion;
 
-    function __construct() {
-        
-    }
+class Resenia {
 
-   function getId() {
-        return $this->id;
-    }
+    private $resenia_id, $nombre, $email, $valoracion, $servicio, $resenia, 
+    $recibir_promo, $estado;
 
-    function getCodigo() {
-        return $this->codigo;
+    function __construct() {    }
+
+    
+    function getReseniaId() {
+        return $this->resenia_id;
     }
 
     function getNombre() {
         return $this->nombre;
     }
 
-    function getDescripcion() {
-        return $this->descripcion;
+    function getEmail() {
+        return $this->email;
+    }
+
+    function getValoracion() {
+        return $this->valoracion;
+    }
+
+    function getServicio() {
+        return $this->servicio;
+    }
+
+    function getResenia() {
+        return $this->resenia;
+    }
+
+    function getRecibirPromo() {
+        return $this->recibir_promo;
     }
 
     function getEstado() {
         return $this->estado;
     }
 
-    function getPrecio() {
-        return $this->precio;
-    }
 
-    function getIdCategoria() {
-        return $this->idCategoria;
-    }
 
-    function getUsuario() {
-        return $this->usuario;
-    }
-
-    function getFechaActualizacion() {
-        return $this->fechaActualizacion;
-    }
-
-    function setId($id) {
-        $this->id = $id;
-    }
-
-    function setCodigo($codigo) {
-        $this->codigo = $codigo;
+    function setReseniaId($resenia_id) {
+        $this->resenia_id = $resenia_id;
     }
 
     function setNombre($nombre) {
         $this->nombre = $nombre;
     }
 
-    function setDescripcion($descripcion) {
-        $this->descripcion = $descripcion;
+    function setEmail($email) {
+        $this->email = $email;
+    }
+
+    function setValoracion($valoracion) {
+        $this->valoracion = $valoracion;
+    }
+
+    function setServicio($servicio) {
+        $this->servicio = $servicio;
+    }
+
+    function setResenia($resenia) {
+        $this->resenia = $resenia;
+    }
+
+    function setRecibirPromo($recibir_promo) {
+        $this->recibir_promo = $recibir_promo;
     }
 
     function setEstado($estado) {
         $this->estado = $estado;
-    }
+    }    
 
-    function setPrecio($precio) {
-        $this->precio = $precio;
-    }
-
-    function setIdCategoria($idCategoria) {
-        $this->idCategoria = $idCategoria;
-    }
-
-    function setUsuario($usuario) {
-        $this->usuario = $usuario;
-    }
-
-    function setFechaActualizacion($fechaActualizacion) {
-        $this->fechaActualizacion = $fechaActualizacion;
-    }
     
-    // Methods get y set parametrizados
     public function __set($nombre, $valor) {
-        // Verifica que la propiedad exista
-        if (property_exists('Producto', $nombre)) {
+        if (property_exists('Resenia', $nombre)) {
             $this->$nombre = $valor;
         } else {
-            echo $nombre . " No existe.";
+            echo $nombre . "No existe.";
         }
     }
 
     public function __get($nombre) {
-      // Verifica que exista la propiedad
-        if (property_exists('Producto', $nombre)) {
+        if (property_exists('Resenia', $nombre)) {
             return $this->$nombre;
         }
-// Retorna null si no existe
         return NULL;
     }
-
-    
-    
 }

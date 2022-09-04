@@ -112,10 +112,10 @@
                 <div class="dividir-seccion-uno">
                     <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; margin-left: auto;
                     margin-right:auto ;">
-                        <h2 id="encabezado">¡ESCRIBE TU RESEÑA!</h2>
+                        <h2 id="encabezado">¡EDITA TU RESEÑA!</h2>
                         <h3 style="margin-top: -10px;">SUPERIUM</h3>
                         <p id="parrafo">
-                            Este espacio es dedicado para tí. Puedes expresar tu opinión acerca acerca de nuestros
+                            Este espacio es dedicado para tí. Puedes editar tu opinión acerca de nuestros
                             productos y servicios.</p>
                     </div>
                     <div class="seccion-uno-derecho">
@@ -129,32 +129,62 @@
 
             </section>
             <section class="seccion-segundo">
-                <div id="bloqueNewReseña">
-                    
-                
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                
+            <div id="bloqueNewReseña">
+                    <form id="escribeturesenia">
+                        <div id="datosNewReseña">
+                            <label><b>Nombre: </b><span>*</span></label>
+                            <div>
+                                <input type="text" name="nombre" id="nombre" placeholder="Escribe tus nombres."
+                                    class="caja box" style="width: 170px;" onmouseover="mostrarError('nombre')"
+                                    onmouseout="ocultarError('nombre')">
+                            </div>
+                            <label><b>Email: </b><span>*</span></label>
+                            <div>
+                                <input type="text" name="email" id="email" placeholder="Escribe tu email."
+                                    class="caja box" style="width: 170px;" onmouseover="mostrarError('email')"
+                                    onmouseout="ocultarError('email')">
+                            </div>
+                            <label><b>Valoración: </b><span>*</span></label>
+                            <div>
+                                <select id="valoracion" name="valoracion" class="caja box"
+                                    style="height: 30px; width: 200px;" onmouseover="mostrarError('valoracion')"
+                                    onmouseout="ocultarError('valoracion')">
+                                    <option value="0">Seleccione</option>
+                                    <option value="5">5 estrellas</option>
+                                    <option value="4">4 estrellas</option>
+                                    <option value="3">3 estrellas</option>
+                                    <option value="2">2 estrellas</option>
+                                    <option value="1">1 estrella</option>
+                                </select>
+                            </div>
+                            <label><b>Servicio: </b><span>*</span></label>
+                            <div id="contenedorRadios" class="box" onmouseover="mostrarError('radio')"
+                                onmouseout="ocultarError('radio')">
+                                <div id="divRadio1">
+                                    <input type="radio" id="radio1" name="radio" value="1" class="radio">
+                                    <label>A domicilio</label>
+                                </div>
+                                <div id="divRadio2">
+                                    <input type="radio" id="radio2" name="radio" value="2" class="radio">
+                                    <label>Internacional</label>
+                                </div>
+                            </div>
+                        </div>
+                        <label><b>Reseña: </b><span>*</span></label>
+                        <div id="areaNewReseña">
+                            <div>
+                                <textarea id="resenia" name="nuevaReseña" rows="10" cols="400" class="caja box"
+                                    placeholder="Escribe tu reseña." style="width: 290px; height: auto; resize: none;"
+                                    onmouseover="mostrarError('resenia')"
+                                    onmouseout="ocultarError('resenia')"></textarea>
+                            </div><br><br>
+                            <div>
+                                <input type="checkbox" id="recibiremail" />
+                                <label style="font-size: 10pt;">Recibir alertas de promociones a este email.</label>
+                            </div>
+                            <input type="submit" id="enviarReseña" value="ENVIAR RESEÑA">
+                        </div>
+                    </form>
                 </div>
             </section>
         </main>

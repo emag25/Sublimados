@@ -1,7 +1,7 @@
 <?php
 class Conexion {
     public static function getConexion() {
-        $dsn = "mysql:host=daw.mysql.database.azure.com;port=3306;dbname=superium'";
+        $dsn = "mysql:host=daw.mysql.database.azure.com;port=3306;dbname=superium";
         $conexion = null;
         try {
             $conexion = new PDO($dsn, 'milton@daw', 'Camaleon1');

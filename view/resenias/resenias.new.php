@@ -115,7 +115,7 @@
                         <h2 id="encabezado">¡ESCRIBE TU RESEÑA!</h2>
                         <h3 style="margin-top: -10px;">SUPERIUM</h3>
                         <p id="parrafo">
-                            Este espacio es dedicado para tí. Puedes expresar tu opinión acerca acerca de nuestros
+                            Este espacio es dedicado para tí. Puedes expresar tu opinión acerca de nuestros
                             productos y servicios.</p>
                     </div>
                     <div class="seccion-uno-derecho">
