@@ -130,7 +130,7 @@
             </section>
             <section class="seccion-segundo">
                 <div id="bloqueNewReseña">
-                    <form id="escribeturesenia">
+                    <form id="escribeturesenia" method="POST" action="index.php?c=Resenias&f=new">
                         <div id="datosNewReseña">
                             <label><b>Nombre: </b><span>*</span></label>
                             <div>
@@ -173,7 +173,7 @@
                         <label><b>Reseña: </b><span>*</span></label>
                         <div id="areaNewReseña">
                             <div>
-                                <textarea id="resenia" name="nuevaReseña" rows="10" cols="400" class="caja box"
+                                <textarea id="resenia" name="nuevaResenia" rows="10" cols="400" class="caja box"
                                     placeholder="Escribe tu reseña." style="width: 290px; height: auto; resize: none;"
                                     onmouseover="mostrarError('resenia')"
                                     onmouseout="ocultarError('resenia')"></textarea>

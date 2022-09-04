@@ -14,8 +14,7 @@ class ReseniasDAO {
 
     /*--  CONSULTAR RESEÑA  --*/
 
-    public function selectAll() {
-      
+    public function selectAll() {      
         $sql = "SELECT * FROM resenia";
         
         $stmt = $this->con->prepare($sql);
@@ -42,35 +41,30 @@ class ReseniasDAO {
 
     /*--  INSERTAR RESEÑA  --*/
 
-    public function insert($prod){
+    public function insert($res) {
         try{
-
-        $sql = "INSERT INTO resenia (resenia_id, nombre, email, valoracion, servicio, resenia, recibir_promo, estado) VALUES 
-        (:id, :nom, :email, :estado, :precio, :idCat, :usu, :fecha)";
-
-    
-        $sentencia = $this->con->prepare($sql);
-        $data = [
-        'cod' =>  $prod->getCodigo(),
-        'nom' =>  $prod->getNombre(),
-        'desc' =>  $prod->getDescripcion(),
-        'estado' =>  $prod->getEstado(),
-        'precio' =>  $prod->getPrecio(),
-        'idCat' =>  $prod->getIdCategoria(),
-        'usu' =>  $prod->getUsuario(),
-        'fecha' =>  $prod->getFechaActualizacion()
-        ];
-        //execute
-        $sentencia->execute($data);
-        //retornar resultados, 
-        if ($sentencia->rowCount() <= 0) {// verificar si se inserto 
-        //rowCount permite obtner el numero de filas afectadas
-           return false;
+            $sql = "INSERT INTO resenia (nombre, email, valoracion, servicio, resenia, recibir_promo) VALUES 
+            (:nombre, :email,:valoracion, :servicio, :nuevaResenia, :recibiremail)";
+        
+            $sentencia = $this->con->prepare($sql);
+            $data = [
+            'nombre' =>  $res->getNombre(),
+            'email' =>  $res->getEmail(),
+            'valoracion' =>  $res->getValoracion(),
+            'servicio' =>  $res->getServicio(),
+            'nuevaResenia' =>  $res->getResenia(),
+            'recibiremail' =>  $res->getRecibirPromo()
+            ];
+            $sentencia->execute($data);
+            
+            if ($sentencia->rowCount() <= 0) {
+                return false;
+            }
+            
+        }catch(Exception $e){
+            return false;
         }
-    }catch(Exception $e){
-        echo $e->getMessage();
-        return false;
-    }
+
         return true;
     }
 
@@ -79,38 +73,38 @@ class ReseniasDAO {
 
     /*--  EDITAR RESEÑA  --*/
 
-    public function update($prod){
+    public function update($res){
 
         try{
-            //prepare
-            $sql = "UPDATE `productos` SET `prod_codigo`=:cod,`prod_nombre`=:nom,`prod_descripcion`=:desc," .
+            $sql = "UPDATE `resuctos` SET `prod_codigo`=:cod,`prod_nombre`=:nom,`prod_descripcion`=:desc," .
                     "`prod_estado`=:estado,`prod_precio`=:precio,`prod_idCategoria`=:idCat,`prod_usuarioActualizacion`=:usu," .
                     "`prod_fechaActualizacion`=:fecha WHERE prod_id=:id";
-           //bind parameters
+
             $sentencia = $this->con->prepare($sql);
             $data = [
-                'cod' =>  $prod->getCodigo(),
-                'nom' =>  $prod->getNombre(),
-                'desc' =>  $prod->getDescripcion(),
-                'estado' =>  $prod->getEstado(),
-                'precio' =>  $prod->getPrecio(),
-                'idCat' =>  $prod->getIdCategoria(),
-                'usu' =>  $prod->getUsuario(),
-                'fecha' =>  $prod->getFechaActualizacion(),
-                'id' =>  $prod->getId()
+                'cod' =>  $res->getCodigo(),
+                'nom' =>  $res->getNombre(),
+                'desc' =>  $res->getDescripcion(),
+                'estado' =>  $res->getEstado(),
+                'precio' =>  $res->getPrecio(),
+                'idCat' =>  $res->getIdCategoria(),
+                'usu' =>  $res->getUsuario(),
+                'fecha' =>  $res->getFechaActualizacion(),
+                'id' =>  $res->getId()
                 ];
             //execute
             $sentencia->execute($data);
-            //retornar resultados, 
-            if ($sentencia->rowCount() <= 0) {// verificar si se inserto 
-                //rowCount permite obtner el numero de filas afectadas
+
+            if ($sentencia->rowCount() <= 0) {
                 return false;
             }
+
         }catch(Exception $e){
             echo $e->getMessage();
             return false;
         }
-            return true;       
+        
+        return true;       
     }
 
 
@@ -118,17 +112,17 @@ class ReseniasDAO {
 
     /*--  ELIMINAR RESEÑA  --*/
 
-    public function delete($prod){
+    public function delete($res){
         try{
         
-            $sql = "UPDATE `productos` SET `prod_estado`=0,`prod_usuarioActualizacion`=:usu," .
-            "`prod_fechaActualizacion`=:fecha WHERE prod_id=:id";
+            $sql = "UPDATE `resuctos` SET `res_estado`=0,`res_usuarioActualizacion`=:usu," .
+            "`res_fechaActualizacion`=:fecha WHERE res_id=:id";
 
             $sentencia = $this->con->prepare($sql);
             $data = [
-            'usu' =>  $prod->getUsuario(),
-            'fecha' =>  $prod->getFechaActualizacion(),
-            'id' =>  $prod->getId()
+            'usu' =>  $res->getUsuario(),
+            'fecha' =>  $res->getFechaActualizacion(),
+            'id' =>  $res->getId()
             ];
  
             $sentencia->execute($data);

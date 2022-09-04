@@ -48,25 +48,28 @@ class ReseniasController {
   public function new() {
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         
-      $res = new Categoria();
+      $res = new Resenia();
       
-      $res->setId(htmlentities($_POST['codigo']));
       $res->setNombre(htmlentities($_POST['nombre']));
-      $res->setDescripcion(htmlentities($_POST['descripcion']));
-      $estado = (isset($_POST['estado'])) ? 1 : 0;
-      $res->setEstado($estado);
-      $res->setUsuario('usuario');
-      $fechaActual = new DateTime('NOW');
-      $res->setFechaActualizacion($fechaActual->format('Y-m-d H:i:s'));
-                  
-      $exito = $this->model->insert($res);
-      $msj = 'Reseña guardada exitosamente';      
-      if (!$exito) {
-        $msj = "No se pudo realizar la inserción de datos";
+      $res->setEmail(htmlentities($_POST['email']));
+      $res->setValoracion(htmlentities($_POST['valoracion']));      
+      
+      if (htmlentities($_POST['radio']) == 1) {
+        $res->setServicio("A domicilio");
+      }else if (htmlentities($_POST['radio']) == 2){
+        $res->setServicio("Internacional");
+      }
+
+      $res->setResenia(htmlentities($_POST['nuevaResenia']));
+      
+      if (isset($_POST['recibiremail'])) {
+        $res->setRecibirPromo(1);
+      }else{
+        $res->setRecibirPromo(0);
       }
       
-      header('Location:index.php?c=Resenias&f=view_new');
-    } 
+      header('Location:index.php?c=Resenias&f=view_list');
+    }
   }
   
 
