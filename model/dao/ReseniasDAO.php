@@ -32,9 +32,9 @@ class ReseniasDAO {
         $data = ['name' => $name];
         $stmt->execute($data);
         
-        $resenia = $stmt->fetch(PDO::FETCH_OBJ);
+        $resultados = $stmt->fetchAll(PDO::FETCH_OBJ);
         
-        return $resenia;
+        return $resultados;
     }
 
 
