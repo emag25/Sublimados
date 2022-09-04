@@ -114,18 +114,11 @@ class ReseniasController {
   public function delete(){
     
     $id= $_REQUEST['id'];
-      
     $res = new Resenia();
-    
-    $res->setId(htmlentities($_REQUEST['id']));
-    $res->setUsuario('usuario');
-        
+    $res->setReseniaId(htmlentities($_REQUEST['id']));
     $exito = $this->model->delete($res);
-    $msj = 'Resenia eliminada exitosamente';
-    if (!$exito) {
-      $msj = "No se pudo eliminar la reseña";
-    }
-
-    header('Location:index.php?c=Resenias&f=view_list');
+    if ($exito) {
+      header('Location:index.php?c=Resenias&f=view_list');
+    }    
   }
 }

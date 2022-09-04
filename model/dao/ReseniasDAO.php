@@ -91,8 +91,7 @@ class ReseniasDAO {
                 'usu' =>  $res->getUsuario(),
                 'fecha' =>  $res->getFechaActualizacion(),
                 'id' =>  $res->getId()
-                ];
-            //execute
+            ];
             $sentencia->execute($data);
 
             if ($sentencia->rowCount() <= 0) {
@@ -113,25 +112,18 @@ class ReseniasDAO {
     /*--  ELIMINAR RESEÑA  --*/
 
     public function delete($res){
-        try{
-        
-            $sql = "UPDATE `resuctos` SET `res_estado`=0,`res_usuarioActualizacion`=:usu," .
-            "`res_fechaActualizacion`=:fecha WHERE res_id=:id";
-
-            $sentencia = $this->con->prepare($sql);
+        try{        
+            $sql = "DELETE FROM resenia WHERE resenia_id = :id";
+            $sentencia = $this->con->prepare($sql); 
             $data = [
-            'usu' =>  $res->getUsuario(),
-            'fecha' =>  $res->getFechaActualizacion(),
-            'id' =>  $res->getId()
+                'id' =>  $res->getReseniaId(),                
             ];
- 
             $sentencia->execute($data);
    
             if ($sentencia->rowCount() <= 0) {
                 return false;
             }
         }catch(Exception $e){
-            echo $e->getMessage();
             return false;
         }
         return true;
