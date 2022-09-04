@@ -10,7 +10,7 @@
     <meta name="keywords" content="Sublimados, Estampados, Camisetas, Tazas, Reseñas, Formulario">
     <link rel="stylesheet" href="assets/css/style.css">
     <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
-    <title>TU RESEÑA</title>
+    <title>CONSULTAR RESEÑAS</title>
     <style>
         .seccion-segundo {
             height: auto;
@@ -91,13 +91,37 @@
             background: #BA1C1C;
         }
 
+        /*      MENSAJES DE ALERTA      */ 
+
+        .alert-azul, .alert-rojo{
+            padding: 20px;
+            border-radius: 20px;
+        }
+
+        .alert-azul i, .alert-rojo i, .row i {
+            margin-right: 10px;
+            font-size: 15px;
+            font-weight: bolder;
+        }
+
+        .alert-azul{
+            background: rgb(173, 214, 255);
+        }
+
+        .alert-rojo{
+            background: rgb(253, 192, 192);
+        }
+
 
     </style>
 </head>
 
 <body>
     <div class="contenedor-principal">
-        <?php require_once HEADER; ?>
+        
+        <?php if(!isset($_SESSION)){ 
+        session_start();
+      }; require_once HEADER; ?>
         <main>
             <section class="seccion-primero">
                 <div class="dividir-seccion-uno">
@@ -121,16 +145,28 @@
 
             <section class="seccion-segundo">            
                 <div class="row">                    
-                    <form action="index.php?c=Resenias&f=search" method="POST">
+                    <form action="index.php?c=Resenias&f=search" method="POST" id="formBuscar">
                         <div class="contenedor-buscar">
                             <input type="text" name="b" id="busqueda"  placeholder="Buscar por nombre..."/>
-                            <button class="btn-buscar" type="submit">Buscar</button>
+                            <button class="btn-buscar" type="submit"><i class='bx bx-search' ></i>Buscar</button>
                         </div>
                     </form>       
                     <div>
-                        <a href="index.php?c=Resenias&f=view_new"><button class="btn-nuevo" type="button">Nuevo</button></a>
+                        <a href="index.php?c=Resenias&f=view_new"><button class="btn-nuevo" type="button"><i class='bx bx-plus' ></i>Nuevo</button></a>
                     </div>
                 </div>
+                <?php                
+                if (!empty($_SESSION['mensaje'])) {
+                    ?>
+                    <div style="margin-top: 60px;" class="alert-<?php echo $_SESSION['color']; ?>">
+                    <i class='bx bx-<?php if ($_SESSION['color']=="rojo") { echo "x";} else{ echo "check";} ?>'></i>
+                    <?php echo $_SESSION['mensaje']; ?>  
+                    </div>
+                    <?php
+                    unset($_SESSION['mensaje']);
+                    unset($_SESSION['color']);
+                }
+                ?>
                 <table>
                     <thead>
                         <th>ID</th>

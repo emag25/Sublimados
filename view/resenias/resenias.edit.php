@@ -9,7 +9,7 @@
     <meta name="description" content="CONTIENE UN FORMULARIO PARA ESCRIBIR LAS RESEÑAS DE LA EMPRESA">
     <meta name="keywords" content="Sublimados, Estampados, Camisetas, Tazas, Reseñas, Formulario">
     <link rel="stylesheet" href="assets/css/style.css">
-    <title>TU RESEÑA</title>
+    <title>EDITAR RESEÑAS</title>
     <style>
         .seccion-segundo {
             height: auto;

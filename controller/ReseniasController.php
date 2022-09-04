@@ -28,9 +28,25 @@ class ReseniasController {
     $name = (!empty($_POST["b"]))?htmlentities($_POST["b"]):"";
 
     if (empty($name)) {
+      
+      if(!isset($_SESSION)){ 
+        session_start();
+      }
+      $_SESSION['mensaje'] = "ERROR: Debe ingresar un nombre.";
+      $_SESSION['color'] = "rojo";
+      
       $resultados = $this->model->selectAll();
+    
     }else{
       $resultados = $this->model->selectByName($name);
+      if (count($resultados)==0) {
+        if(!isset($_SESSION)){ 
+          session_start();
+        }
+        $_SESSION['mensaje'] = "ERROR: Nombre de autor de la reseña no encontrado.";
+        $_SESSION['color'] = "rojo";
+        $resultados = $this->model->selectAll();
+      }
     }
     
     require_once VRESENIAS.'list.php';  
@@ -70,9 +86,20 @@ class ReseniasController {
       }
             
       $exito = $this->model->insert($res);
-      if ($exito){
-        header('Location:index.php?c=Resenias&f=view_list');
+            
+      if(!isset($_SESSION)){ 
+        session_start();
+      };
+
+      if ($exito) {
+        $_SESSION['mensaje'] = "Reseña guardada exitosamente!";
+        $_SESSION['color'] = "azul";
+      }else{
+        $_SESSION['mensaje'] = "ERROR: No se pudo guardar la reseña. Intentalo de nuevo.";
+        $_SESSION['color'] = "rojo";
       }
+
+      header('Location:index.php?c=Resenias&f=view_list');
     }
   }
   
@@ -113,9 +140,19 @@ class ReseniasController {
       }
       
       $exito = $this->model->update($res);
-      if ($exito){
-        header('Location:index.php?c=Resenias&f=view_list');
+      if(!isset($_SESSION)){ 
+        session_start();
+      };
+
+      if ($exito) {
+        $_SESSION['mensaje'] = "Reseña modificada exitosamente!";
+        $_SESSION['color'] = "azul";
+      }else{
+        $_SESSION['mensaje'] = "ERROR: No se pudo guardar la reseña. Intentalo de nuevo.";
+        $_SESSION['color'] = "rojo";
       }
+
+      header('Location:index.php?c=Resenias&f=view_list');
     } 
   }
 
@@ -131,8 +168,19 @@ class ReseniasController {
     $res = new Resenia();
     $res->setReseniaId(htmlentities($_REQUEST['id']));
     $exito = $this->model->delete($res);
+    
+    if(!isset($_SESSION)){ 
+      session_start();
+    };
+
     if ($exito) {
-      header('Location:index.php?c=Resenias&f=view_list');
-    }    
+      $_SESSION['mensaje'] = "Reseña eliminada exitosamente!";
+      $_SESSION['color'] = "azul";
+    }else{
+      $_SESSION['mensaje'] = "ERROR: No se pudo eliminar la reseña. Intentalo de nuevo.";
+      $_SESSION['color'] = "rojo";
+    }
+
+    header('Location:index.php?c=Resenias&f=view_list');    
   }
 }
