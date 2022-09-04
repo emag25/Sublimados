@@ -74,7 +74,7 @@
             color: black;
         }
 
-        form input[type="submit"] {
+        form input[type="submit"]{
             background-color: #D4F4DB;
             border-radius: 30px;
             width: 150px;
@@ -84,6 +84,29 @@
             color: #2B2729;
             cursor: pointer;
             margin-top: 50px;
+        }
+
+        .btnResenia {
+            align-items: center;
+            display: flex;
+            justify-content: center;
+            border-radius: 30px;
+            width: 150px;
+            height: 32px;
+            color: #2B2729;
+            cursor: pointer;
+            margin-top: 50px;
+            font-weight: bold;
+            background-color: #ACACAC;
+            text-align: center;
+            text-decoration: none;
+            font-size: 10pt;
+        }
+
+        .botones {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
         }
 
         .mensajeError {
@@ -105,8 +128,6 @@
 <body>
     <div class="contenedor-principal">
     <?php require_once HEADER; ?>
-
-
         <main>
             <section class="seccion-primero">
                 <div class="dividir-seccion-uno">
@@ -132,6 +153,7 @@
             <div id="bloqueNewReseña">
                     <form action="index.php?c=Resenias&f=edit" method="POST" id="escribeturesenia">
                         <div id="datosNewReseña">
+                            <input type="hidden" name="id" id="id" value="<?php echo $res->resenia_id; ?>"/>
                             <label><b>Nombre: </b><span>*</span></label>
                             <div>
                                 <input type="text" name="nombre" id="nombre" placeholder="Escribe tus nombres."
@@ -155,7 +177,6 @@
                                         $selected[$i] = "";
                                         if($res->valoracion == $i){
                                             $selected[$i] = 'selected="selected"';
-                                            break;
                                         }
                                     }
                                     ?>
@@ -197,10 +218,14 @@
                                     onmouseout="ocultarError('resenia')"><?php echo $res->resenia; ?></textarea>
                             </div><br><br>
                             <div>
-                                <input type="checkbox" id="recibiremail" <?php echo ($res->recibir_promo == 1)?'checked="checked"':''; ?>/>
+                                <input type="checkbox" id="recibiremail" name="recibiremail" <?php echo ($res->recibir_promo == 1)?'checked="checked"':''; ?>/>
                                 <label style="font-size: 10pt;">Recibir alertas de promociones a este email.</label>
                             </div>
-                            <input type="submit" id="enviarReseña" value="ENVIAR RESEÑA">
+                            <div class="botones">
+                                <input type="submit" id="enviarReseña" value="GUARDAR" onclick="if (!confirm('¿Está seguro de modificar la reseña?')) return false;">
+                                <a class="btnResenia" href="index.php?c=Resenias&f=view_list">CANCELAR</a>
+                            </div>
+                            
                         </div>
                     </form>
                 </div>

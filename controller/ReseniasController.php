@@ -11,7 +11,7 @@ class ReseniasController {
     $this->model = new ReseniasDAO();
   }
 
-  public function index() {      
+  public function index() {
     require_once VRESENIAS.'principal.php';
   }
 
@@ -92,6 +92,7 @@ class ReseniasController {
  
       $res = new Resenia();
 
+      $res->setReseniaId(htmlentities($_POST['id']));
       $res->setNombre(htmlentities($_POST['nombre']));
       $res->setEmail(htmlentities($_POST['email']));
       $res->setValoracion(htmlentities($_POST['valoracion']));      

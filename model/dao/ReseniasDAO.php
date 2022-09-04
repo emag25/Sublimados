@@ -12,11 +12,11 @@ class ReseniasDAO {
 
 
 
+
     /*--  CONSULTAR RESEÑA  --*/
 
     public function selectAll() {      
         $sql = "SELECT * FROM resenia";
-        
         $stmt = $this->con->prepare($sql);
         $stmt->execute();
         $resultados = $stmt->fetchAll(PDO::FETCH_OBJ);
@@ -26,11 +26,9 @@ class ReseniasDAO {
 
     public function selectByName($name) { 
         $sql = "SELECT * FROM resenia WHERE nombre = :name";
-       
         $stmt = $this->con->prepare($sql);
         $data = ['name' => $name];
         $stmt->execute($data);
-        
         $resultados = $stmt->fetchAll(PDO::FETCH_OBJ);
         
         return $resultados;
@@ -83,10 +81,9 @@ class ReseniasDAO {
     }
 
     public function update($res){
-
         try{
-            $sql = "UPDATE 'resenia' SET 'nombre' = :nombre, 'email' = :email, 'valoracion' = :valoracion, 'servicio' = :servicio, 
-                                       'resenia' = :nuevaResenia, 'recibir_promo' = :recibiremail WHERE 'resenia_id'=:id";
+            $sql = "UPDATE resenia SET nombre = :nombre, email = :email, valoracion = :valoracion, servicio = :servicio, 
+                                       resenia = :nuevaResenia, recibir_promo = :recibiremail WHERE resenia_id=:id";
 
             $sentencia = $this->con->prepare($sql);
             $data = [
@@ -105,10 +102,9 @@ class ReseniasDAO {
             }
 
         }catch(Exception $e){
-            echo $e;
             return false;
-        }        
-        return true;       
+        }    
+        return true;        
     }
 
 

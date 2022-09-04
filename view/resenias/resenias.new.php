@@ -179,7 +179,7 @@
                                     onmouseout="ocultarError('resenia')"></textarea>
                             </div><br><br>
                             <div>
-                                <input type="checkbox" id="recibiremail" />
+                                <input type="checkbox" id="recibiremail" name="recibiremail" />
                                 <label style="font-size: 10pt;">Recibir alertas de promociones a este email.</label>
                             </div>
                             <input type="submit" id="enviarReseña" value="ENVIAR RESEÑA">
