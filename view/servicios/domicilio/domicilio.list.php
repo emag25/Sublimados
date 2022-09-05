@@ -7,6 +7,7 @@
     <meta name="description" content="ESTA PAGINA ES LA PAGINA DE ENVIOS A DOMICILIO Y CONTIENE UN FORMULARIO PARA REALIZAR SU ORDEN">
     <meta name="keywords" content="Sublimados, Estampados, Camisetas, Tazas, Servicio A Domicilio">
     <link rel="stylesheet" href="assets/css/style.css">
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
     <title>A DOMICILIO</title>
     
     <style>
@@ -145,32 +146,85 @@
                 </div>
 
             </section>
-            <section class="seccion-segundo">
-                <div class="formulario">
-                    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                
+            <section class="seccion-segundo">            
+                <div class="row">                    
+                    <form action="index.php?c=servicios&f=view_domicilio_search" method="POST" id="formBuscar">
+                        <div class="contenedor-buscar">
+                            <input type="text" name="b" id="busqueda"  placeholder="Buscar por ciudad"/>
+                            <button class="btn-buscar" type="submit"><i class='bx bx-search' ></i>Buscar</button>
+                        </div>
+                    </form>       
+                    <div>
+                        <a href="index.php?c=servicios&f=view_domicilio_new"><button class="btn-nuevo" type="button"><i class='bx bx-plus' ></i>Nuevo</button></a>
+                    </div>
                 </div>
+                <?php                
+                if (!empty($_SESSION['mensaje'])) {
+                    ?>
+                    <div style="margin-top: 60px;" class="alert-<?php echo $_SESSION['color']; ?>">
+                    <i class='bx bx-<?php if ($_SESSION['color']=="rojo") { echo "x";} else{ echo "check";} ?>'></i>
+                    <?php echo $_SESSION['mensaje']; ?>  
+                    </div>
+                    <?php
+                    unset($_SESSION['mensaje']);
+                    unset($_SESSION['color']);
+                }
+                ?>
+                <table>
+                    <thead>
+                        <th>ID</th>
+                        <th>CEDULA</th>
+                        <th>CELULAR</th>
+                        <th>CORREO</th>
+                        <th>POSTAL</th>
+                        <th>REFERENCIAS</th>
+                        <th>TIPO ENVIO</th>
+                        <th>PRODUCTOS</th>
+                        <th>CIUDAD</th>
+                    </thead>
+                    <tbody>
+                        <?php   
+                        if (isset($resultados)&&!empty($resultados)){   
+    
+                            foreach ($resultados as $fila) {
+                        ?>
+                        <tr>
+                            <td><?php echo $fila->domicilio_id;?></td>
+                            <td><?php echo $fila->cedula;?></td>
+                            <td><?php echo $fila->celular;?></td>
+                            <td><?php echo $fila->correo;?></td>
+                            <td><?php echo $fila->postal;?></td>
+                            <td><?php echo $fila->referencias;?></td>
+                            <td><?php echo $fila->tipo_envio; ?></td>
+                            <td><?php echo $fila->productos; ?></td>
+                            <td><?php echo $fila->ciudad; ?></td>
+                            <td>
+                                <a class="accion-boton editar" href="index.php?c=servicios&f=view_domicilio_edit&id=<?php echo $fila->domicilio_id;?>"><i class='bx bxs-pencil' ></i></a>
+                                <a class="accion-boton borrar" href="index.php?c=servicios&f=view_domicilio_delete&id=<?php echo $fila->domicilio_id;?>" 
+                                onclick="if(!confirm('Estas a punto de eliminarlo, estas seguro?'))return false;"><i class='bx bxs-trash-alt' ></i></a>
+                            </td>
+                        </tr>
+                        <?php 
+                            }
+                        }else{
+                        ?>
+                        <tr>
+                        <td><?php echo "NO";?></td>
+                            <td><?php echo "HAY"?></td>
+                            <td><?php echo "FILAS"?></td>
+                            <td><?php echo "EN"?></td>
+                            <td><?php echo "ESTA"?></td>
+                            <td><?php echo "TABLA"?></td>
+                            <td><?php echo "DE" ?></td>
+                            <td><?php echo "DATOS" ?></td>
+                            <td><?php echo "INTENTA INGRESANDO ALGUNOS REGISTROS ANTES!"?></td>
+                        <tr>    
+                        <?php 
+                        }
+                        ?>
+                    </tbody>
+                </table>
             </section>
-
         </main>
     
         

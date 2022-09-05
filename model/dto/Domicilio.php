@@ -1,105 +1,83 @@
 <?php
-// dto data transfer object
-class Producto {
-    //properties
-    private $id, $codigo, $nombre, $descripcion, $estado, $precio, 
-    $idCategoria, $usuario, $fechaActualizacion;
 
-    function __construct() {
-        
-    }
+class Domicilio {
 
-   function getId() {
-        return $this->id;
-    }
+    private $domicilio_id, $cedula, $celular, $correo, $postal, $referencias, 
+    $tipo_envio, $productos, $ciudad;
 
-    function getCodigo() {
-        return $this->codigo;
-    }
-
-    function getNombre() {
-        return $this->nombre;
-    }
-
-    function getDescripcion() {
-        return $this->descripcion;
-    }
-
-    function getEstado() {
-        return $this->estado;
-    }
-
-    function getPrecio() {
-        return $this->precio;
-    }
-
-    function getIdCategoria() {
-        return $this->idCategoria;
-    }
-
-    function getUsuario() {
-        return $this->usuario;
-    }
-
-    function getFechaActualizacion() {
-        return $this->fechaActualizacion;
-    }
-
-    function setId($id) {
-        $this->id = $id;
-    }
-
-    function setCodigo($codigo) {
-        $this->codigo = $codigo;
-    }
-
-    function setNombre($nombre) {
-        $this->nombre = $nombre;
-    }
-
-    function setDescripcion($descripcion) {
-        $this->descripcion = $descripcion;
-    }
-
-    function setEstado($estado) {
-        $this->estado = $estado;
-    }
-
-    function setPrecio($precio) {
-        $this->precio = $precio;
-    }
-
-    function setIdCategoria($idCategoria) {
-        $this->idCategoria = $idCategoria;
-    }
-
-    function setUsuario($usuario) {
-        $this->usuario = $usuario;
-    }
-
-    function setFechaActualizacion($fechaActualizacion) {
-        $this->fechaActualizacion = $fechaActualizacion;
-    }
-    
-    // Methods get y set parametrizados
-    public function __set($nombre, $valor) {
-        // Verifica que la propiedad exista
-        if (property_exists('Producto', $nombre)) {
-            $this->$nombre = $valor;
-        } else {
-            echo $nombre . " No existe.";
-        }
-    }
-
-    public function __get($nombre) {
-      // Verifica que exista la propiedad
-        if (property_exists('Producto', $nombre)) {
-            return $this->$nombre;
-        }
-// Retorna null si no existe
-        return NULL;
-    }
+    function __construct() { }
 
     
-    
+    function getDomicilioId() {
+        return $this->domicilio_id;
+    }
+
+    function setDomicilioId($domicilio_id) {
+        $this->domicilio_id = $domicilio_id;
+    }
+
+    function getCedula() {
+        return $this->cedula;
+    }
+
+    function setCedula($cedula) {
+        $this->cedula = $cedula;
+    }
+
+    function getCelular() {
+        return $this->celular;
+    }
+
+    function setCelular($celular) {
+        $this->celular = $celular;
+    }
+
+    function getCorreo() {
+        return $this->correo;
+    }
+
+    function setCorreo($correo) {
+        $this->correo = $correo;
+    }
+
+    function getPostal() {
+        return $this->postal;
+    }
+
+    function setPostal($postal) {
+        $this->postal = $postal;
+    }
+
+    function getReferencias() {
+        return $this->referencias;
+    }
+
+    function setReferencias($referencias) {
+        $this->referencias = $referencias;
+    }
+
+    function getTipoEnvio() {
+        return $this->tipo_envio;
+    }
+
+    function setTipoEnvio($tipo_envio) {
+        $this->tipo_envio = $tipo_envio;
+    }
+
+    function getProductos() {
+        return $this->productos;
+    }
+
+    function setProductos($productos) {
+        $this->productos = $productos;
+    }
+
+    function getCiudad() {
+        return $this->ciudad;
+    }
+ 
+    function setCiudad($ciudad) {
+        $this->ciudad = $ciudad;
+    }
+
 }
