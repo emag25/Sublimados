@@ -146,85 +146,85 @@
 
             </section>
             <section class="seccion-segundo">
-                <div class="formulario">
-                    <form id="myForm" style="display: flex; flex-direction: column;  width: 90% ; " >
-                        <div style="display:flex; flex-direction: row; align-items: center; justify-content: space-between;">
-                             <div style="display: flex; flex-direction: column; width: 35%; ">
-                                 <label  >Cedula:</label>
-                                 <input style="width: 90%;" id="cedula" type="text"/>
-                                
-                             </div>
-                             <div style="display: flex; flex-direction: column; width: 35%; ">
-                                 <label for="celular">Numero Celular:</label>
-                                 <input style="width: 95%;" id="celular" type="text" />
-                             
-                             </div>
-                        </div>
-                        <div style="display:flex; flex-direction: column; align-items:center;">
-                             <label >Correo Electronico:</label>
-                             <input id="correo" type="text"/>
-                        </div>
-                        <div style="display: flex; justify-content: space-between;">
-                             <div > <!-- RADIOS BUTTON -->
-                                
-                                 <label >Tipo Envio :</label>
-                                 <div style="display: grid; grid-template-columns: 0.1fr 1fr; width: 100%;  justify-content: start;">
-                                    <input type="radio" value="Express" name="gen"/>Express (1-2 dias)
-                                    <input type="radio" value="Rapido" name="gen"/>Rapido (2-3 dias)
-                                    <input type="radio" value="Express" name="gen"/>Normal (3-5 dias)
-                                    <input type="radio" value="Economico" name="gen"/>Economico (5-10 dias)
-                                 </div>
-                             </div>
-                             <div > <!-- CHECK BOX -->
-                                <label >Productos:</label>
-                                <div style="display: grid; grid-template-columns: 0.2fr 1fr; width: 100%; justify-content: start;">
-                                    <input type="checkbox" value="Carton" name="env"/>Camisas
-                                    <input type="checkbox" value="Espumafon" name="env"/>Tazas
-                                    <input type="checkbox" value="Carton" name="env"/>Abrigos
-                                    <input type="checkbox" value="Espumafon" name="env"/>Gorros
-                                    <input type="checkbox" value="Espumafon" name="env"/>Bolsos
+            <div class="formulario">
+                <form id="myForm" style="display: flex; flex-direction: column;  width: 90% ; " method="POST" action="index.php?c=servicios&f=view_domicilio_new_producto">
+                    <div style="display:flex; flex-direction: row; align-items: center; justify-content: space-between;">
+                            <div style="display: flex; flex-direction: column; width: 35%; ">
+                                <label  >Cedula:</label>
+                                <input style="width: 90%;" name="cedula" id="cedula" type="text"/>
+                            
+                            </div>
+                            <div style="display: flex; flex-direction: column; width: 35%; ">
+                                <label for="celular">Numero Celular:</label>
+                                <input style="width: 95%;" name="celular" id="celular" type="text" />
+                            
+                            </div>
+                    </div>
+                    <div style="display:flex; flex-direction: column; align-items:center;">
+                            <label >Correo Electronico:</label>
+                            <input id="correo" name="correo" type="text"/>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                            <div > <!-- RADIOS BUTTON -->
+                            
+                                <label >Tipo Envio :</label>
+                                <div style="display: grid; grid-template-columns: 0.1fr 1fr; width: 100%;  justify-content: start;">
+                                <input type="radio" value="Express" name="gen"/>Express (1-2 dias)
+                                <input type="radio" value="Rapido" name="gen"/>Rapido (2-3 dias)
+                                <input type="radio" value="Express" name="gen"/>Normal (3-5 dias)
+                                <input type="radio" value="Economico" name="gen"/>Economico (5-10 dias)
                                 </div>
-                               
-                                 
-                                 
-                 
-                             </div>
-                        </div>
-                         
+                            </div>
+                            <div > <!-- CHECK BOX -->
+                            <label >Productos:</label>
+                            <div style="display: grid; grid-template-columns: 0.2fr 1fr; width: 100%; justify-content: start;">
+                                <input type="checkbox" value="Camisas" name="env[]"/>Camisas
+                                <input type="checkbox" value="Tazas" name="env[]"/>Tazas
+                                <input type="checkbox" value="Abrigos" name="env[]"/>Abrigos
+                                <input type="checkbox" value="Gorros" name="env[]"/>Gorros
+                                <input type="checkbox" value="Bolsos" name="env[]"/>Bolsos
+                            </div>
+                            
+                                
+                                
+                
+                            </div>
+                    </div>
                         
-                         <div style="display: flex; justify-content: space-between;" >
-                             <div style="display: flex; flex-direction: column; width: 45%;">
-                                 <label >Elija su ciudad:</label>
-                                 <select name="cities" id="ciudad" style="width: 100%;">
-                                    <option value="Guayaquil">Seleccione</option>
-                                     <option value="Guayaquil">Guayaquil</option>
-                                     <option value="Cuenca">Cuenca</option>
-                                     <option value="Quito">Quito</option>
-                                     <option value="Machala">Machala</option>
-                                     <option value="Riobamba">Riobamba</option>
-                                     <option value="Quevedo">Quevedo</option>
-                                     <option value="Ibarra">Ibarra</option>
-                                     <option value="Duran">Duran</option>
-                                     <option value="Santo Domingo">Santo Domingo</option>
-                                     <option value="Ambato">Ambato</option>
-                                 </select>
-                             </div>
-                             <div style="display: flex; flex-direction: column;  width: 45%;">
-                                     <label>Codigo postal:</label>
-                                     <input style="width: 80%;" id="postal" type="text"/>   
-                             </div>
-                         </div>
-                         <label>Ingrese Referencias del destino del producto:</label>
-                         <textarea name="referencias" id="area_referencias"></textarea>
-                         <div style="display: flex; align-items: flex-end; justify-content: center;">
-                            <input type="submit">
-                            <input type="reset">
-                         </div>
-                         <p style="color: white; font-size: 10pt;">Nota: La cedula debe empezar con los 2 primeros digitos de tu ciudad-provincia ecuatoriana y el numero debe empezar con "09"</p>
-                         
-                    </form>
-                </div>
+                    
+                        <div style="display: flex; justify-content: space-between;" >
+                            <div style="display: flex; flex-direction: column; width: 45%;">
+                                <label >Elija su ciudad:</label>
+                                <select name="cities" id="ciudad" style="width: 100%;">
+                                <option name value="Guayaquil">Seleccione</option>
+                                    <option value="Guayaquil">Guayaquil</option>
+                                    <option value="Cuenca">Cuenca</option>
+                                    <option value="Quito">Quito</option>
+                                    <option value="Machala">Machala</option>
+                                    <option value="Riobamba">Riobamba</option>
+                                    <option value="Quevedo">Quevedo</option>
+                                    <option value="Ibarra">Ibarra</option>
+                                    <option value="Duran">Duran</option>
+                                    <option value="Santo Domingo">Santo Domingo</option>
+                                    <option value="Ambato">Ambato</option>
+                                </select>
+                            </div>
+                            <div style="display: flex; flex-direction: column;  width: 45%;">
+                                    <label>Codigo postal:</label>
+                                    <input style="width: 80%;" id="postal" name="postal" type="text"/>   
+                            </div>
+                        </div>
+                        <label>Ingrese Referencias del destino del producto:</label>
+                        <textarea name="referencias" id="area_referencias"></textarea>
+                        <div style="display: flex; align-items: flex-end; justify-content: center;">
+                        <input type="submit">
+                        <input type="reset">
+                        </div>
+                        
+                </form>
+            </div>
             </section>
+
 
         </main>
     
@@ -246,7 +246,6 @@
         var correo=document.getElementById("correo");
         var postal=document.getElementById("postal");
         var envio=document.getElementsByName("gen");
-        var productos=document.getElementsByName("env");
         var ciudades=document.getElementById("ciudad");
         var referencia=document.getElementById("area_referencias");
         let arreglo_errores=[];
@@ -283,15 +282,9 @@
                     auxOption=true;
                 }
             }
-            let auxCheck=false;
-            for(check of productos){
-                if(check.checked){
-                    auxCheck=true; 
-                }
-            }
+
           
             if(auxOption==false){valido=false; arreglo_errores.push("tipo_envio");}
-            if(auxCheck==false){valido=false; arreglo_errores.push("productos");}
             if(referencia.value.length==0){colorear(referencia);valido=false; arreglo_errores.push("referencias");}
 
             if(ciudades.selectedIndex==0){
