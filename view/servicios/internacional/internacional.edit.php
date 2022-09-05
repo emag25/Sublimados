@@ -198,29 +198,131 @@
 
             </section>
             <section class="seccion-segundo">
+            <div id="bloqueNewReseña">
+                    <form action="index.php?c=Servicios&f=int_edit" method="POST" id="Neviointernacional">
+                        <div id="datosenviointernacional">
+                            <input type="hidden" name="id" id="id" value="<?php echo $inter->internacional_id; ?>"/>
+                            <label><b>Nombres: </b><span>*</span></label>
 
-                
-            
+                            <div>
+                                <input type="text" name="nombre" id="nombre" placeholder="Escribe tus nombres."
+                                    class="caja box" style="width: 170px;" value="<?php echo $inter->nombres; ?>">
+                            </div>
+                            <label><b>Apellidos: </b><span>*</span></label>
+                            <div>
+                                <input type="text" name="apellido" id="apellido" placeholder="Escribe tus apellidos."
+                                    class="caja box" style="width: 170px;" value="<?php echo $inter->apellidos; ?>">
+                            </div>
+                            <label><b>Telefono: </b><span>*</span></label>
+                            <div>
+                                <input type="text" name="telefono" id="telefono" placeholder="Escribe tu telefono."
+                                    class="caja box" style="width: 170px;" onmouseover="mostrarError('telefono')"
+                                    onmouseout="ocultarError('telefono')" value="<?php echo $inter->telefono; ?>">
+                            </div>
+
+                            <label><b>Email: </b><span>*</span></label>
+                            <div>
+                                <input type="text" name="email" id="email" placeholder="Escribe tu email."
+                                    class="caja box" style="width: 170px;" onmouseover="mostrarError('email')"
+                                    onmouseout="ocultarError('email')" value="<?php echo $inter->email; ?>">
+                            </div>
+
+                            <label><b>Direccion: </b><span>*</span></label>
+                            <div>
+                                <input type="text" name="direccion" id="direccion" placeholder="Escribe tu direccion."
+                                    class="caja box" style="width: 170px;" onmouseover="mostrarError('direccion')"
+                                    onmouseout="ocultarError('direccion')" value="<?php echo $inter->direccion; ?>">
+                            </div>
+
+                            <label><b>Vía: </b><span>*</span></label>
+                            <div id="contenedorRadios" class="box" >
+                                <div id="divRadio1">
+                                    <?php      
+                                    $servientrega = ""; $tramaco = ""; $mundoexpress = "";                            
+                                    if($inter->recibir_via == "Servientrega"){
+                                        $servientrega = 'checked';                                        
+                                    }else if ($inter->recibir_via == "Tramaco"){
+                                        $tramaco = 'checked';                                        
+                                    }else if ($inter->recibir_via == "MundoExpress"){
+                                        $mundoexpress = 'checked';                                        
+                                    }
+                                    ?>
+                                    <input type="radio" id="radio1" name="radio" value="S" class="radio" <?php echo $servientrega; ?>>
+                                    <label>Servientrega</label>
+                                </div>
+                                <div id="divRadio2">
+                                    <input type="radio" id="radio2" name="radio" value="T" class="radio" <?php echo $tramaco; ?>>
+                                    <label>Tramaco</label>
+                                </div>
+                                <div id="divRadio3">
+                                    <input type="radio" id="radio3" name="radio" value="M" class="radio" <?php echo $mundoexpress; ?>>
+                                    <label>Mundoexpress</label>
+                                </div>
+
+                            </div>
+                        </div>
+                        <label><b>Pais: </b><span>*</span></label>
+                        <div>
+                                <select id="destino" name="destino" class="caja box"
+                                style="height: 30px; width: 200px;" onmouseover="mostrarError('destino')"
+                                onmouseout="ocultarError('destino')">
+                                    <?php  
+                                   $panama="";
+                                   $chile="";
+                                   $colombia="";
+                                   $peru="";
+
+                                        if($inter->pais =="Panamá" ){
+                                            $panama = 'selected="selected"';
+                                        }else if ($inter->pais =="Chile" ){
+                                            $chile = 'selected="selected"';
+
+                                        }else if ($inter->pais =="Colombia" ){
+                                            $colombia = 'selected="selected"';
+                                        }else if ($inter->pais =="Perú" ){
+                                            $peru = 'selected="selected"';
+                                        }    
+
+                                    
+                                    ?>
+                                    <option value="0">Seleccione</option>
+                                    <option value="1" <?php echo $panama; ?>>Panamá</option>
+                                    <option value="2" <?php echo $chile; ?>>Chile</option>
+                                    <option value="3" <?php echo $colombia; ?>>Colombia</option>
+                                    <option value="4" <?php echo $peru; ?>>Perú</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <input type="checkbox" id="recibirinfo" name="recibirinfo" <?php echo ($inter->recibir_info == 1)?'checked="checked"':''; ?>/>
+                                <label style="font-size: 10pt;">Recibir información adicional.</label>
+                            </div>
+
+                            <label><b>Especificaciones: </b><span>*</span></label>
+                        <div id="area">
+                            <div>
+                                <textarea id="especificaciones" name="especificaciones" rows="10" cols="400" class="caja box"
+                                    placeholder="Escribe tus especificaciones de envío." style="width: 290px; height: auto; resize: none;"
+                                    ><?php echo $inter->especificaciones; ?></textarea>
+                            </div><br><br>
+
+                            <div class="botones">
+                                <input type="submit" id="enviarenvioi" value="GUARDAR" onclick="if (!confirm('¿Está seguro de modificar el envío?')) return false;">
+                                <a class="btnenvioi" href="index.php?c=Servicios&f=view_internacional_list">CANCELAR</a>
+                            </div>
+                            
+                        </div>
+                    </form>
+                </div>
+            </section>   
+            <section class="seccion-tercero">
+
+<div id="contenido"></div>
 
 
 
+</section>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-            
-
-            </section>          
         </main>
 
 <?php require_once FOOTER; ?>
@@ -233,23 +335,20 @@
             // variable para retornar
             var valido = true;
             // obtencion de los elementos a validar
-            var txtNombres = document.getElementById("nombres");//document.querySelector("input[name='nombres']"); // reotrna el primer input que tenga name ='nombres'
-            var txtApellidos = document.getElementById("apellidos");
+            var txtNombres = document.getElementById("nombre");//document.querySelector("input[name='nombres']"); // reotrna el primer input que tenga name ='nombres'
+            var txtApellidos = document.getElementById("apellido");
             var txtDireccion = document.getElementById("direccion");
             var txtTelefono = document.getElementById("telefono");
-            var selectDestino = document.getElementById("destino");
-            var radiosVia = document.getElementsByName("via");//retorna un arreglo;
-            var radio1 = document.getElementById("v1");
-            var chkAcc = document.getElementById("acc1");
+            var destino = document.getElementById("destino");
+            var radio = document.getElementById("radio");
             var txtemail = document.getElementById("correo");
-            var checkboxsAccionista = document.getElementsByClassName("acc");// retorna un arreglo
 
 
             var letra = /^[a-z ,.'-]+$/i;// letrasyespacio   ///^[A-Z]+$/i;// solo letras
             var correo = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
             var telefonoreg = /^[0-9]{10}$/g; // para validar datos que deban tener 10 numeros
 
-            //limpiarMensajes();
+            limpiarMensajes();
 
             //validacion para nombres
             if (txtNombres.value === "") {
@@ -303,22 +402,22 @@
             }
 
             //validacion select
-            if (selectDestino.value === null || selectDestino.value === '0') {
+            if (destino.value === null || destino.value === '0') {
                 valido = false;
-                mensaje("Debe seleccionar país de destino", selectDestino);
+                mensaje("Debe seleccionar país de destino", destino);
             }
 
             //validacion radio button
             var sel = false;
-            for (let i = 0; i < radiosVia.length; i++) {
-                if (radiosVia[i].checked) {
+            for (let i = 0; i < radio.length; i++) {
+                if (radio[i].checked) {
                     sel = true;
                     break;
                 }
             }
             if (!sel) {
                 valido = false;
-                mensaje("Debe seleccionar una opcion", radiosVia[0]);
+                mensaje("Debe seleccionar una opcion", radio[0]);
             }
 
 
@@ -394,7 +493,73 @@
                 }
             }
             setInterval(CambiarImagenes, 1000);
-        });
+        }
+        if (elemento.id === "contenedorRadios") {
+                var nodoPadre = elemento;
+            } else {
+                var nodoPadre = elemento.parentNode;
+            }
+
+            var nodoMensaje = document.createElement("div");
+            nodoMensaje.textContent = cadenaMensaje;
+            nodoMensaje.setAttribute("class", "mensajeError");
+
+            switch (elemento.id) {
+                case "nombre":
+                    nodoMensaje.setAttribute("id", "error-nombre");
+                    break;
+                case "email":
+                    nodoMensaje.setAttribute("id", "error-email");
+                    break;
+                case "valoracion":
+                    nodoMensaje.setAttribute("id", "error-valoracion");
+                    break;
+                case "contenedorRadios":
+                    nodoMensaje.style.marginTop = '-35px';
+                    nodoMensaje.setAttribute("id", "error-radio");
+                    break;
+                case "resenia":
+                    nodoMensaje.style.marginTop = '-180px';
+                    nodoMensaje.style.marginLeft = '330px';
+                    nodoMensaje.setAttribute("id", "error-resenia");
+                    break;
+                default:
+                    break;
+            }
+
+            nodoPadre.appendChild(nodoMensaje);
+            nodoMensaje.style.visibility = 'hidden';
+        }
+
+        function limpiarMensajes() {            
+            var mensajes = document.querySelectorAll(".mensajeError");
+            let a = mensajes.length - 1;
+            for (let i = a; i > -1; i--) {
+                mensajes[i].remove();
+            }
+
+            var boxes = document.querySelectorAll(".box");
+            let b = boxes.length - 1;
+            for (let i = b; i > -1; i--) {
+                boxes[i].style.boxShadow = '0 0 0';
+            }
+        }
+
+        function mostrarError(nombre) {
+            if (document.querySelector("#error-" + nombre) !== null) {
+                document.querySelector("#error-" + nombre).style.visibility = 'visible';
+            }
+        }
+
+        function ocultarError(nombre) {
+            if (document.querySelector("#error-" + nombre) !== null) {
+                document.querySelector("#error-" + nombre).style.visibility = 'hidden';
+            }
+        }
+
+
+        
+        );
 
 
     </script>
