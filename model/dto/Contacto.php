@@ -1,105 +1,116 @@
 <?php
 // dto data transfer object
-class Producto {
-    //properties
-    private $id, $codigo, $nombre, $descripcion, $estado, $precio, 
-    $idCategoria, $usuario, $fechaActualizacion;
+class Contacto {
 
-    function __construct() {
-        
-    }
+    private $contacto_id, $nombre, $apellido, $celular, $email, $genero, $estado_civil, $intereses, 
+    $fecha_nacimiento, $comentario;
 
-   function getId() {
-        return $this->id;
-    }
+    function __construct() {    }
 
-    function getCodigo() {
-        return $this->codigo;
+    
+    function getContactoId() {
+        return $this->contacto_id;
     }
 
     function getNombre() {
         return $this->nombre;
     }
 
-    function getDescripcion() {
-        return $this->descripcion;
+    function getApellido() {
+        return $this->apellido;
     }
 
-    function getEstado() {
-        return $this->estado;
+    function getCelular() {
+        return $this->celular;
     }
 
-    function getPrecio() {
-        return $this->precio;
+    function getEmail() {
+        return $this->email;
     }
 
-    function getIdCategoria() {
-        return $this->idCategoria;
+    function getGenero() {
+        return $this->genero;
     }
 
-    function getUsuario() {
-        return $this->usuario;
+    function getEstadoCivil() {
+        return $this->estado_civil;
     }
 
-    function getFechaActualizacion() {
-        return $this->fechaActualizacion;
+    function getIntereses() {
+        return $this->intereses;
     }
 
-    function setId($id) {
-        $this->id = $id;
+    function getFechaNacimiento() {
+        return $this->fecha_nacimiento;
     }
 
-    function setCodigo($codigo) {
-        $this->codigo = $codigo;
+    function getComentario() {
+        return $this->comentario;
+    }
+
+
+
+    function setContactoId($contacto_id) {
+        $this->contacto_id = $contacto_id;
     }
 
     function setNombre($nombre) {
         $this->nombre = $nombre;
     }
 
-    function setDescripcion($descripcion) {
-        $this->descripcion = $descripcion;
+    function setApellido($apellido) {
+        $this->apellido = $apellido;
     }
 
-    function setEstado($estado) {
-        $this->estado = $estado;
+    function setCelular($celular) {
+        $this->celular = $celular;
     }
 
-    function setPrecio($precio) {
-        $this->precio = $precio;
+    function setEmail($email) {
+        $this->email = $email;
     }
 
-    function setIdCategoria($idCategoria) {
-        $this->idCategoria = $idCategoria;
+    function setGenero($genero) {
+        $this->genero = $genero;
     }
 
-    function setUsuario($usuario) {
-        $this->usuario = $usuario;
+    function setServicio($servicio) {
+        $this->servicio = $servicio;
     }
 
-    function setFechaActualizacion($fechaActualizacion) {
-        $this->fechaActualizacion = $fechaActualizacion;
+    function setResenia($resenia) {
+        $this->resenia = $resenia;
+    }
+
+    function setEstadoCivil($estado_civil) {
+        $this->estado_civil = $estado_civil;
+    }
+
+    function setIntereses($intereses) {
+        $this->intereses = $intereses;
     }
     
-    // Methods get y set parametrizados
+    function setFechaNacimiento($fecha_nacimiento) {
+        $this->fecha_nacimiento = $fecha_nacimiento;
+    }
+
+    function setComentario($comentario) {
+        $this->comentario = $comentario;
+    }
+
+    
     public function __set($nombre, $valor) {
-        // Verifica que la propiedad exista
-        if (property_exists('Producto', $nombre)) {
+        if (property_exists('Contacto', $nombre)) {
             $this->$nombre = $valor;
         } else {
-            echo $nombre . " No existe.";
+            echo $nombre . "No existe.";
         }
     }
 
     public function __get($nombre) {
-      // Verifica que exista la propiedad
-        if (property_exists('Producto', $nombre)) {
+        if (property_exists('Contacto', $nombre)) {
             return $this->$nombre;
         }
-// Retorna null si no existe
         return NULL;
     }
-
-    
-    
 }

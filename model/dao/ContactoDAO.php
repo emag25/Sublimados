@@ -2,136 +2,116 @@
 // dao data access object
 require_once 'config/Conexion.php';
 
-class ProductosDAO {
+class ContactoDAO {
     private $con;
 
     public function __construct() {
         $this->con = Conexion::getConexion();
     }
 
-    public function selectAll($parametro) {
-        // sql de la sentencia
-      $sql = "SELECT * FROM productos, categoria  where prod_idCategoria = cat_id and  prod_estado=1  and 
-      (prod_nombre like :b1 or cat_nombre like :b2)";
-      $stmt = $this->con->prepare($sql);
-      // preparar la sentencia
-      $conlike = '%' . $parametro . '%';
-      $data = array('b1' => $conlike, 'b2' => $conlike);
-      // ejecutar la sentencia
-      $stmt->execute($data);
-      //recuperar  resultados
-      $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
-      //retornar resultados
-      return $resultados;
-  }
-
-  public function selectOne($id) { // buscar un producto por su id
-        $sql = "select * from productos, categoria where prod_idCategoria = cat_id and prod_estado=1 and ".
-        "prod_id=:id";
-        // preparar la sentencia
+    public function selectByState() {      
+        $sql = "SELECT * FROM contacto WHERE estado = :state";
         $stmt = $this->con->prepare($sql);
-        $data = ['id' => $id];
-        // ejecutar la sentencia
+        $data = ['state' => '1'];
         $stmt->execute($data);
-        // recuperar los datos (en caso de select)
-        $producto = $stmt->fetch(PDO::FETCH_ASSOC);// fetch retorna el primer registro
-        // retornar resultados
-        return $producto;
+        $result = $stmt->fetchAll(PDO::FETCH_OBJ);
+        
+        return $result;
     }
 
-    public function insert($prod){
+
+    /*         CONSULTAR     */
+
+    public function selectAll() {      
+        $sql = "SELECT * FROM contacto";
+        $stmt = $this->con->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_OBJ);
+      
+        return $result;
+    }
+
+    public function selectByName($name) { 
+        $sql = "SELECT * FROM contacto WHERE nombre = :name";
+        $stmt = $this->con->prepare($sql);
+        $data = ['name' => $name];
+        $stmt->execute($data);
+        $result = $stmt->fetchAll(PDO::FETCH_OBJ);
+        
+        return $result;
+    }
+
+
+
+    /*             INSERTAR               */
+    public function insert($cont) {
         try{
-        //sentencia sql
-        $sql = "INSERT INTO productos (prod_codigo, prod_nombre, prod_descripcion, prod_estado, prod_precio, 
-        prod_idCategoria, prod_usuarioActualizacion, prod_fechaActualizacion) VALUES 
-        (:cod, :nom, :desc, :estado, :precio, :idCat, :usu, :fecha)";
-
-        //bind parameters
-        $sentencia = $this->con->prepare($sql);
-        $data = [
-        'cod' =>  $prod->getCodigo(),
-        'nom' =>  $prod->getNombre(),
-        'desc' =>  $prod->getDescripcion(),
-        'estado' =>  $prod->getEstado(),
-        'precio' =>  $prod->getPrecio(),
-        'idCat' =>  $prod->getIdCategoria(),
-        'usu' =>  $prod->getUsuario(),
-        'fecha' =>  $prod->getFechaActualizacion()
-        ];
-        //execute
-        $sentencia->execute($data);
-        //retornar resultados, 
-        if ($sentencia->rowCount() <= 0) {// verificar si se inserto 
-        //rowCount permite obtner el numero de filas afectadas
-           return false;
+            $sql = "INSERT INTO contacto (nombre, apellido, celular, email, genero, estado_civil, intereses, fecha_nacimiento, comentario) VALUES 
+            (:nombre, :apellido, :celular, :email, :genero, :estado, :intereses, :fecha, :comentario)";
+        
+            $sentencia = $this->con->prepare($sql);
+            $data = [
+            'nombre' =>  $cont->getNombre(),
+            'apellido' =>  $cont->getApellido(),
+            'celular' =>  $cont->getCelular(),
+            'email' =>  $cont->getEmail(),
+            'genero' =>  $cont->getGenero(),
+            'estado' =>  $cont->getEstadoCivil(),
+            'intereses' =>  $cont->getIntereses(),
+            'fecha' =>  $cont->getFechaNacimiento(),
+            'comentario' =>  $cont->getComentario()
+            ];
+            $sentencia->execute($data);
+            
+            if ($sentencia->rowCount() <= 0) {
+                return false;
+            }
+            
+        }catch(Exception $e){
+            return false;
         }
-    }catch(Exception $e){
-        echo $e->getMessage();
-        return false;
-    }
-
         return true;
     }
 
-    public function update($prod){
 
+    /*          EDITAR            */
+    public function selectById($id){
+        $sql = "SELECT * FROM contacto WHERE contacto_id = :id";
+        $stmt = $this->con->prepare($sql);
+        $data = ['id' => $id];
+        $stmt->execute($data);
+        $resultado = $stmt->fetch(PDO::FETCH_OBJ);
+
+        return $resultado;
+    }
+
+    public function update($cont) {
         try{
-            //prepare
-            $sql = "UPDATE `productos` SET `prod_codigo`=:cod,`prod_nombre`=:nom,`prod_descripcion`=:desc," .
-                    "`prod_estado`=:estado,`prod_precio`=:precio,`prod_idCategoria`=:idCat,`prod_usuarioActualizacion`=:usu," .
-                    "`prod_fechaActualizacion`=:fecha WHERE prod_id=:id";
-           //bind parameters
+            $sql = "UPDATE INTO contacto nombre = :nombre, apellido = :apellido, celular = :celular, email = :email, genero= :genero, estado_civil = :estado, 
+            intereses = :intereses, fecha_nacimiento = :fecha, comentario = :comentario) WHERE contacto_id = :id"; 
+        
             $sentencia = $this->con->prepare($sql);
             $data = [
-                'cod' =>  $prod->getCodigo(),
-                'nom' =>  $prod->getNombre(),
-                'desc' =>  $prod->getDescripcion(),
-                'estado' =>  $prod->getEstado(),
-                'precio' =>  $prod->getPrecio(),
-                'idCat' =>  $prod->getIdCategoria(),
-                'usu' =>  $prod->getUsuario(),
-                'fecha' =>  $prod->getFechaActualizacion(),
-                'id' =>  $prod->getId()
-                ];
-            //execute
+            'id' =>  $res->getContactoId(),
+            'nombre' =>  $cont->getNombre(),
+            'apellido' =>  $cont->getApellido(),
+            'celular' =>  $cont->getCelular(),
+            'email' =>  $cont->getEmail(),
+            'genero' =>  $cont->getGenero(),
+            'estado' =>  $cont->getEstadoCivil(),
+            'intereses' =>  $cont->getIntereses(),
+            'fecha' =>  $cont->getFechaNacimiento(),
+            'comentario' =>  $cont->getComentario()
+            ];
             $sentencia->execute($data);
-            //retornar resultados, 
-            if ($sentencia->rowCount() <= 0) {// verificar si se inserto 
-                //rowCount permite obtner el numero de filas afectadas
+            
+            if ($sentencia->rowCount() <= 0) {
                 return false;
             }
+            
         }catch(Exception $e){
-            echo $e->getMessage();
             return false;
         }
-            return true;       
-    }
-
-   public function delete($prod){
-       try{
-        //prepare
-        $sql = "UPDATE `productos` SET `prod_estado`=0,`prod_usuarioActualizacion`=:usu," .
-        "`prod_fechaActualizacion`=:fecha WHERE prod_id=:id";
-        //now());
-        //bind parameters
-        $sentencia = $this->con->prepare($sql);
-        $data = [
-        'usu' =>  $prod->getUsuario(),
-        'fecha' =>  $prod->getFechaActualizacion(),
-        'id' =>  $prod->getId()
-        ];
-        //execute
-        $sentencia->execute($data);
-        //retornar resultados, 
-        if ($sentencia->rowCount() <= 0) {// verificar si se inserto 
-        //rowCount permite obtner el numero de filas afectadas
-        return false;
-        }
-    }catch(Exception $e){
-        echo $e->getMessage();
-        return false;
-    }
-    
         return true;
     }
     

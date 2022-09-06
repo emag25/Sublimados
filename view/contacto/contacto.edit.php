@@ -103,6 +103,85 @@
 
             <section class="seccion-segundo" id="seccion-2">
                 <div id="DockerPrincipal">
+                <div class="formulario">
+                        <form id="formContacto" method="POST" action="index.php?c=Contacto&f=edit">
+                            <!-- tipo texto -->
+                            <input type="hidden" name="id" id="id" value="<?php echo $cont->contacto_id; ?>"/>
+                            <label><b>Nombre: </b></label>
+                            <div>
+                                <input type="text" name="nombre" id="nombreid" class="datos" value="<?php echo $cont->nombre; ?>"
+                                    placeholder="Escriba su nombre" />
+                            </div>
+                            <div>
+                                <label><b>Apellido: </b></label>
+                                <input type="text" name="apellido" id="apellido" class="datos" value="<?php echo $cont->apellido; ?>"
+                                    placeholder="Escriba su apellido" />
+                            </div>
+                            <div>
+                                <label><b>Celular: </b></label>
+                                <input type="text" name="celular" id="celularid" class="datos" value="<?php echo $cont->celular; ?>"
+                                    placeholder="Ingrese su numero celular" />
+                            </div>
+                            <div>
+                                <label><b>Email: </b></label>
+                                <input type="text" name="email" id="emailid" class="datos" value="<?php echo $cont->email; ?>"
+                                    placeholder="Ingrese su email" />
+                            </div>
+                            <!-- tipo radio -->
+                            <div>
+                                <label><b>Genero:</b></label>
+                                <?php
+                                $femenino=""; $masculino=""; $otro="";
+                                if ($cont->genero == "Femenino") {
+                                    $femenino = 'checked';
+                                  }else if ($cont->genero == "Masculino"){
+                                    $masculino = 'checked';
+                                  }else if ($cont->genero == "Otro"){
+                                    $otro = 'checked';
+                                  }
+                                ?>
+                                <input type="radio" name="radio" id="g1" class="genero" value="1" <?php echo $femenino; ?> /> Femenino
+                                <input type="radio" name="radio" id="g2" class="genero" value="2" <?php echo $masculino; ?> /> Masculino
+                                <input type="radio" name="radio" id="g3" class="genero" value="3" <?php echo $otro; ?> /> Otro
+                            </div>
+                            <!-- tipo selec -->
+                            <div>
+                                <label><b>Estado Civil:</b></label>
+                                <select name="estado" id="estado" class="datos">
+                                    <option value="0">Seleccione..</option>
+                                    <option value="1">Soltero</option>
+                                    <option value="2">casado</option>
+                                    <option value="3">Viudo</option>
+                                    <option value="4">Otro</option>
+                                </select>
+                            </div>
+                            <!-- tipo checkbox -->
+                            <div>
+                                <label><b>Recibir más información sobre la empresa</b></label>
+                                <input type="checkbox" name="intereses" value="1" id="intereses1" class="intereses" <?php echo ($cont->intereses == 1)?'checked="checked"':''; ?> />
+                            </div>
+                            <!-- tipo dato -->
+                            <div>
+                                <label><b>Fecha de nacimiento:</b></label>
+                                <input type="date" name="fecha" id="fechaid" class="datos" value="<?php echo $cont->fecha_nacimiento; ?>" />
+                            </div>
+                            <!-- tipo area de texto -->
+                            <div>
+                                <label><b>Dejándonos un comentario</b></label> <br>
+                                <textarea style="width: 60%;" id="texto" rows="4" cols="100" name="comentario" class="contenido"
+                                    placeholder="Escribe tu comentario" value="<?php echo $cont->comentario; ?>"></textarea>
+                            </div>
+                            <div style="display: flex; justify-content: flex-end; background-color: whitesmoke;">
+                                <div class="text-center" id="boton">
+                                    <input style="color: white; background-color: black; width: 90%; height: 90%; border-radius: 15px; " type="submit" class="mensaje" value="GUARDAR">
+                                </div>
+                                <div class="text-center" id="boton">
+                                    <a class="btnResenia" href="index.php?c=Contacto&f=view_list">CANCELAR</a>
+                                </div>
+                            </div>
+                            
+                        </form>
+                    </div>
                     
 
 
