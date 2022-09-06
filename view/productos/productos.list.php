@@ -1,12 +1,10 @@
-
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="CONTIENE UN FORMULARIO PARA DISEÑA EÑ PRODUCTO SUBLIMADO.">
+    <meta name="description" content="CONTIENE UN FORMULARIO PARA DISEÑA EL PRODUCTO SUBLIMADO.">
     <meta name="keywords" content="Sublimados, Estampados, Camisetas, Tazas,Creacion,Diseño.">
     <link rel="stylesheet" href="assets/css/style.css">
     <title>TU DISEÑO</title>
@@ -75,7 +73,11 @@
 </head>
 <body>
     <div class="contenedor-principal">
-    <?php require_once HEADER; ?>
+    <?php 
+    if(!isset($_SESSION)){ 
+        session_start();
+      };
+    require_once HEADER; ?>
         
     
         <main>
@@ -110,129 +112,68 @@
             
             <section class="seccion-segundo">
                 <div class="dividir-seccion-dos"> 
-                    
-                
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                
+                <form action="index.php?c=Productos&f=search" method="POST" id="formBuscar">
+                        <div class="contenedor-buscar">
+                            <input type="text" name="b" id="busqueda"  placeholder="Buscar por cliente..."/>
+                            <button class="btn-buscar" type="submit"><i class='bx bx-search' ></i>Buscar</button>
+                        </div>
+                    </form> 
+                    <div>
+                        <a href="index.php?c=Productos&f=view_new"><button class="btn-nuevo" type="button"><i class='bx bx-plus' ></i>Nuevo</button></a>
+                    </div>
                 </div>
+
+                <?php                
+                if (!empty($_SESSION['mensaje'])) {
+                    ?>
+                    <div style="margin-top: 60px;" class="alert-<?php echo $_SESSION['color']; ?>">
+                    <i class='bx bx-<?php if ($_SESSION['color']=="rojo") { echo "x";} else{ echo "check";} ?>'></i>
+                    <?php echo $_SESSION['mensaje']; ?>  
+                    </div>
+                    <?php
+                    unset($_SESSION['mensaje']);
+                    unset($_SESSION['color']);
+                }
+                ?>
+                <table>
+                    <thead>
+                        <th>ID</th>
+                        <th>PRODUCTO</th>
+                        <th>CLIENTE</th>
+                        <th>DISEÑO</th>
+                        <th>MODELO</th>
+                        <th>ESTADO</th>
+                    </thead>
+                <tbody>
+
+                <?php                 
+                    foreach ($resultados as $fila) {
+                ?>
+
+                <tr>
+                    <td><?php echo $fila->disenio_id;?></td>
+                    <td><?php if ($fila->producto == 1) echo "Camiseta"; else echo $fila->producto; ?></td>
+                    <td><?php echo $fila->cliente;?></td>
+                    <td><?php if ($fila->disenio == 1) echo "Personalizado"; else echo $fila->disenio; ?></td>
+                    <td><?php echo $fila->modelo;?></td>
+                    <td><?php if ($fila->estado == 1) echo "Creado"; else echo "En Proceso";?></td>
+                    <td>
+                        <a class="accion-boton editar" href="index.php?c=Productos&f=view_edit&id=<?php echo $fila->disenio_id;?>"><i class='bx bxs-pencil' ></i></a>
+                        <a class="accion-boton borrar" href="index.php?c=Productos&f=delete&id=<?php echo $fila->disenio_id;?>" 
+                        onclick="if(!confirm('Esta seguro de eliminar el Diseño de Producto?'))return false;"><i class='bx bxs-trash-alt' ></i></a>
+                    </td>
+                </tr>
+                <?php 
+                    }
+                ?>
+
+            </tbody>
+                </table>
             </section>
             
         </main>
-            
-
         <?php require_once FOOTER; ?>
     </div>
-    <script type="text/javascript">
-        function validar(){
-            var valido = true;
-    
-            //OBTENER ELEMENTOS 
-            var cbxProducto = document.getElementById("cbxProductos");
-            var txtNombre = document.getElementById("nom");
-            var txtTelefono = document.getElementById("telf");
-            var chbxColor = document.getElementsByClassName("color");
-            var rbModelo = document.getElementsByName("modelo");
-            var txtaObservacion = document.getElementById("obs");
-    
-            var letra = /^[a-z ,.'-]+$/i;
-            var telefono = /^[09]+[0-9]{8}$/g;
-    
-            //VALIDACIONES
-            //PRODUCTO
-            if (cbxProducto.value === null || cbxProducto.value === '0') {
-                valido = false;
-                mensaje("DEBE SELECCIONAR UN PRODUCTO", cbxProducto);
-            }
-            //NOMBRE
-            if(txtNombre.value === ''){
-                valido = false;
-                mensaje("DEBE INGRESAR SU NOMBRE",txtNombre);
-            }else if (!letra.test(txtNombre.value)){
-                valido = false;
-                mensaje("EL NOMBRE DEBE CONTENER SOLO LETRAS", txtNombre);
-            }else if(txtNombre.value.length >20){
-                valido = false;
-                mensaje("EL NOMBRE DEBE CONTENER MÁXIMO 20 CARACTERES", txtNombre); 
-            }
-            //TELEFONO
-            if (txtTelefono.value === "") {
-                valido = false;
-                mensaje("DEBE INGRESAR TELEFONO", txtTelefono);
-            } else if (!telefono.test(txtTelefono.value)) {
-                valido = false;
-                mensaje("NUMERO DE TELEFONO INCORRECTO", txtTelefono);
-            }
-            //COLORES
-            sel = false; 
-            cont=0; 
-            for (let i = 0; i < chbxColor.length; i++) {
-                if (chbxColor[i].checked) {
-                    cont++;
-                    sel = true;
-                    if (chbxColor[i].value === '1') {
-                        alert("MAXIMO DE SELECCION PERMITIDO : 3 ITEMS");
-                    }
-                }
-            }
-            if (!sel) {
-                valido = false;
-                mensaje("DEBE SELECCIONAR OPCIONES DE COLOR", chbxColor[0]);
-            }
-            if (cont<3) {
-                valido = false;
-                mensaje("DEBE SELECCIONAR AL MENOS 3 COLORES", chbxColor[0]);
-            }
-            //DISEÑO
-            if (cbxDiseño.value === null || cbxDiseño.value === '0') {
-                valido = false;
-                mensaje("DEBE SELECCIONAR UNA OPCIÓN DE DISEÑO PARA SU PRODUCTO", cbxDiseño);
-            }
-            //MODELO
-            var sel = false;
-            for (let i = 0; i < rbModelo.length; i++) {
-                if (rbModelo[i].checked) {
-                    sel = true;
-                //  let res=rbModelo[i].value;
-                break;
-                }
-            }
-            if (!sel) {
-                valido = false;
-                mensaje("DEBE SELECCIONAR UN TIPO DE MODELO PARA PLASMAR EN SU PRODUCTO", rbModelo[0]);
-            }
-            //OBSERVACIONES
-            if(txtaObservacion.value === ''){
-                valido = false;
-                mensaje("DEBE INGRESAR SUS OBSERVACIONES",txtaObservacion);
-            }else if(txtaObservacion.value.length >100){
-                valido = false;
-                mensaje("LAS OBSERVACIONES DEBEN CONTENER MÁXIMO 100 CARACTERES", txtaObservacion); 
-            }
-            return valido;
-        }
-        function mensaje(cadenaMensaje, elemento) {
-            elemento.focus();
-            window.alert(cadenaMensaje);
-        }
-
-    
-    </script>
 </body>
 </html>
 
