@@ -29,14 +29,45 @@
             text-decoration: none;
             font-weight: bold;
         }
-        .dividir-seccion-dos{
-            width: 65%;
-            height: 75%;
+        #newDisenio{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
             background-color: #2B2729;
+            width: 450px;
+            height: 540px;
+            color: rgb(255, 255, 255);
             border-radius: 40px;
             padding: 40px;
-            color: #FFFFFF;
-            text-align: justify;
+            margin: 60px;
+            box-shadow: 5px 5px #acacac;
+        }
+
+        #infoDisenio{
+            display: grid;
+            grid-template-columns: 120px 200px;
+            grid-template-rows: 40px 40px 40px 80px;
+            justify-content: space-around;
+            justify-items: stretch;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        
+
+        .mensajeError {
+            background-color: rgb(201, 74, 74);
+            border-radius: 15px;
+            padding: 10px;
+            margin-top: -31px;
+            margin-left: 210px;
+            position: absolute;
+            color: white;
+            font-size: 11px;
+            z-index: 1;
+            box-shadow: 0 0 5px #716f70,
+                0 0 5px #716f70;
         }
         .formulario{
             margin: 5px;
@@ -49,7 +80,7 @@
             border-radius: 8px;
         }
         label{
-            color: #9EE9A1;
+            color: black;
             font-weight: bold;
         }
         #enlaces{
@@ -165,6 +196,10 @@
                                 <input type="radio" class="ms" id="anime" name="modelo" value="an"/> Anime
                             </div>
 
+                            <div>
+                                <input type="checkbox" id="estado" name="estado" />
+                                <label style="font-size: 10pt;">Activo</label>
+                            </div>
 
                             <div>
                                 <input type="submit" class="form botones" value="Enviar" >   
@@ -194,7 +229,6 @@
             var txtCliente = document.getElementById("txtCliente");
             var cbxDisenio = document.getElementById("cbxDisenio");
             var rbModelo = document.getElementsByName("modelo");
-            
     
             var letra = /^[a-z ,.'-]+$/i;
             var telefono = /^[09]+[0-9]{8}$/g;

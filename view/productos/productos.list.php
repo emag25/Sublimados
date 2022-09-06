@@ -30,14 +30,79 @@
             font-weight: bold;
         }
         .dividir-seccion-dos{
-            width: 65%;
-            height: 75%;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;        
             background-color: #2B2729;
+            height: 70%;
             border-radius: 40px;
+            margin-top: 60px;
             padding: 40px;
-            color: #FFFFFF;
-            text-align: justify;
+            width: 70%;
+            gap: 20px;
         }
+
+        .btn-buscar, .btn-nuevo {
+            background-color: #D4F4DB;
+            border-radius: 30px;
+            width: 150px;
+            height: 42px;
+            font-weight: bold;
+            border: 0;
+            color: #2B2729;
+            cursor: pointer;
+        }
+
+        input[type="text"] {
+            border-radius: 30px;
+            width: 100%;
+            height: 42px;
+            border: 0;
+            cursor: pointer;
+            padding-left: 20px;
+        }
+
+        .contenedor-buscar {
+            display: flex;
+            flex-direction: row;
+            gap: 20px;
+            justify-content: space-between;
+        }
+
+        table {
+            margin: 60px 0 60px 0;
+            border: #9EE9A1 2px solid;
+            border-collapse: collapse;
+            width: 90%;
+        }
+
+        td, th {
+            border: #9EE9A1 2px solid;
+            padding: 5px;
+            text-align: center;
+            background: white;
+        }
+
+        th{
+            background: #9EE9A1;
+        }
+
+        .accion-boton {
+            display: inline-block;
+            padding: 7px;            
+            border-radius: 7px;
+            font-size: 12pt;
+            color: white;
+        }
+
+        .editar{
+            background: #1C32B1;
+        }
+
+        .borrar{
+            background: #BA1C1C;
+        }
+        
         .formulario{
             margin: 5px;
             padding-left: 10px;
@@ -66,6 +131,10 @@
         }
         .seccion-primero{
             height: auto;
+        }
+        .seccion-segundo {
+            height: auto;
+            flex-direction: column;            
         }
     </style>
 

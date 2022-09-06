@@ -15,6 +15,45 @@
         .dividir-seccion-uno{
             padding-top: 35px;
         }
+        #newDisenio{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            background-color: #2B2729;
+            width: 450px;
+            height: 540px;
+            color: rgb(255, 255, 255);
+            border-radius: 40px;
+            padding: 40px;
+            margin: 60px;
+            box-shadow: 5px 5px #acacac;
+        }
+        #infoDisenio{
+            display: grid;
+            grid-template-columns: 120px 200px;
+            grid-template-rows: 40px 40px 40px 80px;
+            justify-content: space-around;
+            justify-items: stretch;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .btnDisenio {
+            align-items: center;
+            display: flex;
+            justify-content: center;
+            border-radius: 30px;
+            width: 150px;
+            height: 32px;
+            color: #2B2729;
+            cursor: pointer;
+            margin-top: 50px;
+            font-weight: bold;
+            background-color: #ACACAC;
+            text-align: center;
+            text-decoration: none;
+            font-size: 10pt;
+        }
         .enl{
             font-family: 'Inter', sans-serif;
             border: 2px solid  #2B2729;
@@ -29,15 +68,7 @@
             text-decoration: none;
             font-weight: bold;
         }
-        .dividir-seccion-dos{
-            width: 65%;
-            height: 75%;
-            background-color: #2B2729;
-            border-radius: 40px;
-            padding: 40px;
-            color: #FFFFFF;
-            text-align: justify;
-        }
+        
         .formulario{
             margin: 5px;
             padding-left: 10px;
@@ -49,7 +80,7 @@
             border-radius: 8px;
         }
         label{
-            color: #9EE9A1;
+            color: black;
             font-weight: bold;
         }
         #enlaces{
@@ -198,7 +229,6 @@
                                 <input type="radio" class="ms" id="anime" name="modelo" value="an" <?php echo $anime; ?>/> Anime
                             </div>
 
-
                             <div>
                                 <input type="submit" class="form botones" value="Actualizar" onclick="if (!confirm('¿Está seguro de Editar el Diseño de Producto?')) return false;" >   
                                 <a class="btndisenio" href="index.php?c=Productos&f=view_list">CANCELAR</a>
@@ -239,7 +269,7 @@
                 valido = false;
                 mensaje("DEBE SELECCIONAR UN PRODUCTO", cbxProducto);
             }
-            //NOMBRE
+            //CLIENTE
             if(txtCliente.value === ''){
                 valido = false;
                 mensaje("DEBE INGRESAR SU NOMBRE",txtCliente);
@@ -287,7 +317,7 @@
             nodoMensaje.setAttribute("class", "mensajeError");
 
             switch (elemento.id) {
-                case "cbxProductos":
+                case "cbxProducto":
                     nodoMensaje.setAttribute("id", "error-producto");
                     break;
                 case "txtCliente":

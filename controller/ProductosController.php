@@ -12,7 +12,7 @@ class ProductosController {
 
     // FUNCION INDEX
     public function index() { 
-      $resultados = $this->model->selectAll("");     
+      $resultados = $this->model->selectByState();  
       require_once VPRODUCTOS.'principal.php';
     } 
     // FUNCION INSERTAR NUEVO DISEÑO DE PRODUCTO
@@ -109,7 +109,7 @@ class ProductosController {
              $_SESSION['mensaje'] = $msj;
              $_SESSION['color'] = $color;
 
-           header('Location:index.php?c=productos&f=view_list');
+           header('Location:index.php?c=Productos&f=view_list');
    }
 
    // FUNCIÓN EDITAR DISEÑO DE PRODUCTO
@@ -149,7 +149,7 @@ class ProductosController {
             $_SESSION['mensaje'] = $msj;
             $_SESSION['color'] = $color;
 
-            header('Location:index.php?c=productos&f=view_list');
+            header('Location:index.php?c=Productos&f=view_list');
            
         } 
      }

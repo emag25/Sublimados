@@ -469,6 +469,7 @@
         
         var div = document.querySelector("#contenido");
         
+        
         function cambiarImagen(){
             let img = document.getElementById("lg");
             img.setAttribute("src","assets/img/Sublimados.PNG");

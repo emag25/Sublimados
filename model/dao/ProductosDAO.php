@@ -80,8 +80,8 @@ class ProductosDAO {
 
         try{
 
-            $sql = "UPDATE disenio_producto SET  producto=:producto, cliente=:cliente," .
-                    "disenio=:disenio, modelo=:modelo WHERE disenio_id=:id";
+            $sql = "UPDATE disenio_producto SET  producto = :producto, cliente =:cliente,
+                    disenio = :disenio, modelo = :modelo WHERE disenio_id = :id";
 
             $sentencia = $this->con->prepare($sql);
             $data = [
