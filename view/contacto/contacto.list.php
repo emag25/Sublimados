@@ -74,6 +74,25 @@
         th{
             background: #007F80;
         }
+
+        .alert-azul, .alert-rojo{
+            padding: 20px;
+            border-radius: 20px;
+        }
+
+        .alert-azul i, .alert-rojo i, .row i {
+            margin-right: 10px;
+            font-size: 15px;
+            font-weight: bolder;
+        }
+
+        .alert-azul{
+            background: rgb(173, 214, 255);
+        }
+
+        .alert-rojo{
+            background: rgb(253, 192, 192);
+        }
         
     </style>
 </head>
@@ -93,10 +112,7 @@
                         <h2 id="encabezado">ESTAMOS PARA ATENDERTE</h2>
                         <h3 style="margin-top: -10px;">SUPERIUM</h3>
                         <p id="parrafo">
-                            Queremos saber de tí y conocer sobre tus intereses para brindarte un mejor servicio. Te
-                            invito a que te
-                            comuniques con nosotros, será fácil y rápido solo tienes que completar el siguiente
-                            formulario.
+                            Queremos saber de tí y conocer sobre tus intereses para brindarte un mejor servicio. 
                             <br><br><span style="font-weight: bold;">Siempre estaremos para tí!</span>
                         </p>
                     </div>

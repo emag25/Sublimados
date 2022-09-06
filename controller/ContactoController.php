@@ -10,8 +10,7 @@ class ContactoController {
       $this->model = new ContactoDAO();
         }
 
-    public function index() {  
-      $result = $this->model->selectByState();  
+    public function index() {    
       require_once VCONTACTO.'principal.php';
     }   
     
@@ -129,10 +128,12 @@ class ContactoController {
    
         $cont = new Contacto();
   
+        $cont->setContactoId(htmlentities($_POST['id']));
         $cont->setNombre(htmlentities($_POST['nombre']));
         $cont->setApellido(htmlentities($_POST['apellido']));
         $cont->setCelular(htmlentities($_POST['celular']));
         $cont->setEmail(htmlentities($_POST['email']));     
+        
         /* validación de genero */
         if (htmlentities($_POST['radio']) == 1) {
           $cont->setGenero("Femenino");
@@ -142,29 +143,28 @@ class ContactoController {
           $cont->setGenero("Otro");
         }
                 
-      /*   $cont->setEstadoCivil(htmlentities($_POST['estado'])); */
+      /*   validación de estado civil */
         if (htmlentities($_POST['estado']) == 1) {
           $cont->setEstadoCivil("Soltero");
         }else if (htmlentities($_POST['estado']) == 2){
           $cont->setEstadoCivil("Casado");
         }else if (htmlentities($_POST['estado']) == 3){
           $cont->setEstadoCivil("Viudo");
-        }else if (htmlentities($_POST['estado']) == 4){
-          $cont->setEstadoCivil("Otro");
-        } 
+        }
         
         /* valoración intereses */
+        
         if (isset($_POST['intereses'])) {
           $cont->setIntereses(1);
         }else{
           $cont->setIntereses(0);
-        }
+        } 
 
         $cont->setFechaNacimiento(htmlentities($_POST['fecha']));
         $cont->setComentario(($_POST['comentario']));
         
               
-      $exito = $this->model->update($res);
+      $exito = $this->model->update($cont);
       if(!isset($_SESSION)){ 
         session_start();
       };
@@ -179,6 +179,33 @@ class ContactoController {
   
         header('Location:index.php?c=Contacto&f=view_list');
       } 
+    }
+
+
+
+
+    /*         ELIMINAR                */
+
+    public function delete(){
+    
+      $id= $_REQUEST['id'];
+      $cont = new Contacto();
+      $cont->setContactoId(htmlentities($_REQUEST['id']));
+      $exito = $this->model->delete($cont);
+      
+      if(!isset($_SESSION)){ 
+        session_start();
+      };
+  
+      if ($exito) {
+        $_SESSION['mensaje'] = "Contacto eliminado exitosamente!";
+        $_SESSION['color'] = "azul";
+      }else{
+        $_SESSION['mensaje'] = "ERROR: No se pudo eliminar la reseña. Intentalo de nuevo.";
+        $_SESSION['color'] = "rojo";
+      }
+  
+      header('Location:index.php?c=Contacto&f=view_list');    
     }
 
 

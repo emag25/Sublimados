@@ -143,7 +143,6 @@
                                     <option value="1">Soltero</option>
                                     <option value="2">casado</option>
                                     <option value="3">Viudo</option>
-                                    <option value="4">Otro</option>
                                 </select>
                             </div>
                             <!-- tipo checkbox -->

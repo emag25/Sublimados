@@ -80,19 +80,19 @@ class ContactoDAO {
         $stmt = $this->con->prepare($sql);
         $data = ['id' => $id];
         $stmt->execute($data);
-        $resultado = $stmt->fetch(PDO::FETCH_OBJ);
+        $result = $stmt->fetch(PDO::FETCH_OBJ);
 
-        return $resultado;
+        return $result;
     }
 
     public function update($cont) {
         try{
-            $sql = "UPDATE INTO contacto nombre = :nombre, apellido = :apellido, celular = :celular, email = :email, genero= :genero, estado_civil = :estado, 
+            $sql = "UPDATE INTO contacto SET nombre = :nombre, apellido = :apellido, celular = :celular, email = :email, genero = :genero, estado_civil = :estado, 
             intereses = :intereses, fecha_nacimiento = :fecha, comentario = :comentario) WHERE contacto_id = :id"; 
         
             $sentencia = $this->con->prepare($sql);
             $data = [
-            'id' =>  $res->getContactoId(),
+            'id' =>  $cont->getContactoId(),
             'nombre' =>  $cont->getNombre(),
             'apellido' =>  $cont->getApellido(),
             'celular' =>  $cont->getCelular(),
@@ -109,6 +109,27 @@ class ContactoDAO {
                 return false;
             }
             
+        }catch(Exception $e){
+            return false;
+        }
+        return true;
+    }
+
+
+    /*           ELIMINAR           */
+
+    public function delete($cont){
+        try{        
+            $sql = "DELETE FROM contacto WHERE contacto_id = :id";
+            $sentencia = $this->con->prepare($sql); 
+            $data = [
+                'id' =>  $cont->getContactoId(),                
+            ];
+            $sentencia->execute($data);
+   
+            if ($sentencia->rowCount() <= 0) {
+                return false;
+            }
         }catch(Exception $e){
             return false;
         }

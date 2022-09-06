@@ -5,7 +5,7 @@ class Contacto {
     private $contacto_id, $nombre, $apellido, $celular, $email, $genero, $estado_civil, $intereses, 
     $fecha_nacimiento, $comentario;
 
-    function __construct() {    }
+   /*  function __construct() {    } */
 
     
     function getContactoId() {
