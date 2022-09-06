@@ -1,89 +1,68 @@
 <?php
-// dto data transfer object
+
 class Producto {
-    //properties
-    private $id, $codigo, $nombre, $descripcion, $estado, $precio, 
-    $idCategoria, $usuario, $fechaActualizacion;
+
+    private $disenio_id, $producto, $cliente, $disenio, $modelo, $estado;
 
     function __construct() {
         
     }
 
-   function getId() {
-        return $this->id;
+   function getDisenioId() {
+        return $this->disenio_id;
     }
 
-    function getCodigo() {
-        return $this->codigo;
+    function getProducto() {
+        return $this->producto;
     }
 
-    function getNombre() {
-        return $this->nombre;
+    function getCliente() {
+        return $this->cliente;
     }
 
-    function getDescripcion() {
-        return $this->descripcion;
+    function getDisenio() {
+        return $this->disenio;
+    }
+
+    function getModelo() {
+        return $this->modelo;
     }
 
     function getEstado() {
         return $this->estado;
     }
 
-    function getPrecio() {
-        return $this->precio;
+    
+
+    function setDisenioId($disenio_id) {
+        $this->disenio_id = $disenio_id;
     }
 
-    function getIdCategoria() {
-        return $this->idCategoria;
+    function setProducto($producto) {
+        $this->producto = $producto;
     }
 
-    function getUsuario() {
-        return $this->usuario;
+    function setCliente($cliente) {
+        $this->cliente = $cliente;
     }
 
-    function getFechaActualizacion() {
-        return $this->fechaActualizacion;
+    function setDisenio($disenio) {
+        $this->disenio = $disenio;
     }
 
-    function setId($id) {
-        $this->id = $id;
-    }
-
-    function setCodigo($codigo) {
-        $this->codigo = $codigo;
-    }
-
-    function setNombre($nombre) {
-        $this->nombre = $nombre;
-    }
-
-    function setDescripcion($descripcion) {
-        $this->descripcion = $descripcion;
+    function setModelo($modelo) {
+        $this->modelo = $modelo;
     }
 
     function setEstado($estado) {
         $this->estado = $estado;
     }
 
-    function setPrecio($precio) {
-        $this->precio = $precio;
-    }
-
-    function setIdCategoria($idCategoria) {
-        $this->idCategoria = $idCategoria;
-    }
-
-    function setUsuario($usuario) {
-        $this->usuario = $usuario;
-    }
-
-    function setFechaActualizacion($fechaActualizacion) {
-        $this->fechaActualizacion = $fechaActualizacion;
-    }
     
-    // Methods get y set parametrizados
+    
+
     public function __set($nombre, $valor) {
-        // Verifica que la propiedad exista
+
         if (property_exists('Producto', $nombre)) {
             $this->$nombre = $valor;
         } else {
@@ -92,14 +71,10 @@ class Producto {
     }
 
     public function __get($nombre) {
-      // Verifica que exista la propiedad
+
         if (property_exists('Producto', $nombre)) {
             return $this->$nombre;
         }
-// Retorna null si no existe
         return NULL;
     }
-
-    
-    
 }
