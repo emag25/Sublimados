@@ -11,100 +11,121 @@
     <title>INTERNACIONAL</title>
     <style>
 
-        #contenedorPrincipal {
-            width: 80%;
-            margin: 60px;
-            box-shadow: 0 0 15px rgb(2, 2, 2);
-            /*para centrar un contenedor*/
 
-        }
-
-
-        .text-center {
-            text-align: center;
-        }
-
-        #contenedorContenido {
-            color: #333333;
-        }
-
-        .formularios {
-            border: 2px solid #ccc;
-            border-radius: 15px;
-            padding: 10px;
-            background: #D4F4DB;
-            width: 80%;
-            margin: 0 auto;
-            /*para centrar*/
-
-        }
-
-        .formularios div {
-            padding: 5px;
-        }
-
-        .formularios div:nth-child(2n) {
-            background: #9EE9A1;
-        }
-
-
-        .seccion-primero {
+.seccion-segundo {
             height: auto;
         }
 
-        .seccion-segundo {
-            height: auto;
+        span {
+            color: #9EE9A1;
         }
 
-        .seccion-tercero {
-            height: auto;
-        }
-
-
-        .seccion-quinto {
-            height: auto;
-        }
-
-        .seccion-cuarto {
-            
+        #bloqueNewint {
             display: flex;
+            flex-wrap: wrap;
             justify-content: center;
             align-items: center;
-            width: 100%;
-            height: 450px;
+            background-color: #2B2729;
+            width: 450px;
+            height: 540px;
+            color: rgb(255, 255, 255);
+            border-radius: 40px;
+            padding: 40px;
+            margin: 60px;
+            box-shadow: 5px 5px #acacac;
+        }
+
+        #datosenviointernacional {
+            display: grid;
+            grid-template-columns: 120px 200px;
+            grid-template-rows: 40px 40px 40px 80px;
+            justify-content: space-around;
+            justify-items: stretch;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        #DivRadio1 {
+            margin-bottom: 5px;
+        }
+
+        #areaint {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            width: 320px;
+        }
+
+        .caja {
+            border: 0;
+            border-radius: 5px;
+            height: 20px;
+            padding: 5px;
+            padding-inline-start: 15px;
+            padding-inline-end: 15px;
+        }
+
+        #resenia {
+            margin: 10px 0 10px 0;
+        }
+
+        #enviarenvioi:active {
+            background-color: #9EE9A1;
+            color: black+;
+        }
+
+        form input[type="submit"]{
             background-color: #D4F4DB;
+            border-radius: 30px;
+            width: 150px;
+            height: 32px;
+            font-weight: bold;
+            border: 0;
+            color: #2B2729;
+            cursor: pointer;
+            margin-top: 50px;
         }
 
-
-        #slider {
-            border-radius: 20px;
-            box-shadow: 0 0 15px rgb(169, 247, 143);
-
-
-        }
-
-
-
-
-        #pie {
-            font-family: 'Courier New', Courier, monospace;
-        }
-
-        #enlaces,
-        #contenido {
+        .btnint {
+            align-items: center;
             display: flex;
             justify-content: center;
-            background-color: rgb(13, 13, 13);
-            padding: 20px;
             border-radius: 30px;
-            margin-top: 20px;
-
+            width: 150px;
+            height: 32px;
+            color: #2B2729;
+            cursor: pointer;
+            margin-top: 50px;
+            font-weight: bold;
+            background-color: #ACACAC;
+            text-align: center;
+            text-decoration: none;
+            font-size: 10pt;
         }
 
-        #contenido {
-            visibility: hidden;
+        .botones {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
         }
 
+        .mensajeError {
+            background-color: rgb(201, 74, 74);
+            border-radius: 15px;
+            padding: 10px;
+            margin-top: -31px;
+            margin-left: 210px;
+            position: absolute;
+            color: white;
+            font-size: 11px;
+            z-index: 1;
+            box-shadow: 0 0 5px #716f70,
+                0 0 5px #716f70;
+        }
+
+
+        
         .evento {
             display: inline-block;
             background-color: #9EE9A1;
@@ -198,7 +219,7 @@
 
             </section>
             <section class="seccion-segundo">
-            <div id="bloqueNewReseña">
+            <div id="bloqueNewint">
                     <form action="index.php?c=Servicios&f=int_edit" method="POST" id="Neviointernacional">
                         <div id="datosenviointernacional">
                             <input type="hidden" name="id" id="id" value="<?php echo $inter->internacional_id; ?>"/>
@@ -299,7 +320,7 @@
                             </div>
 
                             <label><b>Especificaciones: </b><span>*</span></label>
-                        <div id="area">
+                        <div id="areaint">
                             <div>
                                 <textarea id="especificaciones" name="especificaciones" rows="10" cols="400" class="caja box"
                                     placeholder="Escribe tus especificaciones de envío." style="width: 290px; height: auto; resize: none;"
@@ -307,12 +328,12 @@
                             </div><br><br>
 
                             <div class="botones">
-                                <input type="submit" id="enviarenvioi" value="GUARDAR" onclick="if (!confirm('¿Está seguro de modificar el envío?')) return false;">
-                                <a class="btnenvioi" href="index.php?c=Servicios&f=view_internacional_list">CANCELAR</a>
+                                <input type="submit" id="enviarenvioi" value="GUARDAR"onclick="if (!confirm('¿Está seguro de modificar el envío?')) return false;">
+                                <a class="btnint" href="index.php?c=Servicios&f=view_internacional_list">CANCELAR</a>
                             </div>
-                            
-                        </div>
-                    </form>
+                            </div>
+
+                            </form>
                 </div>
             </section>   
             <section class="seccion-tercero">

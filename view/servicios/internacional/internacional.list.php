@@ -11,158 +11,107 @@
     <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
     <title>INTERNACIONAL</title>
     <style>
-
-        #contenedorPrincipal {
-            width: 80%;
-            margin: 60px;
-            box-shadow: 0 0 15px rgb(2, 2, 2);
-            /*para centrar un contenedor*/
-
+  .seccion-segundo {
+            height: auto;
+            flex-direction: column;            
         }
 
-
-        .text-center {
-            text-align: center;
+        .row {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;        
+            background-color: #2B2729;
+            height: 70%;
+            border-radius: 40px;
+            margin-top: 60px;
+            padding: 40px;
+            width: 70%;
+            gap: 20px;
         }
 
-        #contenedorContenido {
-            color: #333333;
+        .btn-buscar, .btn-nuevo {
+            background-color: #D4F4DB;
+            border-radius: 30px;
+            width: 150px;
+            height: 42px;
+            font-weight: bold;
+            border: 0;
+            color: #2B2729;
+            cursor: pointer;
         }
 
-        .formularios {
-            border: 2px solid #ccc;
-            border-radius: 15px;
-            padding: 10px;
-            background: #D4F4DB;
-            width: 80%;
-            margin: 0 auto;
-            /*para centrar*/
-
+        input[type="text"] {
+            border-radius: 30px;
+            width: 100%;
+            height: 42px;
+            border: 0;
+            cursor: pointer;
+            padding-left: 20px;
         }
 
-        .formularios div {
+        .contenedor-buscar {
+            display: flex;
+            flex-direction: row;
+            gap: 20px;
+            justify-content: space-between;
+        }
+
+        table {
+            margin: 60px 0 60px 0;
+            border: #9EE9A1 2px solid;
+            border-collapse: collapse;
+            width: 90%;
+        }
+
+        td, th {
+            border: #9EE9A1 2px solid;
             padding: 5px;
+            text-align: center;
+            background: white;
         }
 
-        .formularios div:nth-child(2n) {
+        th{
             background: #9EE9A1;
         }
 
-
-        .seccion-primero {
-            height: auto;
-        }
-
-        .seccion-segundo {
-            height: auto;
-        }
-
-        .seccion-tercero {
-            height: auto;
-        }
-
-
-        .seccion-quinto {
-            height: auto;
-        }
-
-        .seccion-cuarto {
-            
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            height: 450px;
-            background-color: #D4F4DB;
-        }
-
-
-        #slider {
-            border-radius: 20px;
-            box-shadow: 0 0 15px rgb(169, 247, 143);
-
-
-        }
-
-
-
-
-        #pie {
-            font-family: 'Courier New', Courier, monospace;
-        }
-
-        #enlaces,
-        #contenido {
-            display: flex;
-            justify-content: center;
-            background-color: rgb(13, 13, 13);
-            padding: 20px;
-            border-radius: 30px;
-            margin-top: 20px;
-
-        }
-
-        #contenido {
-            visibility: hidden;
-        }
-
-        .evento {
+        .accion-boton {
             display: inline-block;
-            background-color: #9EE9A1;
-            color: rgb(11, 10, 10);
-            font-weight: bold;
-            padding: 10px;
-            margin: 5px;
-            text-decoration: none;
-            border-radius: 10px;
+            padding: 7px;            
+            border-radius: 7px;
+            font-size: 12pt;
+            color: white;
         }
 
-        li {
-            list-style: none;
+        .editar{
+            background: #1C32B1;
         }
 
-        #titulo-empresas {
-            text-align: center;
-            font-style: oblique;
+        .borrar{
+            background: #BA1C1C;
+        }
+
+        /*      MENSAJES DE ALERTA      */ 
+
+        .alert-azul, .alert-rojo{
+            padding: 20px;
+            border-radius: 20px;
+        }
+
+        .alert-azul i, .alert-rojo i, .row i {
+            margin-right: 10px;
+            font-size: 15px;
             font-weight: bolder;
         }
 
-        .bloque {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-evenly;
-            align-items: center;
+        .alert-azul{
+            background: rgb(173, 214, 255);
         }
 
-        .imgcambiante {
-            background-color: #D4F4DB;
-            border-radius: 20px;
-            text-align: center;
-            left:0; right:0; top:0;
-
-
+        .alert-rojo{
+            background: rgb(253, 192, 192);
         }
 
-        .imgcambiante div:nth-child(1) {
-            width: 50%;
-            height: 50%;
-            border-radius: 40px;
-            background-color: #2B2729;
-            margin-right:0;
-            padding: 20px;
 
-        }
-
-        .imgcambiante div:nth-child(2) {
-            padding: 40px;
-            width: 50%;
-            height: 50%;
-            border-radius: 40px;
-            background-color: #2B2729;
-            color: #f0ebeb;
-            font-size:16px;
-            margin-left: 15px;
-        }
 
     </style>
 </head>
@@ -222,7 +171,10 @@
                     unset($_SESSION['color']);
                 }
                 ?>
-                <table>
+                <div class="table-responsive mt-2">
+        <table class="tabladatos">
+            <thead class="thead-dark">
+ 
                     <thead>
                         <th>ID</th>
                         <th>NOMBRES</th>
@@ -261,7 +213,11 @@
                         }
                         ?>
                     </tbody>
-                </table>
+                    </table>
+                 </div>
+
+                </div>
+
             </section>
         </main>
         <?php require_once FOOTER; ?>
