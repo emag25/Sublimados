@@ -1,5 +1,5 @@
 <?php
-// dao data access object
+
 require_once 'config/Conexion.php';
 
 class DomicilioDAO {
@@ -88,6 +88,46 @@ class DomicilioDAO {
             return false;
         }
         return true;
+    }
+
+    public function selectById($id){
+        $sql = "SELECT * FROM envio_domicilio WHERE domicilio_id = :id";
+        $stmt = $this->con->prepare($sql);
+        $data = ['id' => $id];
+        $stmt->execute($data);
+        $resultado = $stmt->fetch(PDO::FETCH_OBJ);
+
+        return $resultado;
+    }
+
+    public function update($prod){
+        try{
+            $sql = "UPDATE envio_domicilio SET cedula = :cedula, celular = :celular, correo = :correo, 
+                                               postal = :postal, referencias = :referencias, tipo_envio = :tipo_envio, 
+                                               productos = :productos, ciudad = :ciudad WHERE domicilio_id = :id";
+
+            $sentencia = $this->con->prepare($sql);
+            $data = [
+            'id' =>  $prod->getDomicilioId(),
+            'cedula' =>  $prod->getCedula(),
+            'celular' =>  $prod->getCelular(),
+            'correo' =>  $prod->getCorreo(),
+            'postal' =>  $prod->getPostal(),
+            'referencias' =>  $prod->getReferencias(),
+            'tipo_envio' =>  $prod->getTipoEnvio(),
+            'productos' =>  $prod->getProductos(),
+            'ciudad' =>  $prod->getCiudad()
+            ];
+            $sentencia->execute($data);
+
+            if ($sentencia->rowCount() <= 0) {
+                return false;
+            }
+
+        }catch(Exception $e){
+            return false;
+        }    
+        return true;        
     }
    
 }
