@@ -171,9 +171,8 @@
                     unset($_SESSION['color']);
                 }
                 ?>
-                <div class="table-responsive mt-2">
-        <table class="tabladatos">
-            <thead class="thead-dark">
+        <table >
+            <thead >
  
                     <thead>
                         <th>ID</th>
