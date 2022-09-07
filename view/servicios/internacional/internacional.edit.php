@@ -78,7 +78,7 @@
         }
 
 		
-         #enviarenvioi{
+         .enviarenvioi{
             align-items: center;
             display: flex;
             justify-content: center;
@@ -226,8 +226,8 @@
 								</div><br><br>
 
 							<div class="botones">
-								<input type="submit" id="enviarenvioi" value="GUARDAR"onclick="if (!confirm('¿Está seguro de modificar el envío?')) return false;">
-								<a  id="enviarenvioi" href="index.php?c=Servicios&f=view_internacional_list">CANCELAR</a>
+								<input style="height: 35px;" type="submit" class="enviarenvioi" value="GUARDAR"onclick="if (!confirm('¿Está seguro de modificar el envío?')) return false;">
+								<a style="border:2px solid black;"  class="enviarenvioi" href="index.php?c=Servicios&f=view_internacional_list">CANCELAR</a>
 						  </div>
 
 					</form>
