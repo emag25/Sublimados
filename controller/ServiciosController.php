@@ -139,7 +139,7 @@ class ServiciosController {
       if ($_SERVER['REQUEST_METHOD'] == 'POST') {
    
         $inter = new Internacional();
-
+        $id= $_REQUEST['id'];
         $inter->setInternacionalId($id);
         $inter->setNombre(htmlentities($_POST['nombre']));
         $inter->setApellido(htmlentities($_POST['apellido']));
