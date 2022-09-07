@@ -85,7 +85,7 @@ class InternacionalDAO {
         try{
 
             
-            $sql = "UPDATE `envio_internacional` SET `internacional_id` =:id, `nombres` =:nombre,`apellidos` =:apellidos,`telefono`=:telefono,`email` =:email, 
+            $sql = "UPDATE `envio_internacional` SET `nombres` =:nombre,`apellidos` =:apellidos,`telefono`=:telefono,`email` =:email, 
             `direccion`=:direccion,`recibir_via` =:recibir_via,`pais`=:pais,`recibir_info`=:recibirinfo,`especificaciones`=:especificaciones
                                         WHERE internacional_id=:id";
 
