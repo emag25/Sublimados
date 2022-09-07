@@ -34,9 +34,10 @@ class ReseniasDAO {
     }
 
     public function selectByName($name) { 
-        $sql = "SELECT * FROM resenia WHERE nombre = :name";
+        $sql = "SELECT * FROM resenia WHERE (nombre like :name)";
         $stmt = $this->con->prepare($sql);
-        $data = ['name' => $name];
+        $conlike = '%' . $name . '%';
+        $data = array('name' => $conlike);
         $stmt->execute($data);
         $resultados = $stmt->fetchAll(PDO::FETCH_OBJ);
         
