@@ -12,7 +12,7 @@
     <style>
         /* Segunda sección */
         #seccion-2 {
-            height: 800px;
+            height: auto;
         }
 
         #DockerPrincipal {
@@ -37,6 +37,7 @@
             padding-bottom: 1%;
             padding-top: 0.8%;
             padding-left: 2%;
+            padding-inline-start: 1%;
         }
 
         .formulario div:nth-child(2n) {
@@ -56,16 +57,38 @@
             margin-top: 1.5%;
         }
 
-        #boton {
-            border: 0;
-            width: 15%;
-            padding-right: 5px;
-            width: 10%;
+        .mensaje2 {
+            align-items: center;
+            display: flex;
+            justify-content: center;
+            border-radius: 30px;
+            width: 150px;
+            height: 32px;
+            color: white;
+            cursor: pointer;
+            margin-top: 50px;
+            font-weight: bold;
+            background-color: black;
+            text-align: center;
+            text-decoration: none;
+            font-size: 10pt;
         }
 
-        .mensaje:active {
-            background-color: #D9D9D9;
-            color: black;
+        #mensaje{
+            align-items: center;
+            display: flex;
+            justify-content: center;
+            border-radius: 30px;
+            width: 150px;
+            height: 32px;
+            color: white;
+            cursor: pointer;
+            margin-top: 50px;
+            font-weight: bold;
+            background-color: black;
+            text-align: center;
+            text-decoration: none;
+            font-size: 10pt;
         }
     </style>
 </head>
@@ -182,12 +205,8 @@
                                     placeholder="Escribe tu comentario"><?php echo $cont->comentario; ?></textarea>
                             </div>
                             <div style="display: flex; justify-content: flex-end; ">
-                                <div class="text-center" id="boton">
-                                    <input style="color: white; background-color: black; width: 90%; height: 90%; border-radius: 15px; " type="submit" class="mensaje" value="GUARDAR" onclick="if (!confirm('¿Guardar cambios?')) return false;">
-                                </div>
-                                <div class="text-center" id="boton">
-                                    <a style="color: white; background-color: black; width: 90%; height: 95%; border-radius: 15px;  " class="datos" href="index.php?c=Contacto&f=view_list"> CANCELAR </a>
-                                </div>
+                                    <input  type="submit" class="mensaje" id="mensaje"value="GUARDAR" onclick="if (!confirm('¿Guardar cambios?')) return false;">
+                                    <a class="mensaje2" href="index.php?c=Contacto&f=view_list">CANCELAR</a>
                             </div>
                             
                         </form>
