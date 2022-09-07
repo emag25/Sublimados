@@ -87,8 +87,8 @@ class ContactoDAO {
 
     public function update($cont) {
         try{
-            $sql = "UPDATE INTO contacto SET nombre = :nombre, apellido = :apellido, celular = :celular, email = :email, genero = :genero, estado_civil = :estado, 
-            intereses = :intereses, fecha_nacimiento = :fecha, comentario = :comentario) WHERE contacto_id = :id"; 
+            $sql = "UPDATE contacto SET nombre = :nombre, apellido = :apellido, celular = :celular, email = :email, genero = :genero, estado_civil = :estado, 
+            intereses = :intereses, fecha_nacimiento = :fecha, comentario = :comentario WHERE contacto_id = :id"; 
         
             $sentencia = $this->con->prepare($sql);
             $data = [
@@ -108,7 +108,6 @@ class ContactoDAO {
             if ($sentencia->rowCount() <= 0) {
                 return false;
             }
-            
         }catch(Exception $e){
             return false;
         }

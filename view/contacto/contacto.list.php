@@ -13,87 +13,10 @@
     <style>
         /* Segunda sección */
         #seccion-2 {
-            height: 600px;
-            flex-direction: row;
-        }
-
-        .acciones{
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;        
-            background-color: #2B2729;
             height: auto;
-            border-radius: 40px;
-            margin-top: 40px;
-            padding: 30px;
-            width: 50%;
-            gap: 15px;
-        }
-        
-        .buscar,.nuevo{
-            background-color: #D4F4DB;
-            border-radius: 30px;
-            width: 150px;
-            height: 42px;
-            font-weight: bold;
-            border: 0;
-            color: #2B2729;
-            cursor: pointer;
+            flex-direction: column;
         }
 
-        .dockerBuscar{
-            display: flex;
-            flex-direction: row;
-            gap: 20px;
-            justify-content: space-between;
-        }
-
-        input[type="text"] {
-            border-radius: 30px;
-            width: 100%;
-            height: 42px;
-            border: 0;
-            cursor: pointer;
-            padding-left: 20px;
-        }
-
-        table{
-            border: #b2b2b2 1px solid;
-            margin: 40px 0 60px 0;
-            border: #9EE9A1 2px solid;
-            border-collapse: collapse;
-        }
-        
-        td,th{
-            border: #b2b2b2 1px solid;
-            padding: 5px;
-            background: white;
-            text-align: center;
-        }
-
-        th{
-            background: #007F80;
-        }
-
-        .alert-azul, .alert-rojo{
-            padding: 20px;
-            border-radius: 20px;
-        }
-
-        .alert-azul i, .alert-rojo i, .row i {
-            margin-right: 10px;
-            font-size: 15px;
-            font-weight: bolder;
-        }
-
-        .alert-azul{
-            background: rgb(173, 214, 255);
-        }
-
-        .alert-rojo{
-            background: rgb(253, 192, 192);
-        }
-        
     </style>
 </head>
 
@@ -128,16 +51,16 @@
             </section>
 
             <section class="seccion-segundo" id="seccion-2">
-                <div id="DockerPrincipal">
-                    <div class="acciones">                    
+
+                    <div class="row">                    
                         <form action="index.php?c=Contacto&f=search" method="POST" id="formBuscar">
-                            <div class="dockerBuscar">
+                            <div class="contenedor-buscar">
                                 <input type="text" name="b" id="busqueda"  placeholder="Buscar por nombre..."/>
-                                <button class="buscar" type="submit"><i class='fas fa-search' ></i>Buscar</button>
+                                <button class="btn-buscar" type="submit"><i class='bx bx-search' ></i>Buscar</button>
                             </div>
                         </form>       
                         <div>
-                            <a href="index.php?c=Contacto&f=view_new"><button class="nuevo" type="button"><i class='fas fa-plus' ></i>Nuevo</button></a>
+                            <a href="index.php?c=Contacto&f=view_new"><button class="btn-nuevo" type="button"><i class='bx bx-plus' ></i>Nuevo</button></a>
                         </div>
                     </div>
                     <?php 
@@ -184,8 +107,8 @@
                                 <td><?php echo $fila->fecha_nacimiento ?></td>
                                 <td><?php echo $fila->comentario ?></td>
                                 <td>
-                                    <a class="boton-editar" href="index.php?c=Contacto&f=view_edit&id=<?php echo $fila->contacto_id;?>"><i class='bx bxs-pencil'></i></a>
-                                    <a class="boton-borrar" href="index.php?c=Contacto&f=delete&id=<?php echo $fila->contacto_id;?>" 
+                                    <a class="accion-boton editar" href="index.php?c=Contacto&f=view_edit&id=<?php echo $fila->contacto_id;?>"><i class='bx bxs-pencil'></i></a>
+                                    <a class="accion-boton borrar" href="index.php?c=Contacto&f=delete&id=<?php echo $fila->contacto_id;?>" 
                                     onclick="if(!confirm('Esta seguro de eliminar el contacto?'))return false;"><i class='bx bxs-trash-alt'></i></a>
                                 </td>
                             </tr>
@@ -195,7 +118,6 @@
                     </tbody>
                     </table>
                 
-                </div>
             </section>
 
         </main>
