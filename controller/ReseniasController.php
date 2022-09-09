@@ -142,7 +142,7 @@ class ReseniasController {
       $exito = $this->model->update($res);
       if(!isset($_SESSION)){ 
         session_start();
-      };
+      }
 
       if ($exito) {
         $_SESSION['mensaje'] = "Reseña modificada exitosamente!";
@@ -171,7 +171,7 @@ class ReseniasController {
     
     if(!isset($_SESSION)){ 
       session_start();
-    };
+    }
 
     if ($exito) {
       $_SESSION['mensaje'] = "Reseña eliminada exitosamente!";
