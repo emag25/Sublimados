@@ -1,3 +1,4 @@
+<!--AUTOR:SICHA VEGA BETSY ARLETTE-->
 <?php
 require_once 'model/dao/ProductosDAO.php';
 require_once 'model/dto/Producto.php';

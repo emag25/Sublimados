@@ -1,3 +1,4 @@
+<!--AUTOR:SICHA VEGA BETSY ARLETTE-->
 <?php
 require_once 'config/Conexion.php';
 
