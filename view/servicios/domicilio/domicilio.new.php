@@ -171,7 +171,7 @@
                                 <div style="display: grid; grid-template-columns: 0.1fr 1fr; width: 100%;  justify-content: start;">
                                 <input type="radio" value="Express" name="gen"/>Express (1-2 dias)
                                 <input type="radio" value="Rapido" name="gen"/>Rapido (2-3 dias)
-                                <input type="radio" value="Express" name="gen"/>Normal (3-5 dias)
+                                <input type="radio" value="Normal" name="gen"/>Normal (3-5 dias)
                                 <input type="radio" value="Economico" name="gen"/>Economico (5-10 dias)
                                 </div>
                             </div>
@@ -196,7 +196,7 @@
                             <div style="display: flex; flex-direction: column; width: 45%;">
                                 <label >Elija su ciudad:</label>
                                 <select name="cities" id="ciudad" style="width: 100%;">
-                                <option name value="Guayaquil">Seleccione</option>
+                                    <option value="Guayaquil">Seleccione</option>
                                     <option value="Guayaquil">Guayaquil</option>
                                     <option value="Cuenca">Cuenca</option>
                                     <option value="Quito">Quito</option>
