@@ -145,7 +145,7 @@
                                 <label class="form"> <b> PRODUCTO: </b>  </label>
                             </div>
                             <div>
-                                <select name="productos" id="cbxProductos" class="form fi"
+                            <select name="productos" id="cbxProductos" class="form fi"
                                     style="height: 30px; width: 200px;" onmouseover="mostrarError('producto')"
                                     onmouseout="ocultarError('producto')">   
                                     
@@ -169,14 +169,39 @@
                             </div>
 
 
-                            
                             <div>
                                 <label class="form"> <b> CLIENTE: </b>  </label>
                             </div>
                             <div>
                                 <input type="text" name="cliente" id="txtCliente" class="form fi" placeholder="Ingresar Nombre Cliente"
-                                style="width: 170px;" onmouseover="mostrarError('cliente')"
-                                    onmouseout="ocultarError('cliente')" value="<?php echo $prod->cliente; ?>">
+                                style="height: 20px; width: 200px;" onmouseover="mostrarError('cliente')"
+                                    onmouseout="ocultarError('cliente')">
+                            </div>
+
+
+                            <div>
+                                <label class="form"> <b> TELÉFONO CLIENTE: </b>  </label>
+                            </div>
+                            <div>
+                                <input type="text" name="telefono" id="txtTelefono" class="form fi" placeholder="Ingresar Teléfono Cliente"
+                                style="height: 20px; width: 200px;" onmouseover="mostrarError('telefono')"
+                                    onmouseout="ocultarError('telefono')">
+                            </div>
+
+
+                            <div>
+                                <label class="form"> <b> COLORES DISPONIBLES: </b> </label>
+                            </div>
+                            <div id="chbxColor">
+                                Amarillo <input type="checkbox" name="colores" value="1" id="amarillo" class="form color">
+                                Azul <input type="checkbox" name="colores" value="2" id="azul" class="form color">
+                                Rojo <input type="checkbox" name="colores" value="3" id="rojo" class="form color"> 
+                                Verde <input type="checkbox" name="colores" value="4" id="verde" class="form color">
+                                Morado <input type="checkbox" name="colores" value="5" id="morado" class="form color">
+                                Naranja <input type="checkbox" name="colores" value="6" id="naranja" class="form color"> 
+                                Blanco <input type="checkbox" name="colores" value="7" id="blanco" class="form color">
+                                Negro <input type="checkbox" name="colores" value="8" id="negro" class="form color">
+                                Gris <input type="checkbox" name="colores" value="9" id="gris" class="form color"> 
                             </div>
 
 
@@ -230,12 +255,13 @@
                             </div>
 
                             <div>
-                                <label class="form"> <b> ESTADO: </b>  </label>
-                            </div> 
-                            <div>
-                                <input type="radio" class="ms" id="creado" name="estado" value="1"/> Creado 
-                                <input type="radio" class="ms" id="proceso" name="estado" value="2"/> En Proceso 
+                                <label class="form"> <b> OBSERVACIONES: </b> </label>
                             </div>
+                            <div>
+                                <textarea name="observaciones" id="obs" cols="100" rows="3" class="form" placeholder="Ingrese sus Observaciones"
+                                onmouseover="mostrarError('observaciones')"
+                                    onmouseout="ocultarError('observaciones')"><?php echo $prod->observaciones; ?></textarea>
+                            </div> 
 
                             
                             <div>

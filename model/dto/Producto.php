@@ -2,7 +2,7 @@
 
 class Producto {
 
-    private $disenio_id, $producto, $cliente, $disenio, $modelo, $estado;
+    private $disenio_id, $producto, $cliente, $telefono, $colores, $disenio, $modelo, $observaciones;
 
     function __construct() {
         
@@ -20,6 +20,14 @@ class Producto {
         return $this->cliente;
     }
 
+    function getTelefono() {
+        return $this->telefono;
+    }
+
+    function getColores() {
+        return $this->colores;
+    }
+
     function getDisenio() {
         return $this->disenio;
     }
@@ -28,8 +36,8 @@ class Producto {
         return $this->modelo;
     }
 
-    function getEstado() {
-        return $this->estado;
+    function getObservaciones() {
+        return $this->observaciones;
     }
 
     
@@ -46,6 +54,14 @@ class Producto {
         $this->cliente = $cliente;
     }
 
+    function setTelefono($telefono) {
+        $this->telefono = $telefono;
+    }
+
+    function setColores($colores) {
+        $this->colores = $colores;
+    }
+
     function setDisenio($disenio) {
         $this->disenio = $disenio;
     }
@@ -54,8 +70,8 @@ class Producto {
         $this->modelo = $modelo;
     }
 
-    function setEstado($estado) {
-        $this->estado = $estado;
+    function setObservaciones($Observaciones) {
+        $this->observaciones = $observaciones;
     }
 
     

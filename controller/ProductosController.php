@@ -29,6 +29,8 @@ class ProductosController {
       
       $prod->setProducto(htmlentities($_POST['producto']));
       $prod->setCliente(htmlentities($_POST['cliente']));
+      $prod->setTelefono(htmlentities($_POST['telefono']));
+      $prod->setColores(htmlentities($_POST['colores']));
       $prod->setDisenio(htmlentities($_POST['disenio']));
 
       if (htmlentities($_POST['modelo']) == 'real') {
@@ -39,7 +41,9 @@ class ProductosController {
         $prod->setModelo("Anime");
       }
       
-    
+      $prod->setObservaciones(htmlentities($_POST['observaciones']));
+      
+
       $exito = $this->model->insert($prod);
 
       $msj = 'Producto guardado exitosamente';
@@ -128,6 +132,8 @@ class ProductosController {
       $prod->setDisenioId(htmlentities($_POST['id']));
       $prod->setProducto(htmlentities($_POST['producto']));
       $prod->setCliente(htmlentities($_POST['cliente']));
+      $prod->setTelefono(htmlentities($_POST['telefono']));
+      $prod->setColores(htmlentities($_POST['colores']));
       $prod->setDisenio(htmlentities($_POST['disenio']));
 
       if (htmlentities($_POST['modelo']) == 'real') {
@@ -137,8 +143,9 @@ class ProductosController {
       }else if (htmlentities($_POST['radio']) == 'an'){
         $prod->setModelo("Anime");
       }
-  
+      $prod->setObservaciones(htmlentities($_POST['observaciones']));
 
+      
       $exito = $this->model->update($prod);
       $msj = 'Producto actualizado exitosamente';
       $color = 'primary';

@@ -31,15 +31,18 @@ class ProductosDAO {
     // INSERTAR DISEÑO DE PRODUCTO
     public function insert($prod){
         try{
-        $sql = "INSERT INTO disenio_producto (producto, cliente, disenio, modelo) VALUES 
-        (:producto, :cliente, :disenio, :modelo)";
+        $sql = "INSERT INTO disenio_producto (producto, cliente, telefono, colores, disenio, modelo, observaciones) VALUES 
+        (:producto, :cliente, :telefono, :colores, :disenio, :modelo, :observaciones)";
 
         $sentencia = $this->con->prepare($sql);
         $data = [
         'producto' =>  $prod->getProducto(),
         'cliente' =>  $prod->getCliente(),
+        'telefono' => $prod->getTelefono(),
+        'colores' => $prod->getColores(),
         'disenio' =>  $prod->getDisenio(),
-        'modelo' =>  $prod->getModelo()
+        'modelo' =>  $prod->getModelo(),
+        'observaciones' => $prod->getObservaciones()
         ];
   
         $sentencia->execute($data);
@@ -70,16 +73,19 @@ class ProductosDAO {
 
         try{
 
-            $sql = "UPDATE disenio_producto SET  producto = :producto, cliente =:cliente,
-                    disenio = :disenio, modelo = :modelo WHERE disenio_id = :id";
+            $sql = "UPDATE disenio_producto SET  producto = :producto, cliente =:cliente, telefono =:telefono, colores =:colores,
+                    disenio = :disenio, modelo = :modelo, observaciones =:observaciones WHERE disenio_id = :id";
 
             $sentencia = $this->con->prepare($sql);
             $data = [
                 'id' =>  $prod->getDisenioId(),
                 'producto' =>  $prod->getProducto(),
                 'cliente' =>  $prod->getCliente(),
+                'telefono' => $prod->getTelefono(),
+                'colores' => $prod->getColores(),
                 'disenio' =>  $prod->getDisenio(),
-                'modelo' =>  $prod->getModelo()
+                'modelo' =>  $prod->getModelo(),
+                'observaciones' => $prod->getObservaciones()
                 ];
 
             $sentencia->execute($data);
