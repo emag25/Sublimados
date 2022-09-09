@@ -236,7 +236,7 @@
 
                         <div class="formularios">
                             <!-- onsubmit=return validar() PERMITE LLAMAR A LA FUNCION DE JAVASCRIPT QUE VALIDA EL FORMULARIO-->
-                            <form id="formContacto" onsubmit="return validar()">
+                            <form id="formContacto" method="POST" action="index.php?c=Servicios&f=int_new" onsubmit="return validar()">
                                 <div>
                                     <label>Nombres:&nbsp;&nbsp;</label>
                                     <input type="text" name="nombres" id="nombres" class="formItem"
@@ -254,7 +254,7 @@
                                 </div>
                                 <div>
                                     <label>Email:&nbsp; &nbsp; &nbsp;&nbsp;</label>
-                                    <input type="email" name="correo" id="correo" class="formItem"
+                                    <input type="email" name="email" id="correo" class="formItem"
                                         placeholder="Ingresa aqui tu correo" />
                                 </div>
                                 <div>
@@ -265,9 +265,9 @@
 
                                 <div>
                                     <label>Recibir vía:</label>
-                                    <input class="via" type="radio" name="via" id="v1" value="S" />ServiEntrega
-                                    <input class="via" type="radio" name="via" id="v2" value="T" />Tramaco
-                                    <input class="via" type="radio" name="via" id="v3" value="M" />MundoExpress
+                                    <input class="via" type="radio" name="radio" id="v1" value="S" />ServiEntrega
+                                    <input class="via" type="radio" name="radio" id="v2" value="T" />Tramaco
+                                    <input class="via" type="radio" name="radio" id="v3" value="M" />MundoExpress
                                 </div>
                                 <div>
                                     <label>Seleccione país de envío:</label>
@@ -283,7 +283,7 @@
 
                                 <div>
                                     <label>Recibir información por correo:</label>
-                                    <input type="checkbox" name="acc1" value="1" id="acc1"
+                                    <input type="checkbox" name="recibir_info" value="1" id="acc1"
                                         class="formItem acc principal" />
                                     
 
@@ -293,7 +293,7 @@
 
                                 <div>
                                     <label>Especificaciones:</label>
-                                    <textarea class="form-control formItem" id="texto" rows="4" cols="100"></textarea>
+                                    <textarea class="form-control formItem" id="texto" rows="4" cols="100"name="especificaciones"></textarea>
                                 </div>
                                 <div class="text-center">
                                     <input type="submit" class="btn btn-primary" value="Enviar">
