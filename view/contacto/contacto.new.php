@@ -106,16 +106,16 @@
                     <h1 style=" color:white; font-family:Arial, Helvetica, sans-serif; text-align: center; ">
                         ¡Escríbenos!</h1>
                     <div class="formulario">
-                        <form id="formContacto">
+                        <form id="formContacto" method="POST" action="index.php?c=Contacto&f=new">
                             <!-- tipo texto -->
                             <div>
                                 <label><b>Nombre: </b></label>
-                                <input type="text" name="nombres" id="nombreid" class="datos"
+                                <input type="text" name="nombre" id="nombreid" class="datos"
                                     placeholder="Escriba su nombre" />
                             </div>
                             <div>
                                 <label><b>Apellido: </b></label>
-                                <input type="text" name="apellidos" id="apellido" class="datos"
+                                <input type="text" name="apellido" id="apellido" class="datos"
                                     placeholder="Escriba su apellido" />
                             </div>
                             <div>
@@ -131,9 +131,9 @@
                             <!-- tipo radio -->
                             <div>
                                 <label><b>Genero:</b></label>
-                                <input type="radio" name="gen" id="g1" class="genero" value="F" /> Femenino
-                                <input type="radio" name="gen" id="g2" class="genero" value="M" /> Masculino
-                                <input type="radio" name="gen" id="g3" class="genero" value="O" /> Otro
+                                <input type="radio" name="radio" id="g1" class="genero" value="1" /> Femenino
+                                <input type="radio" name="radio" id="g2" class="genero" value="2" /> Masculino
+                                <input type="radio" name="radio" id="g3" class="genero" value="3" /> Otro
                             </div>
                             <!-- tipo selec -->
                             <div>
@@ -143,20 +143,12 @@
                                     <option value="1">Soltero</option>
                                     <option value="2">casado</option>
                                     <option value="3">Viudo</option>
-                                    <option value="4">Otro</option>
                                 </select>
                             </div>
                             <!-- tipo checkbox -->
                             <div>
-                                <label><b>¿En que tipo de estampado está interesado?</b></label> <br>
-                                Vinillo de corte <input type="checkbox" name="intereses1" value="1" id="intereses1"
-                                    class="intereses" />
-                                Vinillo impreso <input type="checkbox" name="intereses2" value="2" id="intereses2"
-                                    class="intereses" />
-                                Serigrafía digital <input type="checkbox" name="intereses3" value="3" id="intereses3"
-                                    class="intereses" />
-                                Sublimación <input type="checkbox" name="intereses4" value="4" id="intereses4"
-                                    class="intereses" />
+                                <label><b>Recibir más información sobre la empresa</b></label>
+                                <input type="checkbox" name="intereses" value="1" id="intereses1" class="intereses" />
                             </div>
                             <!-- tipo dato -->
                             <div>
@@ -166,7 +158,7 @@
                             <!-- tipo area de texto -->
                             <div>
                                 <label><b>Dejándonos un comentario</b></label> <br>
-                                <textarea style="width: 60%;" id="texto" rows="4" cols="100" class="contenido"
+                                <textarea style="width: 60%;" id="texto" rows="4" cols="100" name="comentario" class="contenido"
                                     placeholder="Escribe tu comentario"></textarea>
                             </div>
                             <div style="display: flex; justify-content: flex-end; background-color: whitesmoke;">
@@ -197,7 +189,7 @@
         var txtApellido = document.getElementById("apellido");
         var txtCelular = document.getElementById("celularid");
         var txtCorreo = document.getElementById("emailid");
-        var radiosGenero = document.getElementsByName("gen");
+        var radiosGenero = document.getElementsByName("radio");
         /*                     var radioB = document.getElementById("g1"); */
         var selectEstado = document.getElementById("estado");
         var checkboxSuscripcion = document.querySelectorAll(".intereses");
@@ -267,7 +259,7 @@
             }
 
 
-            if (auxCheck == false) { valido = false; alert("Elija un estampado"); }
+            /* if (auxCheck == false) { valido = false; alert("Elija un estampado"); } */
 
             if (selectEstado.selectedIndex == 0) {
                 valido = false;
