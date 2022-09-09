@@ -15,20 +15,21 @@
         .dividir-seccion-uno{
             padding-top: 35px;
         }
-        #newDisenio{
+        .newDisenio{
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             align-items: center;
             background-color: #2B2729;
-            width: 450px;
-            height: 540px;
+            width: 65%;
+            height: 75%;
             color: rgb(255, 255, 255);
             border-radius: 40px;
             padding: 40px;
             margin: 60px;
             box-shadow: 5px 5px #acacac;
         }
+
         #infoDisenio{
             display: grid;
             grid-template-columns: 120px 200px;
@@ -80,7 +81,7 @@
             border-radius: 8px;
         }
         label{
-            color: black;
+            color: #9EE9A1;
             font-weight: bold;
         }
         #enlaces{
@@ -201,15 +202,15 @@
                             <div id="chbxColor">
 
                             
-                                Amarillo <input type="checkbox" <?php echo (($prod->colores) == "Amarillo")? "checked=''":"";?> name="colores" value="1" id="amarillo" class="form colores" >
-                                Azul <input type="checkbox" <?php echo (($prod->colores) == "Azul")? "checked=''":"";?> name="colores" value="2" id="azul" class="form colores" >
-                                Rojo <input type="checkbox" <?php echo (($prod->colores) == "Rojo")? "checked=''":"";?> name="colores" value="3" id="rojo" class="form colores" > 
-                                Verde <input type="checkbox" <?php echo (($prod->colores) == "Verde")? "checked=''":"";?> name="colores" value="4" id="verde" class="form colores" >
-                                Morado <input type="checkbox" <?php echo (($prod->colores) == "Morado")? "checked=''":"";?> name="colores" value="5" id="morado" class="form colores" >
-                                Naranja <input type="checkbox" <?php echo (($prod->colores) == "Naranja")? "checked=''":"";?> name="colores" value="6" id="naranja" class="form colores" > 
-                                Blanco <input type="checkbox" <?php echo (($prod->colores) == "Blanco")? "checked=''":"";?> name="colores" value="7" id="blanco" class="form colores" >
-                                Negro <input type="checkbox" <?php echo (($prod->colores) == "Negro")? "checked=''":"";?> name="colores" value="8" id="negro" class="form colores" >
-                                Gris <input type="checkbox" <?php echo (($prod->colores) == "Gris")? "checked=''":"";?> name="colores" value="9" id="gris" class="form colores" > 
+                                Amarillo <input type="checkbox" <?php echo (($prod->colores) == "amarillo")? "checked=''":"";?> name="colores" value="1" id="amarillo" class="form colores" >
+                                Azul <input type="checkbox" <?php echo (($prod->colores) == "azul")? "checked=''":"";?> name="colores" value="2" id="azul" class="form colores" >
+                                Rojo <input type="checkbox" <?php echo (($prod->colores) == "rojo")? "checked=''":"";?> name="colores" value="3" id="rojo" class="form colores" > 
+                                Verde <input type="checkbox" <?php echo (($prod->colores) == "verde")? "checked=''":"";?> name="colores" value="4" id="verde" class="form colores" >
+                                Morado <input type="checkbox" <?php echo (($prod->colores) == "morado")? "checked=''":"";?> name="colores" value="5" id="morado" class="form colores" >
+                                Naranja <input type="checkbox" <?php echo (($prod->colores) == "naranja")? "checked=''":"";?> name="colores" value="6" id="naranja" class="form colores" > 
+                                Blanco <input type="checkbox" <?php echo (($prod->colores) == "blanco")? "checked=''":"";?> name="colores" value="7" id="blanco" class="form colores" >
+                                Negro <input type="checkbox" <?php echo (($prod->colores) == "negro")? "checked=''":"";?> name="colores" value="8" id="negro" class="form colores" >
+                                Gris <input type="checkbox" <?php echo (($prod->colores) == "gris")? "checked=''":"";?> name="colores" value="9" id="gris" class="form colores" > 
                             </div>
 
 
@@ -264,7 +265,8 @@
                             
                             <div>
                                 <input type="submit" class="form botones" value="Actualizar" onclick="if (!confirm('¿Está seguro de Editar el Diseño de Producto?')) return false;" >   
-                                <a class="btndisenio" href="index.php?c=Productos&f=view_list">CANCELAR</a>
+                                <a class="btndisenio" href="index.php?c=Productos&f=view_list" style="background-color: white; border-radius: 30px; 
+                                padding: 1px; border-color:2px solid black; text-decoration:none; color:black;"> Cancelar</a>
                             </div>
 
 

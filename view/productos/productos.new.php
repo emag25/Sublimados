@@ -29,14 +29,14 @@
             text-decoration: none;
             font-weight: bold;
         }
-        #newDisenio{
+        .newDisenio{
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             align-items: center;
             background-color: #2B2729;
-            width: 450px;
-            height: 540px;
+            width: 65%;
+            height: 75%;
             color: rgb(255, 255, 255);
             border-radius: 40px;
             padding: 40px;
@@ -80,7 +80,7 @@
             border-radius: 8px;
         }
         label{
-            color: black;
+            color: #9EE9A1;
             font-weight: bold;
         }
         #enlaces{
