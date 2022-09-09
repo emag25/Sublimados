@@ -56,12 +56,12 @@ class ReseniasDAO {
         
             $sentencia = $this->con->prepare($sql);
             $data = [
-            'nombre' =>  $res->getNombre(),
-            'email' =>  $res->getEmail(),
-            'valoracion' =>  $res->getValoracion(),
-            'servicio' =>  $res->getServicio(),
-            'nuevaResenia' =>  $res->getResenia(),
-            'recibiremail' =>  $res->getRecibirPromo()
+                'nombre' =>  $res->getNombre(),
+                'email' =>  $res->getEmail(),
+                'valoracion' =>  $res->getValoracion(),
+                'servicio' =>  $res->getServicio(),
+                'nuevaResenia' =>  $res->getResenia(),
+                'recibiremail' =>  $res->getRecibirPromo()
             ];
             $sentencia->execute($data);
             
@@ -96,21 +96,20 @@ class ReseniasDAO {
                                        resenia = :nuevaResenia, recibir_promo = :recibiremail WHERE resenia_id=:id";
 
             $sentencia = $this->con->prepare($sql);
-            $data = [
-            'id' =>  $res->getReseniaId(),
-            'nombre' =>  $res->getNombre(),
-            'email' =>  $res->getEmail(),
-            'valoracion' =>  $res->getValoracion(),
-            'servicio' =>  $res->getServicio(),
-            'nuevaResenia' =>  $res->getResenia(),
-            'recibiremail' =>  $res->getRecibirPromo()
+            $data = [            
+                'nombre' =>  $res->getNombre(),
+                'email' =>  $res->getEmail(),
+                'valoracion' =>  $res->getValoracion(),
+                'servicio' =>  $res->getServicio(),
+                'nuevaResenia' =>  $res->getResenia(),
+                'recibiremail' =>  $res->getRecibirPromo(),
+                'id' =>  $res->getReseniaId()
             ];
             $sentencia->execute($data);
 
             if ($sentencia->rowCount() <= 0) {
                 return false;
             }
-
         }catch(Exception $e){
             return false;
         }    
@@ -126,9 +125,7 @@ class ReseniasDAO {
         try{        
             $sql = "DELETE FROM resenia WHERE resenia_id = :id";
             $sentencia = $this->con->prepare($sql); 
-            $data = [
-                'id' =>  $res->getReseniaId(),                
-            ];
+            $data = ['id' =>  $res->getReseniaId()];
             $sentencia->execute($data);
    
             if ($sentencia->rowCount() <= 0) {
@@ -138,6 +135,5 @@ class ReseniasDAO {
             return false;
         }
         return true;
-    }
-    
+    }    
 }

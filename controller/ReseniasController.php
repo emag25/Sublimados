@@ -145,10 +145,10 @@ class ReseniasController {
       }
 
       if ($exito) {
-        $_SESSION['mensaje'] = "Reseña modificada exitosamente!";
-        $_SESSION['color'] = "azul";
+        $_SESSION['mensaje'] = "Reseña editada exitosamente!";
+        $_SESSION['color'] = "azul";        
       }else{
-        $_SESSION['mensaje'] = "ERROR: No se pudo guardar la reseña. Intentalo de nuevo.";
+        $_SESSION['mensaje'] = "ERROR: No se pudo editar la reseña. Intentalo de nuevo.";
         $_SESSION['color'] = "rojo";
       }
 
