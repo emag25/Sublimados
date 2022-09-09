@@ -196,13 +196,17 @@
                                 <input type="radio" class="ms" id="anime" name="modelo" value="an"/> Anime
                             </div>
 
+
                             <div>
-                                <input type="checkbox" id="estado" name="estado" />
-                                <label style="font-size: 10pt;">Activo</label>
+                                <label class="form"> <b> ESTADO: </b>  </label>
+                            </div> 
+                            <div>
+                                <input type="radio" class="ms" id="creado" name="estado" value="1"/> Creado 
+                                <input type="radio" class="ms" id="proceso" name="estado" value="2"/> En Proceso 
                             </div>
 
                             <div>
-                                <input type="submit" class="form botones" value="Enviar" >   
+                                <input type="submit" class="form botones" value="Guardar" >   
                             </div>
 
 
@@ -229,6 +233,8 @@
             var txtCliente = document.getElementById("txtCliente");
             var cbxDisenio = document.getElementById("cbxDisenio");
             var rbModelo = document.getElementsByName("modelo");
+            var rbEstado = document.getElementsByName("estado");
+
     
             var letra = /^[a-z ,.'-]+$/i;
             var telefono = /^[09]+[0-9]{8}$/g;
@@ -272,7 +278,19 @@
                 valido = false;
                 mensaje("DEBE SELECCIONAR UN TIPO DE MODELO PARA PLASMAR EN SU PRODUCTO", rbModelo[0]);
             }
-            
+            //ESTADO
+            var sel = false;
+            for (let i = 0; i < rbEstado.length; i++) {
+                if (rbEstado[i].checked) {
+                    sel = true;
+                //  let res=rbEstado[i].value;
+                break;
+                }
+            }
+            if (!sel) {
+                valido = false;
+                mensaje("DEBE SELECCIONAR EL ESTADO", rbEstado[0]);
+            }
             return valido;
         }
         function mensaje(cadenaMensaje, elemento) {

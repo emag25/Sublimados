@@ -212,6 +212,7 @@
                         <th>DISEÑO</th>
                         <th>MODELO</th>
                         <th>ESTADO</th>
+                        <th>ACCIONES</th>
                     </thead>
                 <tbody>
 
@@ -221,11 +222,35 @@
 
                 <tr>
                     <td><?php echo $fila->disenio_id;?></td>
-                    <td><?php if ($fila->producto == 1) echo "Camiseta"; else echo $fila->producto; ?></td>
+                    <td>
+                        <?php 
+                            if ($fila->producto == 1) {
+                                echo "Camiseta"; 
+                            }else {
+                                echo $fila->producto; 
+                            }
+                        ?>
+                        </td>
                     <td><?php echo $fila->cliente;?></td>
-                    <td><?php if ($fila->disenio == 1) echo "Personalizado"; else echo $fila->disenio; ?></td>
+                    <td>
+                        <?php 
+                            if ($fila->disenio == 1) {
+                                echo "Personalizado"; 
+                            }else {
+                                echo $fila->disenio; 
+                            }
+                        ?>
+                    </td>
                     <td><?php echo $fila->modelo;?></td>
-                    <td><?php if ($fila->estado == 1) echo "Creado"; else echo "En Proceso";?></td>
+                    <td>
+                        <?php 
+                            if ($fila->estado == 1 ) {
+                                echo "Creado"; 
+                            }else {
+                                echo "En proceso";
+                            }
+                        ?>
+                        </td>
                     <td>
                         <a class="accion-boton editar" href="index.php?c=Productos&f=view_edit&id=<?php echo $fila->disenio_id;?>"><i class='bx bxs-pencil' ></i></a>
                         <a class="accion-boton borrar" href="index.php?c=Productos&f=delete&id=<?php echo $fila->disenio_id;?>" 

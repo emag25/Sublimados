@@ -230,6 +230,15 @@
                             </div>
 
                             <div>
+                                <label class="form"> <b> ESTADO: </b>  </label>
+                            </div> 
+                            <div>
+                                <input type="radio" class="ms" id="creado" name="estado" value="1"/> Creado 
+                                <input type="radio" class="ms" id="proceso" name="estado" value="2"/> En Proceso 
+                            </div>
+
+                            
+                            <div>
                                 <input type="submit" class="form botones" value="Actualizar" onclick="if (!confirm('¿Está seguro de Editar el Diseño de Producto?')) return false;" >   
                                 <a class="btndisenio" href="index.php?c=Productos&f=view_list">CANCELAR</a>
                             </div>
