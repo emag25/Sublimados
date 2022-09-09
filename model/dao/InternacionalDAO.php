@@ -1,5 +1,7 @@
+<!--  AUTOR: YANEZ GUILLEN PAULA ADRIANA  -->
+
 <?php
-// dao data access object
+
 require_once 'config/Conexion.php';
 
 class InternacionalDAO {

@@ -1,3 +1,8 @@
+<!--  AUTORES:
+      1. ELIZALDE GAIBOR MILTON ALEXANDER   (DOMICILIO)  
+      2. YANEZ GUILLEN PAULA ADRIANA    (INTERNACIONAL)  
+-->
+
 <?php
 require_once 'model/dao/InternacionalDAO.php';
 require_once 'model/dto/Internacional.php';

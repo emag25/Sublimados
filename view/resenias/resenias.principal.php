@@ -1,3 +1,5 @@
+<!--   AUTOR: APRAEZ GONZALEZ EMELY MISHELL  -->
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -5,7 +7,6 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <meta name="description" content="ESTA PAGINA CONTIENE LAS RESEÑAS DE LOS CLIENTES DE LA EMPRESA.">
     <meta name="keywords" content="Sublimados, Estampados, Camisetas, Tazas, Reseñas">
     <link rel="stylesheet" href="assets/css/style.css">

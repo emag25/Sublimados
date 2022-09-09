@@ -1,3 +1,5 @@
+<!--  AUTOR: ELIZALDE GAIBOR MILTON ALEXANDER  -->
+
 <?php
 
 require_once 'config/Conexion.php';

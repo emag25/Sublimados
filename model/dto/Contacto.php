@@ -1,3 +1,5 @@
+<!--  AUTOR: QUITO YAMBAY RUTH MARIA  -->
+
 <?php
 // dto data transfer object
 class Contacto {

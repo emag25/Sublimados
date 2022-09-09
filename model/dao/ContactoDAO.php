@@ -1,5 +1,7 @@
+<!--  AUTOR: QUITO YAMBAY RUTH MARIA  -->
+
 <?php
-// dao data access object
+
 require_once 'config/Conexion.php';
 
 class ContactoDAO {

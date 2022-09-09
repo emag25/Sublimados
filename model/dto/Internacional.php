@@ -1,7 +1,9 @@
+<!--  AUTOR: YANEZ GUILLEN PAULA ADRIANA  -->
+
 <?php
-// dto data transfer object
+
 class Internacional {
-    //properties
+  
     private $id, $nombre,$apellido,$telefono, $email, $direccion, 
     $via, $pais, $info,$esp;
 
