@@ -126,9 +126,12 @@
 </head>
 <body>
     <div class="contenedor-principal">
-    <?php require_once HEADER; ?>
-        
-    
+    <?php 
+    if(!isset($_SESSION)){ 
+        session_start();
+    } 
+    require_once HEADER;
+    ?>       
         <main>
             <section class="seccion-primero">
                 <div class="dividir-seccion-uno">
@@ -181,6 +184,7 @@
                         <th>TIPO ENVIO</th>
                         <th>PRODUCTOS</th>
                         <th>CIUDAD</th>
+                        <th>ACCIONES</th>
                     </thead>
                     <tbody>
                         <?php   

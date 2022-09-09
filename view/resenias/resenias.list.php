@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -24,9 +24,12 @@
 <body>
     <div class="contenedor-principal">
         
-        <?php if(!isset($_SESSION)){ 
-        session_start();
-      }; require_once HEADER; ?>
+        <?php 
+        if(!isset($_SESSION)){ 
+            session_start();
+        } 
+        require_once HEADER;
+        ?>
         <main>
             <section class="seccion-primero">
                 <div class="dividir-seccion-uno">

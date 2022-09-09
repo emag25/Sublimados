@@ -22,9 +22,12 @@
 
 <body>
     <div class="contenedor-principal">
-    <?php require_once HEADER; ?>
-
-
+    <?php 
+    if(!isset($_SESSION)){ 
+        session_start();
+    } 
+    require_once HEADER;
+    ?>
         <main>
             <section class="seccion-primero">
                 <div class="dividir-seccion-uno">
@@ -75,9 +78,7 @@
                     unset($_SESSION['color']);
                 }
                 ?>
-        <table >
-            <thead >
- 
+                <table> 
                     <thead>
                         <th>ID</th>
                         <th>NOMBRES</th>

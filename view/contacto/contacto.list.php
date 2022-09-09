@@ -88,7 +88,7 @@
                             <th>INTERESES</th>
                             <th>FECHA DE NACIMIENTO</th>
                             <th>COMENTARIO</th>                       
-                            <th>ACCION</th>
+                            <th>ACCIONES</th>
                         </tr>
                     </thead>
                     <tbody>
