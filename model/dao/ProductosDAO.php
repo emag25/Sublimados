@@ -8,16 +8,6 @@ class ProductosDAO {
         $this->con = Conexion::getConexion();
     }
 
-    public function selectByState() {      
-        $sql = "SELECT * FROM disenio_producto WHERE estado = :state";
-        $stmt = $this->con->prepare($sql);
-        $data = ['state' => '1'];
-        $stmt->execute($data);
-        $resultados = $stmt->fetchAll(PDO::FETCH_OBJ);
-        
-        return $resultados;
-    }
-
     // CONSULTAR DISEÑO DE PRODUCTO
     public function selectAll() {      
         $sql = "SELECT * FROM disenio_producto";
