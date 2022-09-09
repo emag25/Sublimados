@@ -147,7 +147,7 @@
                                 <label class="form"> <b> PRODUCTO: </b>  </label>
                             </div>
                             <div>
-                                <select name="productos" id="cbxProductos" class="form fi"
+                                <select name="producto" id="producto" class="form fi"
                                     style="height: 30px; width: 200px;" onmouseover="mostrarError('producto')"
                                     onmouseout="ocultarError('producto')">    
                                     <option value="0">Seleccione...</option>
@@ -155,7 +155,7 @@
                                     <option value="2">Abrigo</option>
                                     <option value="3">Gorra</option>
                                     <option value="4">Taza</option>
-                                    <option value="4">Bolso</option>
+                                    <option value="5">Bolso</option>
                                 </select> 
                             </div>
 
@@ -165,7 +165,7 @@
                                 <label class="form"> <b> CLIENTE: </b>  </label>
                             </div>
                             <div>
-                                <input type="text" name="cliente" id="txtCliente" class="form fi" placeholder="Ingresar Nombre Cliente"
+                                <input type="text" name="cliente" id="cliente" class="form fi" placeholder="Ingresar Nombre Cliente"
                                 style="height: 20px; width: 200px;" onmouseover="mostrarError('cliente')"
                                     onmouseout="ocultarError('cliente')">
                             </div>
@@ -175,7 +175,7 @@
                                 <label class="form"> <b> TELÉFONO CLIENTE: </b>  </label>
                             </div>
                             <div>
-                                <input type="text" name="telefono" id="txtTelefono" class="form fi" placeholder="Ingresar Teléfono Cliente"
+                                <input type="text" name="telefono" id="telefono" class="form fi" placeholder="Ingresar Teléfono Cliente"
                                 style="height: 20px; width: 200px;" onmouseover="mostrarError('telefono')"
                                     onmouseout="ocultarError('telefono')">
                             </div>
@@ -185,15 +185,15 @@
                                 <label class="form"> <b> COLORES DISPONIBLES: </b> </label>
                             </div>
                             <div id="chbxColor">
-                                Amarillo <input type="checkbox" name="colores" value="1" id="amarillo" class="form color">
-                                Azul <input type="checkbox" name="colores" value="2" id="azul" class="form color">
-                                Rojo <input type="checkbox" name="colores" value="3" id="rojo" class="form color"> 
-                                Verde <input type="checkbox" name="colores" value="4" id="verde" class="form color">
-                                Morado <input type="checkbox" name="colores" value="5" id="morado" class="form color">
-                                Naranja <input type="checkbox" name="colores" value="6" id="naranja" class="form color"> 
-                                Blanco <input type="checkbox" name="colores" value="7" id="blanco" class="form color">
-                                Negro <input type="checkbox" name="colores" value="8" id="negro" class="form color">
-                                Gris <input type="checkbox" name="colores" value="9" id="gris" class="form color"> 
+                                Amarillo <input type="checkbox" name="colores[]" value="1" id="amarillo" class="form colores">
+                                Azul <input type="checkbox" name="colores[]" value="2" id="azul" class="form colores">
+                                Rojo <input type="checkbox" name="colores[]" value="3" id="rojo" class="form colores"> 
+                                Verde <input type="checkbox" name="colores[]" value="4" id="verde" class="form colores">
+                                Morado <input type="checkbox" name="colores[]" value="5" id="morado" class="form colores">
+                                Naranja <input type="checkbox" name="colores[]" value="6" id="naranja" class="form colores"> 
+                                Blanco <input type="checkbox" name="colores[]" value="7" id="blanco" class="form colores">
+                                Negro <input type="checkbox" name="colores[]" value="8" id="negro" class="form colores">
+                                Gris <input type="checkbox" name="colores[]" value="9" id="gris" class="form colores"> 
                             </div>
 
 
@@ -201,7 +201,7 @@
                                 <label class="form"> <b> DISEÑO: </b> </label>
                             </div>
                             <div>
-                                <select name="diseño" id="cbxDisenio" class="form"
+                                <select name="disenio" id="disenio" class="form"
                                 style="height: 30px; width: 200px;" onmouseover="mostrarError('disenio')"
                                     onmouseout="ocultarError('disenio')">
                                     <option value="0">Seleccione...</option>
@@ -227,7 +227,7 @@
                                 <label class="form"> <b> OBSERVACIONES: </b> </label>
                             </div>
                             <div>
-                                <textarea name="observaciones" id="obs" cols="100" rows="3" class="form" placeholder="Ingrese sus Observaciones"
+                                <textarea name="observaciones" id="observaciones" cols="100" rows="3" class="form" placeholder="Ingrese sus Observaciones"
                                 onmouseover="mostrarError('observaciones')"
                                     onmouseout="ocultarError('observaciones')"></textarea>
                             </div> 
@@ -250,103 +250,153 @@
     </div>
     <script type="text/javascript">
 
-        var formulario = document.getElementById("creaDisenio").addEventListener('submit', validar);
+        var valido = true;
+        
+        var formulario = document.getElementById("creaDisenio").addEventListener('submit', enviarDatos);
 
-        function validar(event){
-
-            var valido = true;
-    
-            //OBTENER ELEMENTOS 
-            var cbxProducto = document.getElementById("cbxProductos");
-            var txtCliente = document.getElementById("txtCliente");
-            var txtTelefono = document.getElementById("txtTelefono");
-            var chbxColor = document.getElementsByClassName("color");
-            var cbxDisenio = document.getElementById("cbxDisenio");
-            var rbModelo = document.getElementsByName("modelo");
-            var txtaObservacion = document.getElementById("obs");
-
+        //OBTENER ELEMENTOS 
+        var producto = document.getElementById("producto");
+        var cliente = document.getElementById("cliente");
+        var telefono = document.getElementById("telefono");
+        var colores = document.getElementsByClassName("colores");
+        var disenio = document.getElementById("disenio");
+        var modelo = document.getElementsByName("modelo");
+        var observaciones = document.getElementById("observaciones");
+        let arreglo_errores=[];
     
             var letra = /^[a-z ,.'-]+$/i;
             var telefono = /^[09]+[0-9]{8}$/g;
 
-    
+            function enviarDatos(e){
+            let rbMod=false;
+            for(option of modelo){
+                if(option.checked){
+                    rbMod=true;
+                }
+            }
+            let chbxCol=false;
+            for(check of colores){
+                if(check.checked){
+                    chbxCol=true;
+                }
+            }
+            if(rbMod==false){
+                valido=false;
+                arreglo_errores.push("modelo");
+            }
+            if(chbxCol==false){
+                valido=false;
+                arreglo_errores.push("colores");
+            }
+            if(observaciones.value.length==0){
+                valido=false;
+                arreglo_errores.push("observaciones");
+            }
+            if(producto.selectedIndex==0){
+                valido=false;
+                arreglo_errores.push("producto");
+            }
+            if(disenio.selectedIndex==0){
+                valido=false;
+                arreglo_errores.push("disenio");
+            }
+
+            if(valido==true){
+                alert("ENVIO EXITOSO");
+            }else{
+                alert("ERROR: VERIFIQUE LA INFORMACION EN LOS CAMPOS");
+                let errores;
+                for(dato of arreglo_errores){
+                    errores+dato+" ";
+                }
+                errores=errores.replace("undefined","");
+                alert(errores);
+                arreglo_errores=[];
+                e.preventDefault();
+            }
+            valido=true;
+        }
+
             depurar();
 
             //VALIDACIONES
             //PRODUCTO
-            if (cbxProducto.value === null || cbxProducto.value === '0') {
+            if (producto.value === null || producto.value === '0') {
                 valido = false;
-                mensaje("DEBE SELECCIONAR UN PRODUCTO", cbxProducto);
+                mensaje("DEBE SELECCIONAR UN PRODUCTO", producto);
             }
+
             //CLIENTE
-            if (txtCliente.value === ''){
+            if (cliente.value === ''){
                 valido = false;
-                mensaje("DEBE INGRESAR NOMBRE DE CLIENTE" txtCliente);
-            }else if (!letra.test (txtCliente.value)){
+                mensaje("DEBE INGRESAR NOMBRE DE CLIENTE" cliente);
+            }else if (!letra.test (cliente.value)){
                 valido = false;
-                mensaje("EL NOMBRE DEBE CONTENER SOLO LETRAS", txtCliente);
-            }else if (txtCliente.value.length >20){
+                mensaje("EL NOMBRE DEBE CONTENER SOLO LETRAS", cliente);
+            }else if (cliente.value.length >20){
                 valido = false;
-                mensaje("EL NOMBRE DEBE CONTENER MÁXIMO 20 CARACTERES", txtCliente); 
+                mensaje("EL NOMBRE DEBE CONTENER MÁXIMO 20 CARACTERES", cliente); 
             }
             
             //TELEFONO
-            if (txtTelefono.value === "") {
+            if (telefono.value === "") {
                 valido = false;
-                mensaje("DEBE INGRESAR TELEFONO", txtTelefono);
-            } else if (!telefono.test(txtTelefono.value)) {
+                mensaje("DEBE INGRESAR TELEFONO", telefono);
+            } else if (!telefono.test(telefono.value)) {
                 valido = false;
-                mensaje("NUMERO DE TELEFONO INCORRECTO", txtTelefono);
+                mensaje("NUMERO DE TELEFONO INCORRECTO", telefono);
             }
+
             //COLORES
             sel = false; 
             cont=0; 
-            for (let i = 0; i < chbxColor.length; i++) {
-                if (chbxColor[i].checked) {
+            for (let i = 0; i < colores.length; i++) {
+                if (colores[i].checked) {
                     cont++;
                     sel = true;
-                    if (chbxColor[i].value === '1') {
+                    if (colores[i].value === '1') {
                         alert("DEBE SELECCIONAR MÁS OPCIONES DE COLOR");
                     }
                 }
             }
             if (!sel) {
                 valido = false;
-                mensaje("DEBE SELECCIONAR OPCIONES DE COLOR", chbxColor[0]);
+                mensaje("DEBE SELECCIONAR OPCIONES DE COLOR", colores[0]);
             }
             if (cont<3) {
                 valido = false;
-                mensaje("DEBE SELECCIONAR AL MENOS 3 COLORES", chbxColor[0]);
+                mensaje("DEBE SELECCIONAR AL MENOS 3 COLORES", colores[0]);
             }
+
             //DISEÑO
-            if (cbxDisenio.value === null || cbxDisenio.value === '0') {
+            if (disenio.value === null || disenio.value === '0') {
                 valido = false;
-                mensaje("DEBE SELECCIONAR UNA OPCIÓN DE DISEÑO PARA SU PRODUCTO", cbxDisenio);
+                mensaje("DEBE SELECCIONAR UNA OPCIÓN DE DISEÑO PARA SU PRODUCTO", disenio);
             }
             //MODELO
             var sel = false;
-            for (let i = 0; i < rbModelo.length; i++) {
-                if (rbModelo[i].checked) {
+            for (let i = 0; i < modelo.length; i++) {
+                if (modelo[i].checked) {
                     sel = true;
-                //  let res=rbModelo[i].value;
+                //  let res=modelo[i].value;
                 break;
                 }
             }
             if (!sel) {
                 valido = false;
-                mensaje("DEBE SELECCIONAR UN TIPO DE MODELO PARA PLASMAR EN SU PRODUCTO", rbModelo[0]);
+                mensaje("DEBE SELECCIONAR UN TIPO DE MODELO PARA PLASMAR EN SU PRODUCTO", modelo[0]);
             }
             //OBSERVACIONES
-            if(txtaObservacion.value === ''){
+            if(observaciones.value === ''){
                 valido = false;
-                mensaje("DEBE INGRESAR SUS OBSERVACIONES",txtaObservacion);
-            }else if(txtaObservacion.value.length >100){
+                mensaje("DEBE INGRESAR SUS OBSERVACIONES",observaciones);
+            }else if(observaciones.value.length >100){
                 valido = false;
-                mensaje("LAS OBSERVACIONES DEBEN CONTENER MÁXIMO 100 CARACTERES", txtaObservacion); 
+                mensaje("LAS OBSERVACIONES DEBEN CONTENER MÁXIMO 100 CARACTERES", observaciones); 
             }
             return valido;
 
-        }
+        
         function mensaje(cadenaMensaje, elemento) {
             elemento.focus();
             elemento.style.boxShadow = '0 0 5px red, 0 0 5px red';
@@ -363,26 +413,26 @@
             nodoMensaje.setAttribute("class", "mensajeError");
 
             switch (elemento.id) {
-                case "cbxProducto":
+                case "producto":
                     nodoMensaje.setAttribute("id", "error-producto");
                     break;
-                case "txtCliente":
+                case "cliente":
                     nodoMensaje.setAttribute("id", "error-cliente");
                     break;
-                case "txtTelefono":
+                case "telefono":
                     nodoMensaje.setAttribute("id", "error-telefono");
                     break;
-                case "chbxColor":
+                case "colores":
                     nodoMensaje.setAttribute("id", "error-color");
                     break;
-                case "cbxDisenio":
+                case "disenio":
                     nodoMensaje.setAttribute("id", "error-disenio");
                     break;
-                case "rb":
+                case "modelo":
                     nodoMensaje.style.marginTop = '-35px';
                     nodoMensaje.setAttribute("id", "error-modelo");
                     break;
-                case "obs":
+                case "observaciones":
                     nodoMensaje.setAttribute("id", "error-observaciones");
                     break;
                 default:

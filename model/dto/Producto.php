@@ -70,7 +70,7 @@ class Producto {
         $this->modelo = $modelo;
     }
 
-    function setObservaciones($Observaciones) {
+    function setObservaciones($observaciones) {
         $this->observaciones = $observaciones;
     }
 
