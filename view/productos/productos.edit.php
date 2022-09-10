@@ -308,177 +308,102 @@
     </div>
     <script type="text/javascript">
 
-        var formulario = document.getElementById("creaDisenio").addEventListener('submit', validar);
-        
-        function validar(event){
-
+        var myForm=document.getElementById("creaDisenio");
+            myForm.addEventListener("submit",validar);
+        function validar(e){
+            
             var valido = true;
-
+    
+            //OBTENER ELEMENTOS 
+            var cbxProducto = document.getElementById("producto");
+            var txtNombre = document.getElementById("cliente");
+            var txtTelefono = document.getElementById("telefono");
+            var chbxColor = document.getElementsByClassName("colores");
+            var cbxDiseño = document.getElementById("disenio");
+            var rbModelo = document.getElementsByName("modelo");
+            var txtaObservacion = document.getElementById("observaciones");
+    
             var letra = /^[a-z ,.'-]+$/i;
             var telefono = /^[09]+[0-9]{8}$/g;
-
-            //OBTENER ELEMENTOS 
-            var producto = document.getElementById("producto");
-            var cliente = document.getElementById("cliente");
-            var telefono = document.getElementById("telefono");
-            var colores = document.getElementsByClassName("colores");
-            var disenio = document.getElementById("disenio");
-            var modelo = document.getElementsByName("modelo");
-            var observaciones = document.getElementById("observaciones");
-            
-            limpiar();
-
+    
             //VALIDACIONES
             //PRODUCTO
-            if (producto.value === null || producto.value === '0') {
+            if (cbxProducto.value === null || cbxProducto.value === '0') {
                 valido = false;
-                mensaje("DEBE SELECCIONAR UN PRODUCTO", producto);
+                mensaje("DEBE SELECCIONAR UN PRODUCTO", cbxProducto);
             }
-
-            //CLIENTE
-            if (cliente.value === ''){
+            //NOMBRE
+            if(txtNombre.value === ''){
                 valido = false;
-                mensaje("DEBE INGRESAR NOMBRE DE CLIENTE" cliente);
-            }else if (!letra.test (cliente.value)){
+                mensaje("DEBE INGRESAR SU NOMBRE",txtNombre);
+            }else if (!letra.test(txtNombre.value)){
                 valido = false;
-                mensaje("EL NOMBRE DEBE CONTENER SOLO LETRAS", cliente);
-            }else if (cliente.value.length >20){
+                mensaje("EL NOMBRE DEBE CONTENER SOLO LETRAS", txtNombre);
+            }else if(txtNombre.value.length >20){
                 valido = false;
-                mensaje("EL NOMBRE DEBE CONTENER MÁXIMO 20 CARACTERES", cliente); 
+                mensaje("EL NOMBRE DEBE CONTENER MÁXIMO 20 CARACTERES", txtNombre); 
             }
-            
             //TELEFONO
-            if (telefono.value === "") {
+            if (txtTelefono.value === "") {
                 valido = false;
-                mensaje("DEBE INGRESAR TELEFONO", telefono);
-            } else if (!telefono.test(telefono.value)) {
+                mensaje("DEBE INGRESAR TELEFONO", txtTelefono);
+            } else if (!telefono.test(txtTelefono.value)) {
                 valido = false;
-                mensaje("NUMERO DE TELEFONO INCORRECTO", telefono);
+                mensaje("NUMERO DE TELEFONO INCORRECTO", txtTelefono);
             }
-
             //COLORES
             sel = false; 
             cont=0; 
-            for (let i = 0; i < colores.length; i++) {
-                if (colores[i].checked) {
+            for(valor of chbxColor){
+                if(valor.checked){
                     cont++;
-                    sel = true;
-                    if (colores[i].value === '1') {
-                        alert("DEBE SELECCIONAR MÁS OPCIONES DE COLOR");
-                    }
                 }
             }
-            if (!sel) {
-                valido = false;
-                mensaje("DEBE SELECCIONAR OPCIONES DE COLOR", colores[0]);
+            if(cont==0){
+                valido=false;
+                alert("SELECCIONE AL MENOS UN COLOR");
             }
-            if (cont<3) {
-                valido = false;
-                mensaje("DEBE SELECCIONAR AL MENOS 3 COLORES", colores[0]);
-            }
-
             //DISEÑO
-            if (disenio.value === null || disenio.value === '0') {
+            if (cbxDiseño.value == 0) {
                 valido = false;
-                mensaje("DEBE SELECCIONAR UNA OPCIÓN DE DISEÑO PARA SU PRODUCTO", disenio);
+                mensaje("DEBE SELECCIONAR UNA OPCIÓN DE DISEÑO PARA SU PRODUCTO", cbxDiseño);
             }
             //MODELO
             var sel = false;
-            for (let i = 0; i < modelo.length; i++) {
-                if (modelo[i].checked) {
+            for (let i = 0; i < rbModelo.length; i++) {
+                if (rbModelo[i].checked) {
                     sel = true;
-                //  let res=modelo[i].value;
+                //  let res=rbModelo[i].value;
                 break;
                 }
             }
             if (!sel) {
                 valido = false;
-                mensaje("DEBE SELECCIONAR UN TIPO DE MODELO PARA PLASMAR EN SU PRODUCTO", modelo[0]);
+                mensaje("DEBE SELECCIONAR UN TIPO DE MODELO PARA PLASMAR EN SU PRODUCTO", rbModelo[0]);
             }
             //OBSERVACIONES
-            if(observaciones.value === ''){
+            if(txtaObservacion.value === ''){
                 valido = false;
-                mensaje("DEBE INGRESAR SUS OBSERVACIONES",observaciones);
-            }else if(observaciones.value.length >100){
+                mensaje("DEBE INGRESAR SUS OBSERVACIONES",txtaObservacion);
+            }else if(txtaObservacion.value.length >100){
                 valido = false;
-                mensaje("LAS OBSERVACIONES DEBEN CONTENER MÁXIMO 100 CARACTERES", observaciones); 
+                mensaje("LAS OBSERVACIONES DEBEN CONTENER MÁXIMO 100 CARACTERES", txtaObservacion); 
             }
-            if (!valido) {
-                event.preventDefault();
+
+            console.log(valido);
+            if(valido){
+                window.alert("FORMULARIO ENVIADO EXITOSAMENTE");
+                return valido;
+            }else{
+                e.preventDefault();
             }
+            valido=true;
         }
-        
         function mensaje(cadenaMensaje, elemento) {
-
             elemento.focus();
-            elemento.style.boxShadow = '0 0 5px red, 0 0 5px red';
-
-            if (elemento.id === "rb") {
-                var nodoPadre = elemento;
-            } else {
-                var nodoPadre = elemento.parentNode;
-            }
-        
-            var nodoMensaje = document.createElement("div");
-            nodoMensaje.textContent = cadenaMensaje;
-            nodoMensaje.setAttribute("class", "mensajeError");
-    
-            switch (elemento.id) {
-                case "producto":
-                    nodoMensaje.setAttribute("id", "error-producto");
-                    break;
-                case "cliente":
-                    nodoMensaje.setAttribute("id", "error-cliente");
-                    break;
-                case "telefono":
-                    nodoMensaje.setAttribute("id", "error-telefono");
-                    break;
-                case "chbxColor":
-                    nodoMensaje.setAttribute("id", "error-colores");
-                    break;
-                case "disenio":
-                    nodoMensaje.setAttribute("id", "error-disenio");
-                    break;
-                case "rb":
-                    nodoMensaje.style.marginTop = '-35px';
-                    nodoMensaje.setAttribute("id", "error-modelo");
-                    break;
-                case "observaciones":
-                    nodoMensaje.style.marginTop = '-180px';
-                    nodoMensaje.style.marginLeft = '330px';
-                    nodoMensaje.setAttribute("id", "error-observaciones");
-                    break;
-                default:
-                    break;
-            }
-            nodoPadre.appendChild(nodoMensaje);
-            nodoMensaje.style.visibility = 'hidden';
-        }
-        function limpiar() {            
-            var mensajes = document.querySelectorAll(".mensajeError");
-            let a = mensajes.length - 1;
-            for (let i = a; i > -1; i--) {
-                mensajes[i].remove();
-            }
-
-            var boxes = document.querySelectorAll(".box");
-            let b = boxes.length - 1;
-            for (let i = b; i > -1; i--) {
-                boxes[i].style.boxShadow = '0 0 0';
-            }
-        }
-        
-        function mostrarError(nombre) {
-            if (document.querySelector("#error-" + nombre) !== null) {
-                document.querySelector("#error-" + nombre).style.visibility = 'visible';
-            }
+            window.alert(cadenaMensaje);
         }
 
-        function ocultarError(nombre) {
-            if (document.querySelector("#error-" + nombre) !== null) {
-                document.querySelector("#error-" + nombre).style.visibility = 'hidden';
-            }
-        }
     </script>
 </body>
 </html>
