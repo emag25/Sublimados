@@ -240,6 +240,11 @@ class ProductosController {
 
       
       $exito = $this->model->update($prod);
+      if($exito){
+        echo "si";
+      }else{
+        echo "no";
+      }
       $msj = 'Producto actualizado exitosamente';
       $color = 'primary';
       if (!$exito) {
@@ -250,14 +255,6 @@ class ProductosController {
       $_SESSION['mensaje'] = $msj;
       $_SESSION['color'] = $color;
 
-      echo $prod->getDisenioId();
-      echo $prod->getProducto();
-      echo $prod->getCliente();
-      echo $prod->getTelefono();
-      echo $prod->getColores();
-      echo $prod->getDisenio();
-      echo $prod->getModelo();
-      echo $prod->getObservaciones();
       
       //header('Location:index.php?c=Productos&f=view_list');           
     } 

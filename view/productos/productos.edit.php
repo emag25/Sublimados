@@ -201,7 +201,41 @@
                                 <label class="form"> <b> COLORES DISPONIBLES: </b> </label>
                             </div>
                             <div id="chbxColor">
-
+                            <?php      
+                                    $amarillo = ""; $azul = ""; $rojo = ""; $verde = ""; $morado = ""; $naranja = "";$blanco = "";$negro = "";$gris = "";                            
+                                    $colores = explode(" ", $prod->colores);
+                                    
+                                    foreach ($colores as $p){                                    
+                                        if($p == "amarillo"){
+                                            $amarillo = 'checked = "checked"';                                        
+                                        }else if ($p == "azul"){
+                                            $azul = 'checked = "checked"';                                        
+                                        }else if ($p == "rojo"){
+                                            $rojo = 'checked = "checked"';                                        
+                                        }else if ($p == "verde"){
+                                            $verde = 'checked = "checked"';                                        
+                                        }else if ($p == "morado"){
+                                            $morado = 'checked = "checked"';                                        
+                                        }else if ($p == "naranja"){
+                                            $naranja = 'checked = "checked"';                                        
+                                        }else if ($p == "blanco"){
+                                            $blanco = 'checked = "checked"';                                        
+                                        }else if ($p == "negro"){
+                                            $negro = 'checked = "checked"';                                        
+                                        }else if ($p == "gris"){
+                                            $gris = 'checked = "checked"';                                        
+                                        }
+                                    }
+                                    ?>                                    
+                                    <input type="checkbox" value="Amarillo" name="colores[]" <?php echo $amarillo; ?>/>Amarillo
+                                    <input type="checkbox" value="Azul" name="colores[]" <?php echo $azul; ?>/>Azul
+                                    <input type="checkbox" value="Rojo" name="colores[]" <?php echo $rojo; ?>/>Rojo
+                                    <input type="checkbox" value="Verde" name="colores[]" <?php echo $verde; ?>/>Verde
+                                    <input type="checkbox" value="Morado" name="colores[]" <?php echo $morado; ?>/>Morado
+                                    <input type="checkbox" value="Naranja" name="colores[]" <?php echo $naranja; ?>/>Naranja
+                                    <input type="checkbox" value="Blanco" name="colores[]" <?php echo $blanco; ?>/>Blanco
+                                    <input type="checkbox" value="Negro" name="colores[]" <?php echo $negro; ?>/>Negro
+                                    <input type="checkbox" value="Gris" name="colores[]" <?php echo $gris; ?>/>Gris
                                 
                                     
                                     

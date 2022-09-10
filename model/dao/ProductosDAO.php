@@ -74,7 +74,16 @@ class ProductosDAO {
 
         try{
 
-            $sql = "UPDATE disenio_producto SET  producto = :producto, cliente =:cliente, telefono =:telefono, colores =:colores,
+            echo $prod->getDisenioId();
+            echo $prod->getProducto();
+            echo $prod->getCliente();
+            echo $prod->getTelefono();
+            echo $prod->getColores();
+            echo $prod->getDisenio();
+            echo $prod->getModelo();
+            echo $prod->getObservaciones();
+
+            $sql = "UPDATE disenio_producto SET  disenio_id = :id, producto = :producto, cliente =:cliente, telefono =:telefono, colores =:colores,
                     disenio = :disenio, modelo = :modelo, observaciones =:observaciones WHERE disenio_id = :id";
 
             $sentencia = $this->con->prepare($sql);
@@ -93,11 +102,14 @@ class ProductosDAO {
 
             if ($sentencia->rowCount() <= 0) {
                 return false;
+            }else{
+                return true;
             }
         }catch(Exception $e){
             return false;
+            echo $e;
         }
-            return true;       
+                   
     }
 
     //ELIMINAR DISEÑO DE PRODUCTO
