@@ -229,15 +229,15 @@
                                         }
                                     }
                                     ?>                                    
-                                    <input type="checkbox" value="Amarillo" name="colores[]" <?php echo $amarillo; ?>/>Amarillo
-                                    <input type="checkbox" value="Azul" name="colores[]" <?php echo $azul; ?>/>Azul
-                                    <input type="checkbox" value="Rojo" name="colores[]" <?php echo $rojo; ?>/>Rojo
-                                    <input type="checkbox" value="Verde" name="colores[]" <?php echo $verde; ?>/>Verde
-                                    <input type="checkbox" value="Morado" name="colores[]" <?php echo $morado; ?>/>Morado
-                                    <input type="checkbox" value="Naranja" name="colores[]" <?php echo $naranja; ?>/>Naranja
-                                    <input type="checkbox" value="Blanco" name="colores[]" <?php echo $blanco; ?>/>Blanco
-                                    <input type="checkbox" value="Negro" name="colores[]" <?php echo $negro; ?>/>Negro
-                                    <input type="checkbox" value="Gris" name="colores[]" <?php echo $gris; ?>/>Gris
+                                    <input type="checkbox" value="1" name="colores[]" <?php echo $amarillo; ?>/>Amarillo
+                                    <input type="checkbox" value="2" name="colores[]" <?php echo $azul; ?>/>Azul
+                                    <input type="checkbox" value="3" name="colores[]" <?php echo $rojo; ?>/>Rojo
+                                    <input type="checkbox" value="4" name="colores[]" <?php echo $verde; ?>/>Verde
+                                    <input type="checkbox" value="5" name="colores[]" <?php echo $morado; ?>/>Morado
+                                    <input type="checkbox" value="6" name="colores[]" <?php echo $naranja; ?>/>Naranja
+                                    <input type="checkbox" value="7" name="colores[]" <?php echo $blanco; ?>/>Blanco
+                                    <input type="checkbox" value="8" name="colores[]" <?php echo $negro; ?>/>Negro
+                                    <input type="checkbox" value="9" name="colores[]" <?php echo $gris; ?>/>Gris
                             </div>
 
                             <div>
@@ -253,7 +253,7 @@
                                     
                                     if($prod->disenio == "personalizado"){
                                         $personalizado = 'selected = "selected"';
-                                    }else if($prod->disenio == "estandar"){
+                                    }else if($prod->disenio == "estándar"){
                                         $estandar = 'selected = "selected"';
                                     }else if($prod->disenio == "sorpresa"){
                                         $sorpresa = 'selected = "selected"';
