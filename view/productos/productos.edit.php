@@ -307,187 +307,103 @@
         <?php require_once FOOTER; ?>
     </div>
     <script type="text/javascript">
-        
-        var formulario = document.getElementById("creaDisenio").addEventListener('submit', enviarDatos);
 
-        var valido = true;
+        var myForm=document.getElementById("creaDisenio");
+            myForm.addEventListener("submit",validar);
+        function validar(e){
+            
+            var valido = true;
     
-        //OBTENER ELEMENTOS 
-        var producto = document.getElementById("producto");
-        var cliente = document.getElementById("cliente");
-        var telefono = document.getElementById("telefono");
-        var colores = document.getElementsByClassName("colores");
-        var disenio = document.getElementById("disenio");
-        var modelo = document.getElementsByName("modelo");
-        var observaciones = document.getElementById("observaciones");
-        let arreglo_errores=[];
+            //OBTENER ELEMENTOS 
+            var cbxProducto = document.getElementById("producto");
+            var txtNombre = document.getElementById("cliente");
+            var txtTelefono = document.getElementById("telefono");
+            var chbxColor = document.getElementsByClassName("colores");
+            var cbxDiseño = document.getElementById("disenio");
+            var rbModelo = document.getElementsByName("modelo");
+            var txtaObservacion = document.getElementById("observaciones");
     
             var letra = /^[a-z ,.'-]+$/i;
             var telefono = /^[09]+[0-9]{8}$/g;
     
-            depurar();
-
             //VALIDACIONES
             //PRODUCTO
-            if (producto.value === null || producto.value === '0') {
+            if (cbxProducto.value === null || cbxProducto.value === '0') {
                 valido = false;
-                mensaje("DEBE SELECCIONAR UN PRODUCTO", producto);
+                mensaje("DEBE SELECCIONAR UN PRODUCTO", cbxProducto);
             }
-            //CLIENTE
-            if(cliente.value === ''){
+            //NOMBRE
+            if(txtNombre.value === ''){
                 valido = false;
-                mensaje("DEBE INGRESAR SU NOMBRE",cliente);
-            }else if (!letra.test(cliente.value)){
+                mensaje("DEBE INGRESAR SU NOMBRE",txtNombre);
+            }else if (!letra.test(txtNombre.value)){
                 valido = false;
-                mensaje("EL NOMBRE DEBE CONTENER SOLO LETRAS", cliente);
-            }else if(cliente.value.length >20){
+                mensaje("EL NOMBRE DEBE CONTENER SOLO LETRAS", txtNombre);
+            }else if(txtNombre.value.length >20){
                 valido = false;
-                mensaje("EL NOMBRE DEBE CONTENER MÁXIMO 20 CARACTERES", cliente); 
+                mensaje("EL NOMBRE DEBE CONTENER MÁXIMO 20 CARACTERES", txtNombre); 
             }
-            
+            //TELEFONO
+            if (txtTelefono.value === "") {
+                valido = false;
+                mensaje("DEBE INGRESAR TELEFONO", txtTelefono);
+            } else if (!telefono.test(txtTelefono.value)) {
+                valido = false;
+                mensaje("NUMERO DE TELEFONO INCORRECTO", txtTelefono);
+            }
+            //COLORES
+            sel = false; 
+            cont=0; 
+            for(valor of chbxColor){
+                if(valor.checked){
+                    cont++;
+                }
+            }
+            if(cont==0){
+                valido=false;
+                alert("SELECCIONE AL MENOS UN COLOR");
+            }
             //DISEÑO
-            if (disenio.value === null || disenio.value === '0') {
+            if (cbxDiseño.value == 0) {
                 valido = false;
-                mensaje("DEBE SELECCIONAR UNA OPCIÓN DE DISEÑO PARA SU PRODUCTO", disenio);
+                mensaje("DEBE SELECCIONAR UNA OPCIÓN DE DISEÑO PARA SU PRODUCTO", cbxDiseño);
             }
             //MODELO
             var sel = false;
-            for (let i = 0; i < modelo.length; i++) {
-                if (modelo[i].checked) {
+            for (let i = 0; i < rbModelo.length; i++) {
+                if (rbModelo[i].checked) {
                     sel = true;
-                //  let res=modelo[i].value;
+                //  let res=rbModelo[i].value;
                 break;
                 }
             }
             if (!sel) {
                 valido = false;
-                mensaje("DEBE SELECCIONAR UN TIPO DE MODELO PARA PLASMAR EN SU PRODUCTO", modelo[0]);
+                mensaje("DEBE SELECCIONAR UN TIPO DE MODELO PARA PLASMAR EN SU PRODUCTO", rbModelo[0]);
             }
-            
-            return valido;
-        
-            function enviarDatos(e){
-            let rbMod=false;
-            for(option of modelo){
-                if(option.checked){
-                    rbMod=true;
-                }
-            }
-            let chbxCol=false;
-            for(check of colores){
-                if(check.checked){
-                    chbxCol=true;
-                }
-            }
-            if(rbMod==false){
-                valido=false;
-                arreglo_errores.push("modelo");
-            }
-            if(chbxCol==false){
-                valido=false;
-                arreglo_errores.push("colores");
-            }
-            if(observaciones.value.length==0){
-                valido=false;
-                arreglo_errores.push("observaciones");
-            }
-            if(producto.selectedIndex==0){
-                valido=false;
-                arreglo_errores.push("producto");
-            }
-            if(disenio.selectedIndex==0){
-                valido=false;
-                arreglo_errores.push("disenio");
+            //OBSERVACIONES
+            if(txtaObservacion.value === ''){
+                valido = false;
+                mensaje("DEBE INGRESAR SUS OBSERVACIONES",txtaObservacion);
+            }else if(txtaObservacion.value.length >100){
+                valido = false;
+                mensaje("LAS OBSERVACIONES DEBEN CONTENER MÁXIMO 100 CARACTERES", txtaObservacion); 
             }
 
-            if(valido==true){
-                alert("ENVIO EXITOSO");
+            console.log(valido);
+            if(valido){
+                window.alert("FORMULARIO ENVIADO EXITOSAMENTE");
+                return valido;
             }else{
-                alert("ERROR: VERIFIQUE LA INFORMACION EN LOS CAMPOS");
-                let errores;
-                for(dato of arreglo_errores){
-                    errores+dato+" ";
-                }
-                errores=errores.replace("undefined","");
-                alert(errores);
-                arreglo_errores=[];
                 e.preventDefault();
             }
             valido=true;
         }
-
         function mensaje(cadenaMensaje, elemento) {
             elemento.focus();
-            elemento.style.boxShadow = '0 0 5px red, 0 0 5px red';
-
-            if (elemento.id === "rb") {
-                var nodoPadre = elemento;
-            } else {
-                var nodoPadre = elemento.parentNode;
-            }
-
-        var nodoMensaje = document.createElement("div");
-            nodoMensaje.textContent = cadenaMensaje;
-            nodoMensaje.setAttribute("class", "mensajeError");
-
-            switch (elemento.id) {
-                case "producto":
-                    nodoMensaje.setAttribute("id", "error-producto");
-                    break;
-                case "cliente":
-                    nodoMensaje.setAttribute("id", "error-cliente");
-                    break;
-                case "telefono":
-                    nodoMensaje.setAttribute("id", "error-telefono");
-                    break;
-                case "colores":
-                    nodoMensaje.setAttribute("id", "error-color");
-                    break;
-                case "disenio":
-                    nodoMensaje.setAttribute("id", "error-disenio");
-                    break;
-                case "modelo":
-                    nodoMensaje.style.marginTop = '-35px';
-                    nodoMensaje.setAttribute("id", "error-modelo");
-                    break;
-                case "observaciones":
-                    nodoMensaje.setAttribute("id", "error-observaciones");
-                    break;
-                default:
-                    break;
-            }
-
-            nodoPadre.appendChild(nodoMensaje);
-            nodoMensaje.style.visibility = 'hidden';
+            window.alert(cadenaMensaje);
         }
 
-        function depurar() {            
-            var mensajes = document.querySelectorAll(".mensajeError");
-            let a = mensajes.length - 1;
-            for (let i = a; i > -1; i--) {
-                mensajes[i].remove();
-            }
-
-            var boxes = document.querySelectorAll(".box");
-            let b = boxes.length - 1;
-            for (let i = b; i > -1; i--) {
-                boxes[i].style.boxShadow = '0 0 0';
-            }
-        }
-
-        function mostrarError(nombre) {
-            if (document.querySelector("#error-" + nombre) !== null) {
-                document.querySelector("#error-" + nombre).style.visibility = 'visible';
-            }
-        }
-
-        function ocultarError(nombre) {
-            if (document.querySelector("#error-" + nombre) !== null) {
-                document.querySelector("#error-" + nombre).style.visibility = 'hidden';
-            }
-        }
-
-    
     </script>
 </body>
 </html>
