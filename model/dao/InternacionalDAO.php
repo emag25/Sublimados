@@ -1,3 +1,4 @@
+<!--autor: Paula Yánez Guillén-->
 <?php
 // dao data access object
 require_once 'config/Conexion.php';

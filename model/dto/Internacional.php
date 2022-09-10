@@ -1,3 +1,5 @@
+<!--autor: Paula Yánez Guillén-->
+
 <?php
 // dto data transfer object
 class Internacional {
