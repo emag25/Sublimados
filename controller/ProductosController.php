@@ -177,20 +177,65 @@ class ProductosController {
 
       $prod = new Producto();
 
-      $prod->setDisenioId(htmlentities($_POST['id']));
-      $prod->setProducto(htmlentities($_POST['producto']));
+      
+
+      if (htmlentities($_POST['producto']) == '1') {
+        $prod->setProducto("camiseta");
+      }else if (htmlentities($_POST['producto']) == '2'){
+        $prod->setProducto("abrigo");
+      }else if (htmlentities($_POST['producto']) == '3'){
+        $prod->setProducto("gorra");
+      }else if (htmlentities($_POST['producto']) == '4'){
+        $prod->setProducto("taza");
+      }else if (htmlentities($_POST['producto']) == '5'){
+        $prod->setProducto("bolso");
+      }
+
       $prod->setCliente(htmlentities($_POST['cliente']));
       $prod->setTelefono(htmlentities($_POST['telefono']));
-      $prod->setColores(htmlentities($_POST['colores']));
-      $prod->setDisenio(htmlentities($_POST['disenio']));
+
+      $colores="";
+      foreach($_POST['colores'] as $color){
+        if(htmlentities($color)=="1"){
+          $colores.="amarillo"." ";
+        }else if(htmlentities($color)=="2"){
+          $colores.="azul"." ";
+        }else if(htmlentities($color)=="3"){
+          $colores.="rojo"." ";
+        }else if(htmlentities($color)=="4"){
+          $colores.="verde"." ";
+        }else if(htmlentities($color)=="5"){
+          $colores.="morado"." ";
+        }else if(htmlentities($color)=="6"){
+          $colores.="naranja"." ";
+        }else if(htmlentities($color)=="7"){
+          $colores.="blanco"." ";
+        }else if(htmlentities($color)=="8"){
+          $colores.="negro"." ";
+        }else if(htmlentities($color)=="9"){
+          $colores.="gris"." ";
+        }
+        
+      }
+      $prod->setColores($colores);
+
+      
+      if (htmlentities($_POST['disenio']) == '1') {
+        $prod->setDisenio("personalizado");
+      }else if (htmlentities($_POST['disenio']) == '2'){
+        $prod->setDisenio("estándar");
+      }else if (htmlentities($_POST['disenio']) == '3'){
+        $prod->setDisenio("sorpresa");
+      }
 
       if (htmlentities($_POST['modelo']) == 'real') {
         $prod->setModelo("Realista");
-      }else if (htmlentities($_POST['radio']) == 'cari'){
+      }else if (htmlentities($_POST['modelo']) == 'cari'){
         $prod->setModelo("Caricatura");
-      }else if (htmlentities($_POST['radio']) == 'an'){
+      }else if (htmlentities($_POST['modelo']) == 'an'){
         $prod->setModelo("Anime");
       }
+      
       $prod->setObservaciones(htmlentities($_POST['observaciones']));
 
       
@@ -205,7 +250,16 @@ class ProductosController {
       $_SESSION['mensaje'] = $msj;
       $_SESSION['color'] = $color;
 
-      header('Location:index.php?c=Productos&f=view_list');           
+      echo $prod->getDisenioId();
+      echo $prod->getProducto();
+      echo $prod->getCliente();
+      echo $prod->getTelefono();
+      echo $prod->getColores();
+      echo $prod->getDisenio();
+      echo $prod->getModelo();
+      echo $prod->getObservaciones();
+      
+      //header('Location:index.php?c=Productos&f=view_list');           
     } 
   }
 }

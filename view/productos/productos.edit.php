@@ -213,7 +213,7 @@
                                 Negro <input type="checkbox" <?php echo (($prod->colores) == "negro")? "checked=''":"";?> name="colores" value="8" id="negro" class="form colores" >
                                 Gris <input type="checkbox" <?php echo (($prod->colores) == "gris")? "checked=''":"";?> name="colores" value="9" id="gris" class="form colores" > 
                             </div>
-
+                                    
 
                             <div>
                                 <label class="form"> <b> DISEÑO: </b> </label>
