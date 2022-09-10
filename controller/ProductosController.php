@@ -177,7 +177,7 @@ class ProductosController {
 
       $prod = new Producto();
 
-      
+      $prod->setDisenioId(htmlentities($_POST['id']));
 
       if (htmlentities($_POST['producto']) == '1') {
         $prod->setProducto("camiseta");
@@ -240,11 +240,7 @@ class ProductosController {
 
       
       $exito = $this->model->update($prod);
-      if($exito){
-        echo "si";
-      }else{
-        echo "no";
-      }
+      
       $msj = 'Producto actualizado exitosamente';
       $color = 'primary';
       if (!$exito) {
@@ -256,7 +252,7 @@ class ProductosController {
       $_SESSION['color'] = $color;
 
       
-      //header('Location:index.php?c=Productos&f=view_list');           
+      header('Location:index.php?c=Productos&f=view_list');           
     } 
   }
 }
