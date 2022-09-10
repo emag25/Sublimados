@@ -1,7 +1,6 @@
-
-
+<!--AUTOR:SICHA VEGA BETSY ARLETTE-->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -17,6 +16,46 @@
         .dividir-seccion-uno{
             padding-top: 35px;
         }
+        .newDisenio{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            background-color: #2B2729;
+            width: 65%;
+            height: 75%;
+            color: rgb(255, 255, 255);
+            border-radius: 40px;
+            padding: 40px;
+            margin: 60px;
+            box-shadow: 5px 5px #acacac;
+        }
+
+        #infoDisenio{
+            display: grid;
+            grid-template-columns: 120px 200px;
+            grid-template-rows: 40px 40px 40px 80px;
+            justify-content: space-around;
+            justify-items: stretch;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .btnDisenio {
+            align-items: center;
+            display: flex;
+            justify-content: center;
+            border-radius: 30px;
+            width: 150px;
+            height: 32px;
+            color: #2B2729;
+            cursor: pointer;
+            margin-top: 50px;
+            font-weight: bold;
+            background-color: #ACACAC;
+            text-align: center;
+            text-decoration: none;
+            font-size: 10pt;
+        }
         .enl{
             font-family: 'Inter', sans-serif;
             border: 2px solid  #2B2729;
@@ -31,15 +70,7 @@
             text-decoration: none;
             font-weight: bold;
         }
-        .dividir-seccion-dos{
-            width: 65%;
-            height: 75%;
-            background-color: #2B2729;
-            border-radius: 40px;
-            padding: 40px;
-            color: #FFFFFF;
-            text-align: justify;
-        }
+        
         .formulario{
             margin: 5px;
             padding-left: 10px;
@@ -109,29 +140,164 @@
 
             
             <section class="seccion-segundo">
-                <div class="dividir-seccion-dos"> 
-                    
-                
+            <div class="newDisenio"> 
+                    <form id="creaDisenio" method="POST" action="index.php?c=Productos&f=edit">
+                        <div class="infoDisenio">
+                        <input type="hidden" name="id" id="id" value="<?php echo $prod->disenio_id; ?>"/>
+                        
+                            <div>
+                                <label class="form"> <b> PRODUCTO: </b>  </label>
+                            </div>
+                            <div>
+                            <select name="producto" id="producto" class="form fi"
+                                    style="height: 30px; width: 200px;" onmouseover="mostrarError('producto')"
+                                    onmouseout="ocultarError('producto')">   
+                                    
+                                    <?php  
+                                    $camiseta = ""; $abrigo = ""; $gorra = ""; $taza = ""; $bolso = "";
+                                    
+                                    if($prod->producto == "camiseta"){
+                                        $camiseta = 'selected = "selected"';
+                                    }else if($prod->producto == "abrigo"){
+                                        $abrigo = 'selected = "selected"';
+                                    }else if($prod->producto == "gorra"){
+                                        $gorra = 'selected = "selected"';
+                                    }else if($prod->producto == "taza"){
+                                        $taza = 'selected = "selected"';
+                                    }else if($prod->producto == "bolso"){
+                                        $bolso = 'selected = "selected"';
+                                    }
+                                    ?>
+                                    
+                                    <option value="0">Seleccione...</option>
+                                    <option value="1" <?php echo $camiseta;?> >Camiseta</option>
+                                    <option value="2" <?php echo $abrigo;?> >Abrigo</option>
+                                    <option value="3" <?php echo $gorra;?> >Gorra</option>
+                                    <option value="4" <?php echo $taza;?> >Taza</option>
+                                    <option value="5" <?php echo $bolso;?> >Bolso</option>
+                                </select> 
+                            </div>
 
 
+                            <div>
+                                <label class="form"> <b> CLIENTE: </b>  </label>
+                            </div>
+                            <div>
+                                <input type="text" value="<?php echo $prod->cliente ?>" name="cliente" id="cliente" class="form fi" placeholder="Ingresar Nombre Cliente"
+                                style="height: 20px; width: 200px;" onmouseover="mostrarError('cliente')"
+                                    onmouseout="ocultarError('cliente')">
+                            </div>
 
 
-
-                
-
-
-
-
-
-
-
-
+                            <div>
+                                <label class="form"> <b> TELÉFONO CLIENTE: </b>  </label>
+                            </div>
+                            <div>
+                                <input type="text" value="<?php echo $prod->telefono ?>" name="telefono" id="telefono" class="form fi" placeholder="Ingresar Teléfono Cliente"
+                                style="height: 20px; width: 200px;" onmouseover="mostrarError('telefono')"
+                                    onmouseout="ocultarError('telefono')">
+                            </div>
 
 
+                            <div>
+                                <label class="form"> <b> COLORES DISPONIBLES: </b> </label>
+                            </div>
+                            <div id="chbxColor">
+                                <?php      
+                                    $amarillo = ""; $azul = ""; $rojo = ""; $verde = ""; $morado = ""; $naranja = "";$blanco = "";$negro = "";$gris = "";                            
+                                    $colores = explode(" ", $prod->colores);
+                                    
+                                    foreach ($colores as $p){                                    
+                                        if($p == "amarillo"){
+                                            $amarillo = 'checked = "checked"';                                        
+                                        }else if ($p == "azul"){
+                                            $azul = 'checked = "checked"';                                        
+                                        }else if ($p == "rojo"){
+                                            $rojo = 'checked = "checked"';                                        
+                                        }else if ($p == "verde"){
+                                            $verde = 'checked = "checked"';                                        
+                                        }else if ($p == "morado"){
+                                            $morado = 'checked = "checked"';                                        
+                                        }else if ($p == "naranja"){
+                                            $naranja = 'checked = "checked"';                                        
+                                        }else if ($p == "blanco"){
+                                            $blanco = 'checked = "checked"';                                        
+                                        }else if ($p == "negro"){
+                                            $negro = 'checked = "checked"';                                        
+                                        }else if ($p == "gris"){
+                                            $gris = 'checked = "checked"';                                        
+                                        }
+                                    }
+                                    ?>                                    
+                                    <input type="checkbox" value="Amarillo" name="colores[]" <?php echo $amarillo; ?>/>Amarillo
+                                    <input type="checkbox" value="Azul" name="colores[]" <?php echo $azul; ?>/>Azul
+                                    <input type="checkbox" value="Rojo" name="colores[]" <?php echo $rojo; ?>/>Rojo
+                                    <input type="checkbox" value="Verde" name="colores[]" <?php echo $verde; ?>/>Verde
+                                    <input type="checkbox" value="Morado" name="colores[]" <?php echo $morado; ?>/>Morado
+                                    <input type="checkbox" value="Naranja" name="colores[]" <?php echo $naranja; ?>/>Naranja
+                                    <input type="checkbox" value="Blanco" name="colores[]" <?php echo $blanco; ?>/>Blanco
+                                    <input type="checkbox" value="Negro" name="colores[]" <?php echo $negro; ?>/>Negro
+                                    <input type="checkbox" value="Gris" name="colores[]" <?php echo $gris; ?>/>Gris
+                            </div>
+
+                            <div>
+                                <label class="form"> <b> DISEÑO: </b> </label>
+                            </div>
+                            <div>
+                                <select name="disenio" id="disenio" class="form"
+                                style="height: 30px; width: 200px;" onmouseover="mostrarError('disenio')"
+                                    onmouseout="ocultarError('disenio')">
+
+                                    <?php  
+                                    $personalizado = ""; $estandar = ""; $sorpresa = ""; 
+                                    
+                                    if($prod->disenio == "personalizado"){
+                                        $personalizado = 'selected = "selected"';
+                                    }else if($prod->disenio == "estandar"){
+                                        $estandar = 'selected = "selected"';
+                                    }else if($prod->disenio == "sorpresa"){
+                                        $sorpresa = 'selected = "selected"';
+                                    }
+                                    ?>
+
+                                    <option value="0">Seleccione...</option>
+                                    <option value="1" <?php echo $personalizado; ?> >Personalizado</option>
+                                    <option value="2" <?php echo $estandar; ?> >Estándar</option>
+                                    <option value="3" <?php echo $sorpresa; ?> >Sorpresa</option>                        
+                                </select> 
+                            </div> 
 
 
+                            <div>
+                                <label class="form"> <b> MODELO DE SUBLIMADO: </b>  </label>
+                            </div> 
+                            <div id="rb" onmouseover="mostrarError('modelo')"
+                                onmouseout="ocultarError('modelo')">
 
-                
+                                <input <?php echo (($prod->modelo) == "Realista")? "checked=''":"";?> type="radio" class="ms" id="realista" name="modelo" value="real" /> Realista 
+                                <input <?php echo (($prod->modelo) == "Caricatura")? "checked=''":"";?> type="radio" class="ms" id="caricatura" name="modelo" value="cari" /> Caricatura 
+                                <input <?php echo (($prod->modelo) == "Anime")? "checked=''":"";?> type="radio" class="ms" id="anime" name="modelo" value="an" /> Anime
+                            </div>
+
+                            <div>
+                                <label class="form"> <b> OBSERVACIONES: </b> </label>
+                            </div>
+                            <div>
+                                <textarea name="observaciones" id="observaciones" cols="100" rows="3" class="form" placeholder="Ingrese sus Observaciones"
+                                onmouseover="mostrarError('observaciones')"
+                                onmouseout="ocultarError('observaciones')"> <?php echo $prod->observaciones; ?></textarea>
+                            </div> 
+
+                            
+                            <div>
+                                <input type="submit" class="form botones" value="Actualizar" onclick="if (!confirm('¿Está seguro de Editar el Diseño de Producto?')) return false;" >   
+                                <a class="btndisenio" href="index.php?c=Productos&f=view_list" style="background-color: white; border-radius: 30px; 
+                                padding: 1px; border-color:2px solid black; text-decoration:none; color:black;"> Cancelar</a>
+                            </div>
+
+
+                        </div> 
+                    </form>
                 </div>
             </section>
             
@@ -141,96 +307,184 @@
         <?php require_once FOOTER; ?>
     </div>
     <script type="text/javascript">
-        function validar(){
-            var valido = true;
+        
+        var formulario = document.getElementById("creaDisenio").addEventListener('submit', enviarDatos);
+
+        var valido = true;
     
-            //OBTENER ELEMENTOS 
-            var cbxProducto = document.getElementById("cbxProductos");
-            var txtNombre = document.getElementById("nom");
-            var txtTelefono = document.getElementById("telf");
-            var chbxColor = document.getElementsByClassName("color");
-            var rbModelo = document.getElementsByName("modelo");
-            var txtaObservacion = document.getElementById("obs");
+        //OBTENER ELEMENTOS 
+        var producto = document.getElementById("producto");
+        var cliente = document.getElementById("cliente");
+        var telefono = document.getElementById("telefono");
+        var colores = document.getElementsByClassName("colores");
+        var disenio = document.getElementById("disenio");
+        var modelo = document.getElementsByName("modelo");
+        var observaciones = document.getElementById("observaciones");
+        let arreglo_errores=[];
     
             var letra = /^[a-z ,.'-]+$/i;
             var telefono = /^[09]+[0-9]{8}$/g;
     
+            depurar();
+
             //VALIDACIONES
             //PRODUCTO
-            if (cbxProducto.value === null || cbxProducto.value === '0') {
+            if (producto.value === null || producto.value === '0') {
                 valido = false;
-                mensaje("DEBE SELECCIONAR UN PRODUCTO", cbxProducto);
+                mensaje("DEBE SELECCIONAR UN PRODUCTO", producto);
             }
-            //NOMBRE
-            if(txtNombre.value === ''){
+            //CLIENTE
+            if(cliente.value === ''){
                 valido = false;
-                mensaje("DEBE INGRESAR SU NOMBRE",txtNombre);
-            }else if (!letra.test(txtNombre.value)){
+                mensaje("DEBE INGRESAR SU NOMBRE",cliente);
+            }else if (!letra.test(cliente.value)){
                 valido = false;
-                mensaje("EL NOMBRE DEBE CONTENER SOLO LETRAS", txtNombre);
-            }else if(txtNombre.value.length >20){
+                mensaje("EL NOMBRE DEBE CONTENER SOLO LETRAS", cliente);
+            }else if(cliente.value.length >20){
                 valido = false;
-                mensaje("EL NOMBRE DEBE CONTENER MÁXIMO 20 CARACTERES", txtNombre); 
+                mensaje("EL NOMBRE DEBE CONTENER MÁXIMO 20 CARACTERES", cliente); 
             }
-            //TELEFONO
-            if (txtTelefono.value === "") {
-                valido = false;
-                mensaje("DEBE INGRESAR TELEFONO", txtTelefono);
-            } else if (!telefono.test(txtTelefono.value)) {
-                valido = false;
-                mensaje("NUMERO DE TELEFONO INCORRECTO", txtTelefono);
-            }
-            //COLORES
-            sel = false; 
-            cont=0; 
-            for (let i = 0; i < chbxColor.length; i++) {
-                if (chbxColor[i].checked) {
-                    cont++;
-                    sel = true;
-                    if (chbxColor[i].value === '1') {
-                        alert("MAXIMO DE SELECCION PERMITIDO : 3 ITEMS");
-                    }
-                }
-            }
-            if (!sel) {
-                valido = false;
-                mensaje("DEBE SELECCIONAR OPCIONES DE COLOR", chbxColor[0]);
-            }
-            if (cont<3) {
-                valido = false;
-                mensaje("DEBE SELECCIONAR AL MENOS 3 COLORES", chbxColor[0]);
-            }
+            
             //DISEÑO
-            if (cbxDiseño.value === null || cbxDiseño.value === '0') {
+            if (disenio.value === null || disenio.value === '0') {
                 valido = false;
-                mensaje("DEBE SELECCIONAR UNA OPCIÓN DE DISEÑO PARA SU PRODUCTO", cbxDiseño);
+                mensaje("DEBE SELECCIONAR UNA OPCIÓN DE DISEÑO PARA SU PRODUCTO", disenio);
             }
             //MODELO
             var sel = false;
-            for (let i = 0; i < rbModelo.length; i++) {
-                if (rbModelo[i].checked) {
+            for (let i = 0; i < modelo.length; i++) {
+                if (modelo[i].checked) {
                     sel = true;
-                //  let res=rbModelo[i].value;
+                //  let res=modelo[i].value;
                 break;
                 }
             }
             if (!sel) {
                 valido = false;
-                mensaje("DEBE SELECCIONAR UN TIPO DE MODELO PARA PLASMAR EN SU PRODUCTO", rbModelo[0]);
+                mensaje("DEBE SELECCIONAR UN TIPO DE MODELO PARA PLASMAR EN SU PRODUCTO", modelo[0]);
             }
-            //OBSERVACIONES
-            if(txtaObservacion.value === ''){
-                valido = false;
-                mensaje("DEBE INGRESAR SUS OBSERVACIONES",txtaObservacion);
-            }else if(txtaObservacion.value.length >100){
-                valido = false;
-                mensaje("LAS OBSERVACIONES DEBEN CONTENER MÁXIMO 100 CARACTERES", txtaObservacion); 
-            }
+            
             return valido;
+        
+            function enviarDatos(e){
+            let rbMod=false;
+            for(option of modelo){
+                if(option.checked){
+                    rbMod=true;
+                }
+            }
+            let chbxCol=false;
+            for(check of colores){
+                if(check.checked){
+                    chbxCol=true;
+                }
+            }
+            if(rbMod==false){
+                valido=false;
+                arreglo_errores.push("modelo");
+            }
+            if(chbxCol==false){
+                valido=false;
+                arreglo_errores.push("colores");
+            }
+            if(observaciones.value.length==0){
+                valido=false;
+                arreglo_errores.push("observaciones");
+            }
+            if(producto.selectedIndex==0){
+                valido=false;
+                arreglo_errores.push("producto");
+            }
+            if(disenio.selectedIndex==0){
+                valido=false;
+                arreglo_errores.push("disenio");
+            }
+
+            if(valido==true){
+                alert("ENVIO EXITOSO");
+            }else{
+                alert("ERROR: VERIFIQUE LA INFORMACION EN LOS CAMPOS");
+                let errores;
+                for(dato of arreglo_errores){
+                    errores+dato+" ";
+                }
+                errores=errores.replace("undefined","");
+                alert(errores);
+                arreglo_errores=[];
+                e.preventDefault();
+            }
+            valido=true;
         }
+
         function mensaje(cadenaMensaje, elemento) {
             elemento.focus();
-            window.alert(cadenaMensaje);
+            elemento.style.boxShadow = '0 0 5px red, 0 0 5px red';
+
+            if (elemento.id === "rb") {
+                var nodoPadre = elemento;
+            } else {
+                var nodoPadre = elemento.parentNode;
+            }
+
+        var nodoMensaje = document.createElement("div");
+            nodoMensaje.textContent = cadenaMensaje;
+            nodoMensaje.setAttribute("class", "mensajeError");
+
+            switch (elemento.id) {
+                case "producto":
+                    nodoMensaje.setAttribute("id", "error-producto");
+                    break;
+                case "cliente":
+                    nodoMensaje.setAttribute("id", "error-cliente");
+                    break;
+                case "telefono":
+                    nodoMensaje.setAttribute("id", "error-telefono");
+                    break;
+                case "colores":
+                    nodoMensaje.setAttribute("id", "error-color");
+                    break;
+                case "disenio":
+                    nodoMensaje.setAttribute("id", "error-disenio");
+                    break;
+                case "modelo":
+                    nodoMensaje.style.marginTop = '-35px';
+                    nodoMensaje.setAttribute("id", "error-modelo");
+                    break;
+                case "observaciones":
+                    nodoMensaje.setAttribute("id", "error-observaciones");
+                    break;
+                default:
+                    break;
+            }
+
+            nodoPadre.appendChild(nodoMensaje);
+            nodoMensaje.style.visibility = 'hidden';
+        }
+
+        function depurar() {            
+            var mensajes = document.querySelectorAll(".mensajeError");
+            let a = mensajes.length - 1;
+            for (let i = a; i > -1; i--) {
+                mensajes[i].remove();
+            }
+
+            var boxes = document.querySelectorAll(".box");
+            let b = boxes.length - 1;
+            for (let i = b; i > -1; i--) {
+                boxes[i].style.boxShadow = '0 0 0';
+            }
+        }
+
+        function mostrarError(nombre) {
+            if (document.querySelector("#error-" + nombre) !== null) {
+                document.querySelector("#error-" + nombre).style.visibility = 'visible';
+            }
+        }
+
+        function ocultarError(nombre) {
+            if (document.querySelector("#error-" + nombre) !== null) {
+                document.querySelector("#error-" + nombre).style.visibility = 'hidden';
+            }
         }
 
     

@@ -1,10 +1,12 @@
+<!--AUTOR:SICHA VEGA BETSY ARLETTE-->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="CONTIENE LA VARIEDAD DE PRODUCTOS DISPONIBLES DENTRO DE SUPERIUM.">
+    <meta name="description" content="CONTIENE LA VARIEDAD DE DISEÑO DE PRODUCTOS DISPONIBLES DENTRO DE SUPERIUM.">
     <meta name="keywords" content="Sublimados, Estampados, Camisetas, Tazas,Productos">
     <link rel="stylesheet" href="assets/css/style.css">
     <style>
@@ -326,7 +328,7 @@
             }
         }
     </style>
-    <title>PRODUCTOS</title>
+    <title>DISEÑO DE PRODUCTOS</title>
 </head>
 <body>
     <div class="contenedor-principal">
@@ -467,6 +469,7 @@
     <script type="text/javascript">
         
         var div = document.querySelector("#contenido");
+        
         
         function cambiarImagen(){
             let img = document.getElementById("lg");

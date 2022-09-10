@@ -1,5 +1,5 @@
+<!--AUTOR:SICHA VEGA BETSY ARLETTE-->
 <?php
-// dao data access object
 require_once 'config/Conexion.php';
 
 class ProductosDAO {
@@ -9,130 +9,125 @@ class ProductosDAO {
         $this->con = Conexion::getConexion();
     }
 
-    public function selectAll($parametro) {
-        // sql de la sentencia
-      $sql = "SELECT * FROM productos, categoria  where prod_idCategoria = cat_id and  prod_estado=1  and 
-      (prod_nombre like :b1 or cat_nombre like :b2)";
-      $stmt = $this->con->prepare($sql);
-      // preparar la sentencia
-      $conlike = '%' . $parametro . '%';
-      $data = array('b1' => $conlike, 'b2' => $conlike);
-      // ejecutar la sentencia
-      $stmt->execute($data);
-      //recuperar  resultados
-      $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
-      //retornar resultados
-      return $resultados;
-  }
-
-  public function selectOne($id) { // buscar un producto por su id
-        $sql = "select * from productos, categoria where prod_idCategoria = cat_id and prod_estado=1 and ".
-        "prod_id=:id";
-        // preparar la sentencia
+    // CONSULTAR DISEÑO DE PRODUCTO
+    public function selectAll() {      
+        $sql = "SELECT * FROM disenio_producto";
         $stmt = $this->con->prepare($sql);
-        $data = ['id' => $id];
-        // ejecutar la sentencia
-        $stmt->execute($data);
-        // recuperar los datos (en caso de select)
-        $producto = $stmt->fetch(PDO::FETCH_ASSOC);// fetch retorna el primer registro
-        // retornar resultados
-        return $producto;
+        $stmt->execute();
+        $resultados = $stmt->fetchAll(PDO::FETCH_OBJ);
+      
+        return $resultados;
     }
 
+    public function selectByName($name) { 
+        $sql = "SELECT * FROM disenio_producto WHERE cliente = :name";
+        $stmt = $this->con->prepare($sql);
+        $data = ['name' => $name];
+        $stmt->execute($data);
+        $resultados = $stmt->fetchAll(PDO::FETCH_OBJ);
+        
+        return $resultados;
+    }
+
+    // INSERTAR DISEÑO DE PRODUCTO
     public function insert($prod){
         try{
-        //sentencia sql
-        $sql = "INSERT INTO productos (prod_codigo, prod_nombre, prod_descripcion, prod_estado, prod_precio, 
-        prod_idCategoria, prod_usuarioActualizacion, prod_fechaActualizacion) VALUES 
-        (:cod, :nom, :desc, :estado, :precio, :idCat, :usu, :fecha)";
+        $sql = "INSERT INTO disenio_producto (producto, cliente, telefono, colores, disenio, modelo, observaciones) VALUES 
+        (:producto, :cliente, :telefono, :colores, :disenio, :modelo, :observaciones)";
 
-        //bind parameters
         $sentencia = $this->con->prepare($sql);
         $data = [
-        'cod' =>  $prod->getCodigo(),
-        'nom' =>  $prod->getNombre(),
-        'desc' =>  $prod->getDescripcion(),
-        'estado' =>  $prod->getEstado(),
-        'precio' =>  $prod->getPrecio(),
-        'idCat' =>  $prod->getIdCategoria(),
-        'usu' =>  $prod->getUsuario(),
-        'fecha' =>  $prod->getFechaActualizacion()
+        'producto' =>  $prod->getProducto(),
+        'cliente' =>  $prod->getCliente(),
+        'telefono' => $prod->getTelefono(),
+        'colores' => $prod->getColores(),
+        'disenio' =>  $prod->getDisenio(),
+        'modelo' =>  $prod->getModelo(),
+        'observaciones' => $prod->getObservaciones()
         ];
-        //execute
+  
         $sentencia->execute($data);
-        //retornar resultados, 
-        if ($sentencia->rowCount() <= 0) {// verificar si se inserto 
-        //rowCount permite obtner el numero de filas afectadas
+
+        if ($sentencia->rowCount() <= 0) {
            return false;
         }
+
     }catch(Exception $e){
-        echo $e->getMessage();
         return false;
     }
 
         return true;
     }
 
+    // EDITAR DISEÑO DE PRODUCTO
+    
+    public function selectById($id){
+        $sql = "SELECT * FROM disenio_producto WHERE disenio_id = :id";
+        $stmt = $this->con->prepare($sql);
+        $data = ['id' => $id];
+        $stmt->execute($data);
+        $resultado = $stmt->fetch(PDO::FETCH_OBJ);
+
+        return $resultado;
+    }
     public function update($prod){
 
         try{
-            //prepare
-            $sql = "UPDATE `productos` SET `prod_codigo`=:cod,`prod_nombre`=:nom,`prod_descripcion`=:desc," .
-                    "`prod_estado`=:estado,`prod_precio`=:precio,`prod_idCategoria`=:idCat,`prod_usuarioActualizacion`=:usu," .
-                    "`prod_fechaActualizacion`=:fecha WHERE prod_id=:id";
-           //bind parameters
+
+            echo $prod->getDisenioId();
+            echo $prod->getProducto();
+            echo $prod->getCliente();
+            echo $prod->getTelefono();
+            echo $prod->getColores();
+            echo $prod->getDisenio();
+            echo $prod->getModelo();
+            echo $prod->getObservaciones();
+
+            $sql = "UPDATE disenio_producto SET  disenio_id = :id, producto = :producto, cliente =:cliente, telefono =:telefono, colores =:colores,
+                    disenio = :disenio, modelo = :modelo, observaciones =:observaciones WHERE disenio_id = :id";
+
             $sentencia = $this->con->prepare($sql);
             $data = [
-                'cod' =>  $prod->getCodigo(),
-                'nom' =>  $prod->getNombre(),
-                'desc' =>  $prod->getDescripcion(),
-                'estado' =>  $prod->getEstado(),
-                'precio' =>  $prod->getPrecio(),
-                'idCat' =>  $prod->getIdCategoria(),
-                'usu' =>  $prod->getUsuario(),
-                'fecha' =>  $prod->getFechaActualizacion(),
-                'id' =>  $prod->getId()
+                'id' =>  $prod->getDisenioId(),
+                'producto' =>  $prod->getProducto(),
+                'cliente' =>  $prod->getCliente(),
+                'telefono' => $prod->getTelefono(),
+                'colores' => $prod->getColores(),
+                'disenio' =>  $prod->getDisenio(),
+                'modelo' =>  $prod->getModelo(),
+                'observaciones' => $prod->getObservaciones()
                 ];
-            //execute
+
             $sentencia->execute($data);
-            //retornar resultados, 
-            if ($sentencia->rowCount() <= 0) {// verificar si se inserto 
-                //rowCount permite obtner el numero de filas afectadas
+
+            if ($sentencia->rowCount() <= 0) {
+                return false;
+            }else{
+                return true;
+            }
+        }catch(Exception $e){
+            return false;
+            echo $e;
+        }
+                   
+    }
+
+    //ELIMINAR DISEÑO DE PRODUCTO
+    public function delete($prod){
+        try{        
+            $sql = "DELETE FROM disenio_producto WHERE disenio_id = :id";
+            $sentencia = $this->con->prepare($sql); 
+            $data = [
+                'id' =>  $prod->getDisenioId(),                
+            ];
+            $sentencia->execute($data);
+   
+            if ($sentencia->rowCount() <= 0) {
                 return false;
             }
         }catch(Exception $e){
-            echo $e->getMessage();
             return false;
         }
-            return true;       
-    }
-
-   public function delete($prod){
-       try{
-        //prepare
-        $sql = "UPDATE `productos` SET `prod_estado`=0,`prod_usuarioActualizacion`=:usu," .
-        "`prod_fechaActualizacion`=:fecha WHERE prod_id=:id";
-        //now());
-        //bind parameters
-        $sentencia = $this->con->prepare($sql);
-        $data = [
-        'usu' =>  $prod->getUsuario(),
-        'fecha' =>  $prod->getFechaActualizacion(),
-        'id' =>  $prod->getId()
-        ];
-        //execute
-        $sentencia->execute($data);
-        //retornar resultados, 
-        if ($sentencia->rowCount() <= 0) {// verificar si se inserto 
-        //rowCount permite obtner el numero de filas afectadas
-        return false;
-        }
-    }catch(Exception $e){
-        echo $e->getMessage();
-        return false;
-    }
-    
         return true;
     }
-    
 }

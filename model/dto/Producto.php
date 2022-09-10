@@ -1,89 +1,85 @@
+<!--AUTOR:SICHA VEGA BETSY ARLETTE-->
 <?php
-// dto data transfer object
+
 class Producto {
-    //properties
-    private $id, $codigo, $nombre, $descripcion, $estado, $precio, 
-    $idCategoria, $usuario, $fechaActualizacion;
+
+    private $disenio_id, $producto, $cliente, $telefono, $colores, $disenio, $modelo, $observaciones;
 
     function __construct() {
         
     }
 
-   function getId() {
-        return $this->id;
+   function getDisenioId() {
+        return $this->disenio_id;
     }
 
-    function getCodigo() {
-        return $this->codigo;
+    function getProducto() {
+        return $this->producto;
     }
 
-    function getNombre() {
-        return $this->nombre;
+    function getCliente() {
+        return $this->cliente;
     }
 
-    function getDescripcion() {
-        return $this->descripcion;
+    function getTelefono() {
+        return $this->telefono;
     }
 
-    function getEstado() {
-        return $this->estado;
+    function getColores() {
+        return $this->colores;
     }
 
-    function getPrecio() {
-        return $this->precio;
+    function getDisenio() {
+        return $this->disenio;
     }
 
-    function getIdCategoria() {
-        return $this->idCategoria;
+    function getModelo() {
+        return $this->modelo;
     }
 
-    function getUsuario() {
-        return $this->usuario;
+    function getObservaciones() {
+        return $this->observaciones;
     }
 
-    function getFechaActualizacion() {
-        return $this->fechaActualizacion;
-    }
-
-    function setId($id) {
-        $this->id = $id;
-    }
-
-    function setCodigo($codigo) {
-        $this->codigo = $codigo;
-    }
-
-    function setNombre($nombre) {
-        $this->nombre = $nombre;
-    }
-
-    function setDescripcion($descripcion) {
-        $this->descripcion = $descripcion;
-    }
-
-    function setEstado($estado) {
-        $this->estado = $estado;
-    }
-
-    function setPrecio($precio) {
-        $this->precio = $precio;
-    }
-
-    function setIdCategoria($idCategoria) {
-        $this->idCategoria = $idCategoria;
-    }
-
-    function setUsuario($usuario) {
-        $this->usuario = $usuario;
-    }
-
-    function setFechaActualizacion($fechaActualizacion) {
-        $this->fechaActualizacion = $fechaActualizacion;
-    }
     
-    // Methods get y set parametrizados
+
+    function setDisenioId($disenio_id) {
+        $this->disenio_id = $disenio_id;
+    }
+
+    function setProducto($producto) {
+        $this->producto = $producto;
+    }
+
+    function setCliente($cliente) {
+        $this->cliente = $cliente;
+    }
+
+    function setTelefono($telefono) {
+        $this->telefono = $telefono;
+    }
+
+    function setColores($colores) {
+        $this->colores = $colores;
+    }
+
+    function setDisenio($disenio) {
+        $this->disenio = $disenio;
+    }
+
+    function setModelo($modelo) {
+        $this->modelo = $modelo;
+    }
+
+    function setObservaciones($observaciones) {
+        $this->observaciones = $observaciones;
+    }
+
+    
+    
+
     public function __set($nombre, $valor) {
-        // Verifica que la propiedad exista
+
         if (property_exists('Producto', $nombre)) {
             $this->$nombre = $valor;
         } else {
@@ -92,14 +88,10 @@ class Producto {
     }
 
     public function __get($nombre) {
-      // Verifica que exista la propiedad
+
         if (property_exists('Producto', $nombre)) {
             return $this->$nombre;
         }
-// Retorna null si no existe
         return NULL;
     }
-
-    
-    
 }
