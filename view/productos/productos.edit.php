@@ -307,25 +307,26 @@
         <?php require_once FOOTER; ?>
     </div>
     <script type="text/javascript">
-        
-        var formulario = document.getElementById("creaDisenio").addEventListener('submit', enviarDatos);
 
-        var valido = true;
-    
-        //OBTENER ELEMENTOS 
-        var producto = document.getElementById("producto");
-        var cliente = document.getElementById("cliente");
-        var telefono = document.getElementById("telefono");
-        var colores = document.getElementsByClassName("colores");
-        var disenio = document.getElementById("disenio");
-        var modelo = document.getElementsByName("modelo");
-        var observaciones = document.getElementById("observaciones");
-        let arreglo_errores=[];
-    
+        var formulario = document.getElementById("creaDisenio").addEventListener('submit', validar);
+        
+        function validar(event){
+
+            var valido = true;
+
             var letra = /^[a-z ,.'-]+$/i;
             var telefono = /^[09]+[0-9]{8}$/g;
-    
-            depurar();
+
+            //OBTENER ELEMENTOS 
+            var producto = document.getElementById("producto");
+            var cliente = document.getElementById("cliente");
+            var telefono = document.getElementById("telefono");
+            var colores = document.getElementsByClassName("colores");
+            var disenio = document.getElementById("disenio");
+            var modelo = document.getElementsByName("modelo");
+            var observaciones = document.getElementById("observaciones");
+            
+            limpiar();
 
             //VALIDACIONES
             //PRODUCTO
@@ -333,18 +334,49 @@
                 valido = false;
                 mensaje("DEBE SELECCIONAR UN PRODUCTO", producto);
             }
+
             //CLIENTE
-            if(cliente.value === ''){
+            if (cliente.value === ''){
                 valido = false;
-                mensaje("DEBE INGRESAR SU NOMBRE",cliente);
-            }else if (!letra.test(cliente.value)){
+                mensaje("DEBE INGRESAR NOMBRE DE CLIENTE" cliente);
+            }else if (!letra.test (cliente.value)){
                 valido = false;
                 mensaje("EL NOMBRE DEBE CONTENER SOLO LETRAS", cliente);
-            }else if(cliente.value.length >20){
+            }else if (cliente.value.length >20){
                 valido = false;
                 mensaje("EL NOMBRE DEBE CONTENER MÁXIMO 20 CARACTERES", cliente); 
             }
             
+            //TELEFONO
+            if (telefono.value === "") {
+                valido = false;
+                mensaje("DEBE INGRESAR TELEFONO", telefono);
+            } else if (!telefono.test(telefono.value)) {
+                valido = false;
+                mensaje("NUMERO DE TELEFONO INCORRECTO", telefono);
+            }
+
+            //COLORES
+            sel = false; 
+            cont=0; 
+            for (let i = 0; i < colores.length; i++) {
+                if (colores[i].checked) {
+                    cont++;
+                    sel = true;
+                    if (colores[i].value === '1') {
+                        alert("DEBE SELECCIONAR MÁS OPCIONES DE COLOR");
+                    }
+                }
+            }
+            if (!sel) {
+                valido = false;
+                mensaje("DEBE SELECCIONAR OPCIONES DE COLOR", colores[0]);
+            }
+            if (cont<3) {
+                valido = false;
+                mensaje("DEBE SELECCIONAR AL MENOS 3 COLORES", colores[0]);
+            }
+
             //DISEÑO
             if (disenio.value === null || disenio.value === '0') {
                 valido = false;
@@ -363,60 +395,21 @@
                 valido = false;
                 mensaje("DEBE SELECCIONAR UN TIPO DE MODELO PARA PLASMAR EN SU PRODUCTO", modelo[0]);
             }
-            
-            return valido;
-        
-            function enviarDatos(e){
-            let rbMod=false;
-            for(option of modelo){
-                if(option.checked){
-                    rbMod=true;
-                }
+            //OBSERVACIONES
+            if(observaciones.value === ''){
+                valido = false;
+                mensaje("DEBE INGRESAR SUS OBSERVACIONES",observaciones);
+            }else if(observaciones.value.length >100){
+                valido = false;
+                mensaje("LAS OBSERVACIONES DEBEN CONTENER MÁXIMO 100 CARACTERES", observaciones); 
             }
-            let chbxCol=false;
-            for(check of colores){
-                if(check.checked){
-                    chbxCol=true;
-                }
+            if (!valido) {
+                event.preventDefault();
             }
-            if(rbMod==false){
-                valido=false;
-                arreglo_errores.push("modelo");
-            }
-            if(chbxCol==false){
-                valido=false;
-                arreglo_errores.push("colores");
-            }
-            if(observaciones.value.length==0){
-                valido=false;
-                arreglo_errores.push("observaciones");
-            }
-            if(producto.selectedIndex==0){
-                valido=false;
-                arreglo_errores.push("producto");
-            }
-            if(disenio.selectedIndex==0){
-                valido=false;
-                arreglo_errores.push("disenio");
-            }
-
-            if(valido==true){
-                alert("ENVIO EXITOSO");
-            }else{
-                alert("ERROR: VERIFIQUE LA INFORMACION EN LOS CAMPOS");
-                let errores;
-                for(dato of arreglo_errores){
-                    errores+dato+" ";
-                }
-                errores=errores.replace("undefined","");
-                alert(errores);
-                arreglo_errores=[];
-                e.preventDefault();
-            }
-            valido=true;
         }
-
+        
         function mensaje(cadenaMensaje, elemento) {
+
             elemento.focus();
             elemento.style.boxShadow = '0 0 5px red, 0 0 5px red';
 
@@ -425,11 +418,11 @@
             } else {
                 var nodoPadre = elemento.parentNode;
             }
-
-        var nodoMensaje = document.createElement("div");
+        
+            var nodoMensaje = document.createElement("div");
             nodoMensaje.textContent = cadenaMensaje;
             nodoMensaje.setAttribute("class", "mensajeError");
-
+    
             switch (elemento.id) {
                 case "producto":
                     nodoMensaje.setAttribute("id", "error-producto");
@@ -440,28 +433,28 @@
                 case "telefono":
                     nodoMensaje.setAttribute("id", "error-telefono");
                     break;
-                case "colores":
-                    nodoMensaje.setAttribute("id", "error-color");
+                case "chbxColor":
+                    nodoMensaje.setAttribute("id", "error-colores");
                     break;
                 case "disenio":
                     nodoMensaje.setAttribute("id", "error-disenio");
                     break;
-                case "modelo":
+                case "rb":
                     nodoMensaje.style.marginTop = '-35px';
                     nodoMensaje.setAttribute("id", "error-modelo");
                     break;
                 case "observaciones":
+                    nodoMensaje.style.marginTop = '-180px';
+                    nodoMensaje.style.marginLeft = '330px';
                     nodoMensaje.setAttribute("id", "error-observaciones");
                     break;
                 default:
                     break;
             }
-
             nodoPadre.appendChild(nodoMensaje);
             nodoMensaje.style.visibility = 'hidden';
         }
-
-        function depurar() {            
+        function limpiar() {            
             var mensajes = document.querySelectorAll(".mensajeError");
             let a = mensajes.length - 1;
             for (let i = a; i > -1; i--) {
@@ -474,7 +467,7 @@
                 boxes[i].style.boxShadow = '0 0 0';
             }
         }
-
+        
         function mostrarError(nombre) {
             if (document.querySelector("#error-" + nombre) !== null) {
                 document.querySelector("#error-" + nombre).style.visibility = 'visible';
@@ -486,8 +479,6 @@
                 document.querySelector("#error-" + nombre).style.visibility = 'hidden';
             }
         }
-
-    
     </script>
 </body>
 </html>

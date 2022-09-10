@@ -251,74 +251,25 @@
     </div>
     <script type="text/javascript">
 
-        var valido = true;
+        var formulario = document.getElementById("creaDisenio").addEventListener('submit', validar);
         
-        var formulario = document.getElementById("creaDisenio").addEventListener('submit', enviarDatos);
+        function validar(event){
 
-        //OBTENER ELEMENTOS 
-        var producto = document.getElementById("producto");
-        var cliente = document.getElementById("cliente");
-        var telefono = document.getElementById("telefono");
-        var colores = document.getElementsByClassName("colores");
-        var disenio = document.getElementById("disenio");
-        var modelo = document.getElementsByName("modelo");
-        var observaciones = document.getElementById("observaciones");
-        let arreglo_errores=[];
-    
+            var valido = true;
+
             var letra = /^[a-z ,.'-]+$/i;
             var telefono = /^[09]+[0-9]{8}$/g;
 
-            function enviarDatos(e){
-            let rbMod=false;
-            for(option of modelo){
-                if(option.checked){
-                    rbMod=true;
-                }
-            }
-            let chbxCol=false;
-            for(check of colores){
-                if(check.checked){
-                    chbxCol=true;
-                }
-            }
-            if(rbMod==false){
-                valido=false;
-                arreglo_errores.push("modelo");
-            }
-            if(chbxCol==false){
-                valido=false;
-                arreglo_errores.push("colores");
-            }
-            if(observaciones.value.length==0){
-                valido=false;
-                arreglo_errores.push("observaciones");
-            }
-            if(producto.selectedIndex==0){
-                valido=false;
-                arreglo_errores.push("producto");
-            }
-            if(disenio.selectedIndex==0){
-                valido=false;
-                arreglo_errores.push("disenio");
-            }
-
-            if(valido==true){
-                alert("ENVIO EXITOSO");
-            }else{
-                alert("ERROR: VERIFIQUE LA INFORMACION EN LOS CAMPOS");
-                let errores;
-                for(dato of arreglo_errores){
-                    errores+dato+" ";
-                }
-                errores=errores.replace("undefined","");
-                alert(errores);
-                arreglo_errores=[];
-                e.preventDefault();
-            }
-            valido=true;
-        }
-
-            depurar();
+            //OBTENER ELEMENTOS 
+            var producto = document.getElementById("producto");
+            var cliente = document.getElementById("cliente");
+            var telefono = document.getElementById("telefono");
+            var colores = document.getElementsByClassName("colores");
+            var disenio = document.getElementById("disenio");
+            var modelo = document.getElementsByName("modelo");
+            var observaciones = document.getElementById("observaciones");
+            
+            limpiar();
 
             //VALIDACIONES
             //PRODUCTO
@@ -395,10 +346,13 @@
                 valido = false;
                 mensaje("LAS OBSERVACIONES DEBEN CONTENER MÁXIMO 100 CARACTERES", observaciones); 
             }
-            return valido;
-
+            if (!valido) {
+                event.preventDefault();
+            }
+        }
         
         function mensaje(cadenaMensaje, elemento) {
+
             elemento.focus();
             elemento.style.boxShadow = '0 0 5px red, 0 0 5px red';
 
@@ -407,12 +361,11 @@
             } else {
                 var nodoPadre = elemento.parentNode;
             }
-
-
+        
             var nodoMensaje = document.createElement("div");
             nodoMensaje.textContent = cadenaMensaje;
             nodoMensaje.setAttribute("class", "mensajeError");
-
+    
             switch (elemento.id) {
                 case "producto":
                     nodoMensaje.setAttribute("id", "error-producto");
@@ -423,28 +376,28 @@
                 case "telefono":
                     nodoMensaje.setAttribute("id", "error-telefono");
                     break;
-                case "colores":
-                    nodoMensaje.setAttribute("id", "error-color");
+                case "chbxColor":
+                    nodoMensaje.setAttribute("id", "error-colores");
                     break;
                 case "disenio":
                     nodoMensaje.setAttribute("id", "error-disenio");
                     break;
-                case "modelo":
+                case "rb":
                     nodoMensaje.style.marginTop = '-35px';
                     nodoMensaje.setAttribute("id", "error-modelo");
                     break;
                 case "observaciones":
+                    nodoMensaje.style.marginTop = '-180px';
+                    nodoMensaje.style.marginLeft = '330px';
                     nodoMensaje.setAttribute("id", "error-observaciones");
                     break;
                 default:
                     break;
             }
-
             nodoPadre.appendChild(nodoMensaje);
             nodoMensaje.style.visibility = 'hidden';
         }
-
-        function depurar() {            
+        function limpiar() {            
             var mensajes = document.querySelectorAll(".mensajeError");
             let a = mensajes.length - 1;
             for (let i = a; i > -1; i--) {
@@ -457,8 +410,7 @@
                 boxes[i].style.boxShadow = '0 0 0';
             }
         }
-
-
+        
         function mostrarError(nombre) {
             if (document.querySelector("#error-" + nombre) !== null) {
                 document.querySelector("#error-" + nombre).style.visibility = 'visible';
@@ -470,9 +422,6 @@
                 document.querySelector("#error-" + nombre).style.visibility = 'hidden';
             }
         }
-        
-
-    
     </script>
 </body>
 </html>
