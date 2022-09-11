@@ -1,9 +1,8 @@
+<!--  ELIZALDE GAIBOR MILTON AEXANDER  -->
 <?php
 
 class InicioController {
 
-    private $model;
-    
     public function __construct() {    }
 
     public function index() {

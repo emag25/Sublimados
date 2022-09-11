@@ -136,7 +136,7 @@
                     <div id="contenedorContenido">
 
 			<div class="formularios">
-					<form id="formContacto" action="index.php?c=Servicios&f=int_edit&id=<?php echo $inter->internacional_id; ?>" method="POST" id="Neviointernacional">
+					<form id="formContacto" action="index.php?c=internacional&f=int_edit&id=<?php echo $inter->internacional_id; ?>" method="POST" id="Neviointernacional">
 							<div>
 							    <label><b>Nombres:&nbsp; </b><span>*</span></label>
 
@@ -229,7 +229,7 @@
 
 							<div class="botones">
 								<input style="height: 35px;" type="submit" class="enviarenvioi" value="GUARDAR"onclick="if (!confirm('¿Está seguro de modificar el envío?')) return false;">
-								<a style="border:2px solid black;"  class="enviarenvioi" href="index.php?c=Servicios&f=view_internacional_list">CANCELAR</a>
+								<a style="border:2px solid black;"  class="enviarenvioi" href="index.php?c=internacional&f=view_internacional_list">CANCELAR</a>
 						  </div>
 
 					</form>

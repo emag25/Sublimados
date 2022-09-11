@@ -149,7 +149,7 @@
             </section>
             <section class="seccion-segundo">
                 <div class="formulario">
-                    <form id="myForm" style="display: flex; flex-direction: column;  width: 90% ; " method="POST" action="index.php?c=servicios&f=view_domicilio_edit_producto">
+                    <form id="myForm" style="display: flex; flex-direction: column;  width: 90% ; " method="POST" action="index.php?c=domicilios&f=view_domicilio_edit_producto">
                         <input type="hidden" name="id" id="id" value="<?php echo $prod->domicilio_id; ?>"/>
                         <div style="display:flex; flex-direction: row; align-items: center; justify-content: space-between;">
                             <div style="display: flex; flex-direction: column; width: 35%; ">
@@ -270,7 +270,7 @@
                         <textarea name="referencias" id="area_referencias"><?php echo $prod->referencias; ?></textarea>
                         <div style="display: flex; align-items: flex-end; justify-content: center;">
                             <input type="submit">
-                            <a href="index.php?c=servicios&f=view_domicilio_list"><input class="btnCancelar" type="button" value="CANCELAR"></a>
+                            <a href="index.php?c=domicilios&f=view_domicilio_list"><input class="btnCancelar" type="button" value="CANCELAR"></a>
                         </div>                            
                     </form>                                
                 </div>

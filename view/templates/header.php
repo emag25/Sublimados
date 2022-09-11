@@ -7,8 +7,8 @@
             <li class="boton2">
                 <a href="index.php?c=servicios&f=index">SERVICIOS</a>
                 <ul>
-                    <li><a href="index.php?c=servicios&f=view_domicilio_list" class="submenu submenu1">A domicilio</a></li>
-                    <li><a href="index.php?c=servicios&f=view_internacional_list" class="submenu submenu2">Internacional</a> </li>                  
+                    <li><a href="index.php?c=domicilios&f=view_domicilio_list" class="submenu submenu1">A domicilio</a></li>
+                    <li><a href="index.php?c=internacional&f=view_internacional_list" class="submenu submenu2">Internacional</a> </li>                  
                 </ul>
             </li>
             <li class="boton3">

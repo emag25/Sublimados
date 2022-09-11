@@ -58,14 +58,14 @@
             </section>
             <section class="seccion-segundo">
             <div class="row">                    
-                    <form action="index.php?c=Servicios&f=int_search" method="POST" id="formBuscar">
+                    <form action="index.php?c=internacional&f=int_search" method="POST" id="formBuscar">
                         <div class="contenedor-buscar">
                             <input type="text" name="b" id="busqueda"  placeholder="Buscar por nombre..."/>
                             <button class="btn-buscar" type="submit"><i class='bx bx-search' ></i>Buscar</button>
                         </div>
                     </form>       
                     <div>
-                        <a href="index.php?c=Servicios&f=view_internacional_new"><button class="btn-nuevo" type="button"><i class='bx bx-plus' ></i>Nuevo</button></a>
+                        <a href="index.php?c=internacional&f=view_internacional_new"><button class="btn-nuevo" type="button"><i class='bx bx-plus' ></i>Nuevo</button></a>
                     </div>
                 </div>
                 <?php                
@@ -110,8 +110,8 @@
                             <td><?php if ($fila->recibir_info == 1) echo "SI"; else echo "NO";?></td>
                             <td><?php echo $fila->especificaciones;?></td>
                             <td>
-                                <a class="accion-boton editar" href="index.php?c=Servicios&f=view_internacional_edit&id=<?php echo $fila->internacional_id;?>"><i class='bx bxs-pencil' ></i></a>
-                                <a class="accion-boton borrar" href="index.php?c=Servicios&f=int_delete&id=<?php echo $fila->internacional_id;?>" 
+                                <a class="accion-boton editar" href="index.php?c=internacional&f=view_internacional_edit&id=<?php echo $fila->internacional_id;?>"><i class='bx bxs-pencil' ></i></a>
+                                <a class="accion-boton borrar" href="index.php?c=internacional&f=int_delete&id=<?php echo $fila->internacional_id;?>" 
                                 onclick="if(!confirm('Esta seguro de eliminar el producto?'))return false;"><i class='bx bxs-trash-alt' ></i></a>
                             </td>
                         </tr>

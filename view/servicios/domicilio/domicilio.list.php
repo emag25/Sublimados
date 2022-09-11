@@ -153,14 +153,14 @@
             </section>
             <section class="seccion-segundo">            
                 <div class="row">                    
-                    <form action="index.php?c=servicios&f=view_domicilio_search" method="POST" id="formBuscar">
+                    <form action="index.php?c=domicilios&f=view_domicilio_search" method="POST" id="formBuscar">
                         <div class="contenedor-buscar">
                             <input type="text" name="b" id="busqueda"  placeholder="Buscar por ciudad"/>
                             <button class="btn-buscar" type="submit"><i class='bx bx-search' ></i>Buscar</button>
                         </div>
                     </form>       
                     <div>
-                        <a href="index.php?c=servicios&f=view_domicilio_new"><button class="btn-nuevo" type="button"><i class='bx bx-plus' ></i>Nuevo</button></a>
+                        <a href="index.php?c=domicilios&f=view_domicilio_new"><button class="btn-nuevo" type="button"><i class='bx bx-plus' ></i>Nuevo</button></a>
                     </div>
                 </div>
                 <?php                
@@ -205,8 +205,8 @@
                             <td><?php echo $fila->productos; ?></td>
                             <td><?php echo $fila->ciudad; ?></td>
                             <td>
-                                <a class="accion-boton editar" href="index.php?c=servicios&f=view_domicilio_edit&id=<?php echo $fila->domicilio_id;?>"><i class='bx bxs-pencil' ></i></a>
-                                <a class="accion-boton borrar" href="index.php?c=servicios&f=view_domicilio_delete&id=<?php echo $fila->domicilio_id;?>" 
+                                <a class="accion-boton editar" href="index.php?c=domicilios&f=view_domicilio_edit&id=<?php echo $fila->domicilio_id;?>"><i class='bx bxs-pencil' ></i></a>
+                                <a class="accion-boton borrar" href="index.php?c=domicilios&f=view_domicilio_delete&id=<?php echo $fila->domicilio_id;?>" 
                                 onclick="if(!confirm('Estas a punto de eliminarlo, estas seguro?'))return false;"><i class='bx bxs-trash-alt' ></i></a>
                             </td>
                         </tr>
