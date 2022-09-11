@@ -104,7 +104,7 @@
                             <td>
                                 <a class="accion-boton editar" href="index.php?c=Resenias&f=view_edit&id=<?php echo $fila->resenia_id;?>"><i class='bx bxs-pencil' ></i></a>
                                 <a class="accion-boton borrar" href="index.php?c=Resenias&f=delete&id=<?php echo $fila->resenia_id;?>" 
-                                onclick="if(!confirm('Esta seguro de eliminar el producto?'))return false;"><i class='bx bxs-trash-alt' ></i></a>
+                                onclick="if(!confirm('Esta seguro que desea eliminar la reseña?'))return false;"><i class='bx bxs-trash-alt' ></i></a>
                             </td>
                         </tr>
                         <?php 

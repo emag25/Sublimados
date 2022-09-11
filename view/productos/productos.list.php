@@ -11,9 +11,6 @@
     <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
     <title>TU DISEÑO</title>
     <style>
-        *{
-            font-family: 'Inter', sans-serif;
-        }
         .dividir-seccion-uno{
             padding-top: 35px;
         }
@@ -44,76 +41,8 @@
             gap: 20px;
         }
 
-        .btn-buscar, .btn-nuevo {
-            background-color: #D4F4DB;
-            border-radius: 30px;
-            width: 150px;
-            height: 42px;
-            font-weight: bold;
-            border: 0;
-            color: #2B2729;
-            cursor: pointer;
-        }
-
-        input[type="text"] {
-            border-radius: 30px;
-            width: 100%;
-            height: 42px;
-            border: 0;
-            cursor: pointer;
-            padding-left: 20px;
-        }
-
-        .contenedor-buscar {
-            display: flex;
-            flex-direction: row;
-            gap: 20px;
-            justify-content: space-between;
-        }
-
-        table {
-            margin: 60px 0 60px 0;
-            border: #9EE9A1 2px solid;
-            border-collapse: collapse;
-            width: 90%;
-        }
-
-        td, th {
-            border: #9EE9A1 2px solid;
-            padding: 5px;
-            text-align: center;
-            background: white;
-        }
-
-        th{
-            background: #9EE9A1;
-        }
-
-        .accion-boton {
-            display: inline-block;
-            padding: 7px;            
-            border-radius: 7px;
-            font-size: 12pt;
-            color: white;
-        }
-
-        .editar{
-            background: #1C32B1;
-        }
-
-        .borrar{
-            background: #BA1C1C;
-        }
-        
-        .formulario{
-            margin: 5px;
-            padding-left: 10px;
-        }
         #btnsCentro{
             text-align: center;
-        }
-        input, select, textarea{
-            border-radius: 8px;
         }
         label{
             color: #9EE9A1;
@@ -147,10 +76,9 @@
     <?php 
     if(!isset($_SESSION)){ 
         session_start();
-      };
-    require_once HEADER; ?>
-        
-    
+    } 
+    require_once HEADER;
+    ?>      
         <main>
             <section class="seccion-primero">
                 <div class="dividir-seccion-uno">

@@ -91,7 +91,7 @@ class ReseniasController {
             
       if(!isset($_SESSION)){ 
         session_start();
-      };
+      }
 
       if ($exito) {
         $_SESSION['mensaje'] = "Reseña guardada exitosamente!";
@@ -114,7 +114,21 @@ class ReseniasController {
     $id = $_REQUEST['id'];     
     $res = $this->model->selectById($id);
 
-    require_once VRESENIAS.'edit.php';
+    // Para que NO permita editar una reseña publicada (estado = 1)
+    if ($res != "") {
+      
+      require_once VRESENIAS.'edit.php';
+    
+    }else{
+
+      if(!isset($_SESSION)){ 
+        session_start();
+      }
+      $_SESSION['mensaje'] = "ERROR: No puede editar una reseña publicada.";
+      $_SESSION['color'] = "rojo";
+
+      header('Location:index.php?c=Resenias&f=view_list');
+    }    
   }
 
   public function edit(){
@@ -179,8 +193,10 @@ class ReseniasController {
       $_SESSION['mensaje'] = "Reseña eliminada exitosamente!";
       $_SESSION['color'] = "azul";
     }else{
-      $_SESSION['mensaje'] = "ERROR: No se pudo eliminar la reseña. Intentalo de nuevo.";
-      $_SESSION['color'] = "rojo";
+      if ( (!isset($_SESSION['mensaje'])) and (!isset($_SESSION['color'])) ){
+        $_SESSION['mensaje'] = "ERROR: No se pudo eliminar la reseña. Intentalo de nuevo.";
+        $_SESSION['color'] = "rojo";
+      }
     }
 
     header('Location:index.php?c=Resenias&f=view_list');    

@@ -150,8 +150,7 @@
                             </div>
                             <div>
                             <select name="producto" id="producto" class="form fi"
-                                    style="height: 30px; width: 200px;" onmouseover="mostrarError('producto')"
-                                    onmouseout="ocultarError('producto')">   
+                                    style="height: 30px; width: 200px;">   
                                     
                                     <?php  
                                     $camiseta = ""; $abrigo = ""; $gorra = ""; $taza = ""; $bolso = "";
@@ -184,8 +183,7 @@
                             </div>
                             <div>
                                 <input type="text" value="<?php echo $prod->cliente ?>" name="cliente" id="cliente" class="form fi" placeholder="Ingresar Nombre Cliente"
-                                style="height: 20px; width: 200px;" onmouseover="mostrarError('cliente')"
-                                    onmouseout="ocultarError('cliente')">
+                                style="height: 20px; width: 200px;">
                             </div>
 
 
@@ -194,8 +192,7 @@
                             </div>
                             <div>
                                 <input type="text" value="<?php echo $prod->telefono ?>" name="telefono" id="telefono" class="form fi" placeholder="Ingresar Teléfono Cliente"
-                                style="height: 20px; width: 200px;" onmouseover="mostrarError('telefono')"
-                                    onmouseout="ocultarError('telefono')">
+                                style="height: 20px; width: 200px;">
                             </div>
 
 
@@ -229,15 +226,15 @@
                                         }
                                     }
                                     ?>                                    
-                                    <input type="checkbox" value="1" name="colores[]" <?php echo $amarillo; ?>/>Amarillo
-                                    <input type="checkbox" value="2" name="colores[]" <?php echo $azul; ?>/>Azul
-                                    <input type="checkbox" value="3" name="colores[]" <?php echo $rojo; ?>/>Rojo
-                                    <input type="checkbox" value="4" name="colores[]" <?php echo $verde; ?>/>Verde
-                                    <input type="checkbox" value="5" name="colores[]" <?php echo $morado; ?>/>Morado
-                                    <input type="checkbox" value="6" name="colores[]" <?php echo $naranja; ?>/>Naranja
-                                    <input type="checkbox" value="7" name="colores[]" <?php echo $blanco; ?>/>Blanco
-                                    <input type="checkbox" value="8" name="colores[]" <?php echo $negro; ?>/>Negro
-                                    <input type="checkbox" value="9" name="colores[]" <?php echo $gris; ?>/>Gris
+                                    <input type="checkbox" value="1" name="colores[]" class="colores" <?php echo $amarillo; ?>/>Amarillo
+                                    <input type="checkbox" value="2" name="colores[]" class="colores" <?php echo $azul; ?>/>Azul
+                                    <input type="checkbox" value="3" name="colores[]" class="colores" <?php echo $rojo; ?>/>Rojo
+                                    <input type="checkbox" value="4" name="colores[]" class="colores" <?php echo $verde; ?>/>Verde
+                                    <input type="checkbox" value="5" name="colores[]" class="colores" <?php echo $morado; ?>/>Morado
+                                    <input type="checkbox" value="6" name="colores[]" class="colores" <?php echo $naranja; ?>/>Naranja
+                                    <input type="checkbox" value="7" name="colores[]" class="colores" <?php echo $blanco; ?>/>Blanco
+                                    <input type="checkbox" value="8" name="colores[]" class="colores" <?php echo $negro; ?>/>Negro
+                                    <input type="checkbox" value="9" name="colores[]" class="colores" <?php echo $gris; ?>/>Gris
                             </div>
 
                             <div>
@@ -245,8 +242,7 @@
                             </div>
                             <div>
                                 <select name="disenio" id="disenio" class="form"
-                                style="height: 30px; width: 200px;" onmouseover="mostrarError('disenio')"
-                                    onmouseout="ocultarError('disenio')">
+                                style="height: 30px; width: 200px;">
 
                                     <?php  
                                     $personalizado = ""; $estandar = ""; $sorpresa = ""; 
@@ -271,8 +267,7 @@
                             <div>
                                 <label class="form"> <b> MODELO DE SUBLIMADO: </b>  </label>
                             </div> 
-                            <div id="rb" onmouseover="mostrarError('modelo')"
-                                onmouseout="ocultarError('modelo')">
+                            <div id="rb">
 
                                 <input <?php echo (($prod->modelo) == "Realista")? "checked=''":"";?> type="radio" class="ms" id="realista" name="modelo" value="real" /> Realista 
                                 <input <?php echo (($prod->modelo) == "Caricatura")? "checked=''":"";?> type="radio" class="ms" id="caricatura" name="modelo" value="cari" /> Caricatura 
@@ -283,16 +278,14 @@
                                 <label class="form"> <b> OBSERVACIONES: </b> </label>
                             </div>
                             <div>
-                                <textarea name="observaciones" id="observaciones" cols="100" rows="3" class="form" placeholder="Ingrese sus Observaciones"
-                                onmouseover="mostrarError('observaciones')"
-                                onmouseout="ocultarError('observaciones')"> <?php echo $prod->observaciones; ?></textarea>
+                                <textarea name="observaciones" id="observaciones" cols="100" rows="3" class="form" placeholder="Ingrese sus Observaciones"><?php echo $prod->observaciones; ?></textarea>
                             </div> 
 
                             
                             <div>
                                 <input type="submit" class="form botones" value="Actualizar" onclick="if (!confirm('¿Está seguro de Editar el Diseño de Producto?')) return false;" >   
                                 <a class="btndisenio" href="index.php?c=Productos&f=view_list" style="background-color: white; border-radius: 30px; 
-                                padding: 1px; border-color:2px solid black; text-decoration:none; color:black;"> Cancelar</a>
+                                padding: 1px; border-color:2px solid black; text-decoration:none; color:black;">Cancelar</a>
                             </div>
 
 

@@ -89,6 +89,10 @@ class ReseniasDAO {
         $stmt->execute($data);
         $resultado = $stmt->fetch(PDO::FETCH_OBJ);
 
+        // Comprueba si la reseña está publicada o no
+        if ($resultado->estado == 1){            
+            $resultado="";        
+        }
         return $resultado;
     }
 
@@ -124,15 +128,30 @@ class ReseniasDAO {
     /*--  ELIMINAR RESEÑA  --*/
 
     public function delete($res){
-        try{        
-            $sql = "DELETE FROM resenia WHERE resenia_id = :id";
-            $sentencia = $this->con->prepare($sql); 
-            $data = ['id' =>  $res->getReseniaId()];
-            $sentencia->execute($data);
-   
-            if ($sentencia->rowCount() <= 0) {
+        try{  
+            // Para que NO permita eliminar una reseña publicada (estado = 1)
+            $resultado = $this->selectById($res->getReseniaId());           
+            
+            if ($resultado != ""){
+                          
+                $sql = "DELETE FROM resenia WHERE resenia_id = :id";
+                $sentencia = $this->con->prepare($sql); 
+                $data = ['id' =>  $res->getReseniaId()];
+                $sentencia->execute($data);
+    
+                if ($sentencia->rowCount() <= 0) {
+                    return false;
+                }      
+
+            }else{                                  
+                if(!isset($_SESSION)){ 
+                    session_start();
+                }
+                $_SESSION['mensaje'] = "ERROR: No puede eliminar una reseña publicada.";
+                $_SESSION['color'] = "rojo";
                 return false;
             }
+            
         }catch(Exception $e){
             return false;
         }
