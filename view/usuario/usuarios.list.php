@@ -16,7 +16,7 @@
     <meta name="keywords" content="Sublimados, Estampados, Camisetas, Tazas, Reseñas, Formulario">
     <link rel="stylesheet" href="assets/css/style.css">
     <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
-    <title>CONSULTAR RESEÑAS</title>
+    <title>CONSULTAR USUARIOS</title>
     <style>
         .seccion-segundo {
             height: auto;
@@ -38,11 +38,10 @@
                 <div class="dividir-seccion-uno">
                     <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; margin-left: auto;
                     margin-right:auto ;">
-                        <h2 id="encabezado">¡REVISA LAS RESEÑAS!</h2>
+                        <h2 id="encabezado">¡REVISA LOS USUARIOS!</h2>
                         <h3 style="margin-top: -10px;">SUPERIUM</h3>
                         <p id="parrafo">
-                            Este espacio es dedicado para tí. Puedes revisar las opiniones acerca de nuestros
-                            productos y servicios.</p>
+                            Aquí podrás consultar los usuarios registrados, su rol etc.</p>
                     </div>
                     <div class="seccion-uno-derecho">
                         <div class="circulo" id="circulo-arriba"></div>
@@ -56,14 +55,14 @@
 
             <section class="seccion-segundo">            
                 <div class="row">                    
-                    <form action="index.php?c=Resenias&f=search" method="POST" id="formBuscar">
+                    <form action="index.php?c=Usuarios&f=search" method="POST" id="formBuscar">
                         <div class="contenedor-buscar">
                             <input type="text" name="b" id="busqueda"  placeholder="Buscar por nombre..."/>
                             <button class="btn-buscar" type="submit"><i class='bx bx-search' ></i>Buscar</button>
                         </div>
                     </form>       
                     <div>
-                        <a href="index.php?c=Resenias&f=view_new"><button class="btn-nuevo" type="button"><i class='bx bx-plus' ></i>Nuevo</button></a>
+                        <a href="index.php?c=Usuarios&f=view_new"><button class="btn-nuevo" type="button"><i class='bx bx-plus' ></i>Nuevo</button></a>
                     </div>
                 </div>
                 <?php                
@@ -81,13 +80,8 @@
                 <table>
                     <thead>
                         <th>ID</th>
-                        <th>NOMBRE</th>
-                        <th>EMAIL</th>
-                        <th>VALORACIÓN</th>
-                        <th>SERVICIO</th>
-                        <th>RESEÑA</th>
-                        <th>RECIBIR PROM.</th>
-                        <th>ESTADO</th>
+                        <th>NOMBRE DE USUARIO</th>
+                        <th>ROL</th>
                         <th>ACCIONES</th>
                     </thead>
                     <tbody>
@@ -95,17 +89,21 @@
                         foreach ($resultados as $fila) {
                         ?>
                         <tr>
-                            <td><?php echo $fila->resenia_id;?></td>
-                            <td><?php echo $fila->nombre;?></td>
-                            <td><?php echo $fila->email;?></td>
-                            <td><?php if ($fila->valoracion == 1) echo "1 estrella"; else echo $fila->valoracion; ?> estrellas</td>
-                            <td><?php echo $fila->servicio;?></td>
-                            <td><?php echo $fila->resenia;?></td>
-                            <td><?php if ($fila->recibir_promo == 1) echo "SI"; else echo "NO";?></td>
-                            <td><?php if ($fila->estado == 1) echo "Publicada"; else echo "En revisión";?></td>
+                            <td><?php echo $fila->id_usuario;?></td>
+                            <td><?php echo $fila->usuario;?></td>
+                            <td><?php 
+                                
+                                if ($fila->rol == 1){
+                                    echo " ";
+                                }else if ($fila->rol == 2){
+                                    echo " ";
+                                }else if ($fila->rol == 3){
+                                    echo " ";
+                                }
+                            ?></td>                            
                             <td>
-                                <a class="accion-boton editar" href="index.php?c=Resenias&f=view_edit&id=<?php echo $fila->resenia_id;?>"><i class='bx bxs-pencil' ></i></a>
-                                <a class="accion-boton borrar" href="index.php?c=Resenias&f=delete&id=<?php echo $fila->resenia_id;?>" 
+                                <a class="accion-boton editar" href="index.php?c=Usuarios&f=view_edit&id=<?php echo $fila->id_usuario;?>"><i class='bx bxs-pencil' ></i></a>
+                                <a class="accion-boton borrar" href="index.php?c=Usuarios&f=delete&id=<?php echo $fila->id_usuario;?>" 
                                 onclick="if(!confirm('Esta seguro que desea eliminar la reseña?'))return false;"><i class='bx bxs-trash-alt' ></i></a>
                             </td>
                         </tr>
