@@ -93,19 +93,26 @@ class UsuariosController {
   public function iniciar() { 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       
-      $resultados = $this->model->selectByNamePass(htmlentities($_POST['nombre']), htmlentities($_POST['contrasenia'])); 
+      $resultado = $this->model->selectByNamePass(htmlentities($_POST['nombre']), htmlentities($_POST['contrasenia'])); 
      
       if(!isset($_SESSION)){ 
         session_start();
       }
 
-      if($resultados != -1){
+      if($resultado != -1){
+
+        if($resultado->activo == '1'){
+          $_SESSION['rol'] = $resultado->rol;
+          $_SESSION['id'] = $resultado->id_usuario;
+          $_SESSION['nombre'] = $resultado->usuario;
+          header('Location:index.php?c=inicio&f=index');
         
-        $_SESSION['rol'] = $resultados->rol;
-        $_SESSION['id'] = $resultados->id_usuario;
-        $_SESSION['nombre'] = $resultados->usuario;
-        header('Location:index.php?c=inicio&f=index');
-      
+        }else{
+          $_SESSION['mensaje'] = "ERROR: Su cuenta ha sido desactivada.";
+          $_SESSION['color'] = "rojo";
+          header('Location:index.php?c=Usuarios&f=view_login');
+        }
+        
       }else{
         $_SESSION['mensaje'] = "ERROR: Usuario o contraseña incorrecta.";
         $_SESSION['color'] = "rojo";
@@ -240,6 +247,7 @@ class UsuariosController {
       
       $usu = new Usuario();
       $usu->setUsuarioId(htmlentities($_REQUEST['id']));
+      $usu->setActivo(0);
       $exito = $this->model->delete($usu);     
 
       if ($exito) {

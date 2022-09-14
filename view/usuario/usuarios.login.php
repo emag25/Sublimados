@@ -17,6 +17,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>INICIO DE SESION</title> 
     <link rel="stylesheet" href="assets/css/style.css">
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
     <style>
         body{
             margin: 0;
@@ -25,7 +26,7 @@
 
         .contendor{
             display: flex; 
-            flex-direction: row; 
+            flex-direction: column; 
             justify-content:center; 
             align-items:center; 
             background-color: #D4F4DB; 
@@ -98,23 +99,23 @@
     <div class="contenedor-principal">
     <?php require_once HEADER; ?>
 
-        <div class="contendor" >
-            <div class="contendor-form" >
-                <?php                
-                if (!empty($_SESSION['mensaje'])) {
-                    ?>
-                    <div class="alert-<?php echo $_SESSION['color']; ?>">
-                    <i class='bx bx-<?php if ($_SESSION['color']=="rojo") { echo "x";} else{ echo "check";} ?>'></i>
-                    <?php echo $_SESSION['mensaje']; ?>  
-                    </div>
-                    <?php
-                    unset($_SESSION['mensaje']);
-                    unset($_SESSION['color']);
-                }
+        <div class="contendor" >   
+            <?php                
+            if (!empty($_SESSION['mensaje'])) {
                 ?>
+                <div style="margin-bottom:20px;" class="alert-<?php echo $_SESSION['color']; ?>">
+                <i class='bx bx-<?php if ($_SESSION['color']=="rojo") { echo "x";} else{ echo "check";} ?>'></i>
+                <?php echo $_SESSION['mensaje']; ?>  
+                </div>
+                <?php
+                unset($_SESSION['mensaje']);
+                unset($_SESSION['color']);
+            }
+            ?>     
+            <div class="contendor-form" >                
                 <form method="POST" action="index.php?c=Usuarios&f=iniciar" id="formulario" style="display: flex; flex-direction: column; justify-content:center; align-items:center; padding: 10px 5px;">
 
-                    <h1>INICIO DE SESION</h1>
+                    <h1>INICIO DE SESION</h1>                    
                     
                     <label><b>Nombre de usuario: </b></label>
                     <input class="caja" type="text" name="nombre" id="nombre" placeholder="Escribe tu nombre de usuario.">

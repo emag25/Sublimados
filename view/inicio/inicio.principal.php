@@ -15,6 +15,7 @@
     <meta name="description" content="ESTA PAGINA ES LA PAGINA PRINCIPAL DE LA FAMOSA EMPRESA SUPEIRUM - ENCARGADA DE SERVICIOS DE SUBLIMADOS!!">
     <meta name="keywords" content="Sublimados, Estampados, Camisetas, Tazas, Servicio A Domicilio,Envios Internacionales">
     <link rel="stylesheet" href="assets/css/style.css">
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
     <title>INICIO</title>
     <style>
          /*selector universal*/

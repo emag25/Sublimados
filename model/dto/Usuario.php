@@ -2,12 +2,16 @@
 
 class Usuario {
 
-    private $usuario_id, $nombre, $contrasenia, $rol;
+    private $usuario_id, $nombre, $contrasenia, $rol, $activo;
 
     function __construct() {    }
 
     function getUsuarioId() {
         return $this->usuario_id;
+    }
+
+    function getActivo() {
+        return $this->activo;
     }
 
     function getNombre() {
@@ -36,6 +40,10 @@ class Usuario {
 
     function setRol($rol) {
         $this->rol = $rol;
+    }
+
+    function setActivo($activo) {
+        $this->activo = $activo;
     }
     
     public function __set($nombre, $valor) {
