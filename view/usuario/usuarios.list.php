@@ -60,10 +60,10 @@
                             <input type="text" name="b" id="busqueda"  placeholder="Buscar por nombre..."/>
                             <button class="btn-buscar" type="submit"><i class='bx bx-search' ></i>Buscar</button>
                         </div>
-                    </form>       
+                    </form> <!--      
                     <div>
                         <a href="index.php?c=Usuarios&f=view_new"><button class="btn-nuevo" type="button"><i class='bx bx-plus' ></i>Nuevo</button></a>
-                    </div>
+                    </div> -->
                 </div>
                 <?php                
                 if (!empty($_SESSION['mensaje'])) {
@@ -91,20 +91,11 @@
                         <tr>
                             <td><?php echo $fila->id_usuario;?></td>
                             <td><?php echo $fila->usuario;?></td>
-                            <td><?php 
-                                
-                                if ($fila->rol == 1){
-                                    echo " ";
-                                }else if ($fila->rol == 2){
-                                    echo " ";
-                                }else if ($fila->rol == 3){
-                                    echo " ";
-                                }
-                            ?></td>                            
+                            <td><?php echo $fila->rol;?></td>                            
                             <td>
-                                <a class="accion-boton editar" href="index.php?c=Usuarios&f=view_edit&id=<?php echo $fila->id_usuario;?>"><i class='bx bxs-pencil' ></i></a>
+                                <a class="accion-boton editar" href="index.php?c=Usuarios&f=view_edit_rol&id=<?php echo $fila->id_usuario;?>"><i class='bx bxs-pencil' ></i></a>
                                 <a class="accion-boton borrar" href="index.php?c=Usuarios&f=delete&id=<?php echo $fila->id_usuario;?>" 
-                                onclick="if(!confirm('Esta seguro que desea eliminar la reseña?'))return false;"><i class='bx bxs-trash-alt' ></i></a>
+                                onclick="if(!confirm('Esta seguro que desea eliminar el usuario?'))return false;"><i class='bx bxs-trash-alt' ></i></a>
                             </td>
                         </tr>
                         <?php 

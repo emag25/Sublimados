@@ -1,7 +1,13 @@
 <header>
     <nav>
-        <img src="assets/img/logotipo.png" alt="logo" class="nav-logo">
-            
+        <div style="display: flex;">    
+            <img src="assets/img/logotipo.png" alt="logo" class="nav-logo">
+            <div style="margin-top:15px; margin-left:12px; font-size:12pt; font-weight:bold;"><?php 
+                if(isset($_SESSION['nombre'])) {
+                    echo 'Usuario: ' . $_SESSION['nombre'];
+                } ?>
+            </div>            
+        </div> 
         <ul class="nav-botones">
             
             <li class="boton1"><a href="index.php?c=inicio&f=index">INICIO</a></li>
@@ -69,23 +75,78 @@
                     } 
                     ?> href="index.php?c=contacto&f=view_list" class="submenu submenu5">Escribenos!</a></li>
                 </ul>
-            </li>  
+            </li>
+
             <?php
-            if((isset($_SESSION['rol'])) and ($_SESSION['rol'] == "cliente")) {
+            if((isset($_SESSION['rol'])) and (($_SESSION['rol'] == "administrador") or ($_SESSION['rol'] == "marketing"))) {
             ?>
             <li class="boton6"><a>ADMIN</a>
                 <ul>
-                    <li><a href="index.php?c=domicilios&f=view_domicilio_list" class="submenu submenu6">A domicilio</a></li>
-                    <li><a href="index.php?c=internacional&f=view_internacional_list" class="submenu submenu7">Internacional</a></li>
-                    <li><a href="index.php?c=productos&f=view_list" class="submenu submenu8">Productos</a></li> 
-                    <li><a href="index.php?c=resenias&f=view_list" class="submenu submenu9">Reseñas</a></li> 
-                    <li><a href="index.php?c=contacto&f=view_list" class="submenu submenu10">Contacto</a></li>   
-                    <li><a href="index.php?c=usuarios&f=view_list" class="submenu submenu11">Usuarios</a></li>                    
+                    <?php if((isset($_SESSION['rol'])) and ($_SESSION['rol'] == "administrador")) { ?>
+                        <li><a href="index.php?c=domicilios&f=view_domicilio_list" class="submenu submenu6">A domicilio</a></li>                    
+                    <?php
+                    }
+                    ?>                    
+                    
+                    <?php if((isset($_SESSION['rol'])) and ($_SESSION['rol'] == "administrador")) { ?>
+                        <li><a href="index.php?c=internacional&f=view_internacional_list" class="submenu submenu7">Internacional</a></li>
+                    <?php
+                    }
+                    ?> 
+
+                    <?php if((isset($_SESSION['rol'])) and ($_SESSION['rol'] == "administrador")) { ?>
+                        <li><a href="index.php?c=productos&f=view_list" class="submenu submenu8">Productos</a></li> 
+                    <?php
+                    }
+                    ?> 
+
+                    <?php if((isset($_SESSION['rol'])) and ($_SESSION['rol'] == "administrador")) { ?>
+                        <li><a href="index.php?c=resenias&f=view_list" class="submenu submenu9">Reseñas</a></li> 
+                    <?php
+                    }
+                    ?> 
+
+                    <?php if((isset($_SESSION['rol'])) and (($_SESSION['rol'] == "administrador") or ($_SESSION['rol'] == "marketing"))) { ?>
+                        <li><a href="index.php?c=contacto&f=view_list" class="submenu submenu10">Contacto</a></li> 
+                    <?php
+                    }
+                    ?>
+
+                    <?php if((isset($_SESSION['rol'])) and ($_SESSION['rol'] == "administrador")) { ?>
+                        <li><a href="index.php?c=Usuarios&f=view_list" class="submenu submenu9">Usuarios</a></li> 
+                    <?php
+                    }
+                    ?>
+
                 </ul> 
             </li>                    
             <?php 
             }
             ?>
+
+            <li style="text-align:center;" class="boton7">
+                <a style="width:145px;" href="index.php?c=Usuarios&f=index"><?php 
+                    if(isset($_SESSION['rol'])) {
+                        echo "MI CUENTA";                        
+                    } 
+                    else{
+                        echo "INICIAR SESION";
+                    } 
+                    ?></a>                
+                <ul>
+                    <?php if(isset($_SESSION['rol'])) { ?>
+                        <li><a style="width:145px;" href="index.php?c=Usuarios&f=view_edit_pass" class="submenu submenu11">Cambiar contraseña</a></li> 
+                    <?php
+                    }
+                    ?>
+                    
+                    <?php if(isset($_SESSION['rol'])) { ?>
+                        <li><a style="width:145px;" href="index.php?c=Usuarios&f=index" class="submenu submenu11">Cerrar sesión</a></li> 
+                    <?php
+                    }
+                    ?>                    
+                </ul>
+            </li>
         </ul>
                 
     </nav>

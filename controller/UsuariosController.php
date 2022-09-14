@@ -29,45 +29,53 @@ class UsuariosController {
   }
 
   public function new() {
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        
-      $usu = new Usuario();
-      
-      $usu->setNombre(htmlentities($_POST['nombre']));
-      $usu->setContrasenia(htmlentities($_POST['contrasenia']));
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {         
 
+      // validar que el usuario no exista
+      $encontrado = $this->model->selectByName(htmlentities($_POST['nombre']));
       
-      if (htmlentities($_POST['radio']) == "Cliente") {
-        $rol = $this->model->selectByRol("Cliente");     
-      
-      }else if (htmlentities($_POST['radio']) == "Administrador"){
-        $rol = $this->model->selectByRol("Administrador");  
-      
-      }else if (htmlentities($_POST['radio']) == "Marketing"){
-        $rol = $this->model->selectByRol("Marketing");   
-      }
-
-      if($rol != -1){
-        $usu->setRol($rol);
-        $exito = $this->model->insert($usu);
-      }else{
-        $exito = false;
-      }
-                        
-      if(!isset($_SESSION)){ 
+      if(!isset($_SESSION)){
         session_start();
       }
-
-      if ($exito) {
-        $_SESSION['mensaje'] = "Usuario guardado exitosamente!";
-        $_SESSION['color'] = "azul";
-      }else{
-        $_SESSION['mensaje'] = "ERROR: No se pudo guardar el usuario. Intentalo de nuevo.";
-        $_SESSION['color'] = "rojo";
-      }
       
-      header('Location:index.php?c=Usuarios&f=view_login');
-            
+      if($encontrado){
+
+        $_SESSION['mensaje'] = "ERROR: Usuario ya registrado. Inicia sesion!";
+        $_SESSION['color'] = "rojo";
+
+      }else{
+
+        $usu = new Usuario();
+      
+        $usu->setNombre(htmlentities($_POST['nombre']));
+        $usu->setContrasenia(htmlentities($_POST['contrasenia'])); 
+
+        if (htmlentities($_POST['radio']) == "Cliente") {
+          $rol = $this->model->selectByRol("cliente");
+        
+        }else if (htmlentities($_POST['radio']) == "Administrador"){
+          $rol = $this->model->selectByRol("administrador");
+        
+        }else if (htmlentities($_POST['radio']) == "Marketing"){
+          $rol = $this->model->selectByRol("marketing");
+        }
+
+        if($rol != -1){
+          $usu->setRol($rol);
+          $exito = $this->model->insert($usu);
+        }else{
+          $exito = false;
+        }
+
+        if ($exito) {
+          $_SESSION['mensaje'] = "Usuario registrado exitosamente. Ya puedes inicar sesión!";
+          $_SESSION['color'] = "azul";
+        }else{
+          $_SESSION['mensaje'] = "ERROR: No se pudo registrar al usuario. Intentalo de nuevo.";
+          $_SESSION['color'] = "rojo";
+        }
+      } 
+      header('Location:index.php?c=Usuarios&f=view_login');            
     }
   }
 
@@ -83,14 +91,28 @@ class UsuariosController {
   }
   
   public function iniciar() { 
-    // aqui validamos correo y contrase;a correcto
-    if(!isset($_SESSION)){ 
-      session_start();
-    }
-    $_SESSION['rol'] = "cliente"; 
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      
+      $resultados = $this->model->selectByNamePass(htmlentities($_POST['nombre']), htmlentities($_POST['contrasenia'])); 
+     
+      if(!isset($_SESSION)){ 
+        session_start();
+      }
 
-    header('Location:index.php?c=inicio&f=index');
-  }  
+      if($resultados != -1){
+        
+        $_SESSION['rol'] = $resultados->rol;
+        $_SESSION['id'] = $resultados->id_usuario;
+        $_SESSION['nombre'] = $resultados->usuario;
+        header('Location:index.php?c=inicio&f=index');
+      
+      }else{
+        $_SESSION['mensaje'] = "ERROR: Usuario o contraseña incorrecta.";
+        $_SESSION['color'] = "rojo";
+        header('Location:index.php?c=Usuarios&f=view_login');
+      }
+    }
+  }
 
 
 
@@ -118,7 +140,7 @@ class UsuariosController {
       $resultados = $this->model->selectAll();
     
     }else{
-      $resultados = $this->model->selectByName($name);
+      $resultados = $this->model->selectByLike($name);
       if (count($resultados)==0) {
         if(!isset($_SESSION)){ 
           session_start();
@@ -142,53 +164,51 @@ class UsuariosController {
 
   /* ---------------- EDITAR ----------------  */
 
-  public function view_edit() {   
+  public function view_edit_rol() {   
     $id = $_REQUEST['id'];     
     $usu = $this->model->selectById($id);
     
-    require_once VRESENIAS.'edit.php';
+    require_once VUSUARIOS.'edit.php';
   }
 
-  public function edit(){
+  public function edit_Rol(){
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         
       $usu = new Usuario();
       
-      $usu->setNombre(htmlentities($_POST['nombre']));
-      $usu->setContrasenia(htmlentities($_POST['contrasenia']));
-
+      $usu->setUsuarioId(htmlentities($_POST['id']));
       
       if (htmlentities($_POST['radio']) == "Cliente") {
-        $rol = $this->model->selectByRol("Cliente");     
+        $rol = $this->model->selectByRol("cliente");
       
       }else if (htmlentities($_POST['radio']) == "Administrador"){
-        $rol = $this->model->selectByRol("Administrador");  
+        $rol = $this->model->selectByRol("administrador");
       
       }else if (htmlentities($_POST['radio']) == "Marketing"){
-        $rol = $this->model->selectByRol("Marketing");   
+        $rol = $this->model->selectByRol("marketing");
       }
 
       if($rol != -1){
         $usu->setRol($rol);
-        $exito = $this->model->update($usu);
+        $exito = $this->model->updateRol($usu);
       }else{
         $exito = false;
       }
-                        
+
       if(!isset($_SESSION)){ 
         session_start();
       }
 
       if ($exito) {
-        $_SESSION['mensaje'] = "Usuario editado exitosamente!";
+        $_SESSION['mensaje'] = "Usuario editado exitosamente.";
         $_SESSION['color'] = "azul";
       }else{
-        $_SESSION['mensaje'] = "ERROR: No se pudo editado el usuario. Intentalo de nuevo.";
+        $_SESSION['mensaje'] = "ERROR: No se pudo editar el usuario. Intentalo de nuevo.";
         $_SESSION['color'] = "rojo";
       }
       
       header('Location:index.php?c=Usuarios&f=view_list');
-            
+    
     }
   }
 

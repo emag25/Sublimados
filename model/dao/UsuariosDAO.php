@@ -10,11 +10,13 @@ class UsuariosDAO {
         $this->con = Conexion::getConexion();
     }
 
+
+
     
     /*--  CONSULTAR  --*/
 
     public function selectAll() {      
-        $sql = "SELECT * FROM usuario";
+        $sql = "SELECT * FROM usuario, rol  where rol_id = id_rol";
         $stmt = $this->con->prepare($sql);
         $stmt->execute();
         $resultados = $stmt->fetchAll(PDO::FETCH_OBJ);
@@ -22,8 +24,50 @@ class UsuariosDAO {
         return $resultados;
     }
 
+    public function selectByNamePass($name, $pass) { 
+        $sql = "SELECT * FROM usuario, rol WHERE (usuario = :name AND contrasenia = :pass) and rol_id = id_rol";
+        $stmt = $this->con->prepare($sql);    
+        $data = ['name' => $name, 'pass' => $pass];
+        $stmt->execute($data);
+        $resultado = $stmt->fetch(PDO::FETCH_OBJ);
+
+        if ($stmt->rowCount() <= 0) {         
+            return -1;
+        }else{
+            return $resultado;
+        }
+    }
+
     public function selectByName($name) { 
-        $sql = "SELECT * FROM usuario WHERE (usuario like :name)";
+        $sql = "SELECT * FROM usuario WHERE usuario = :name";
+        $stmt = $this->con->prepare($sql);
+        $data = ['name' => $name];
+        $stmt->execute($data);
+        $resultado = $stmt->fetch(PDO::FETCH_OBJ);
+        
+        if ($stmt->rowCount() <= 0) {         
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+   /* public function selectByRolId($id_rol) {
+        $sql = "SELECT * FROM rol WHERE id_rol = :id_rol";
+        $stmt = $this->con->prepare($sql);
+        $data = ['id_rol' => $id_rol];
+        $stmt->execute($data);
+        $resultado = $stmt->fetch(PDO::FETCH_OBJ);
+        
+        if ($stmt->rowCount() <= 0) {
+            return -1;
+        }else{
+            return $resultado->rol;
+        }
+    }*/
+
+    public function selectByLike($name) { 
+        $sql = "SELECT * FROM usuario, rol WHERE (usuario like :name and rol_id = id_rol)";
         $stmt = $this->con->prepare($sql);
         $conlike = '%' . $name . '%';
         $data = array('name' => $conlike);
@@ -33,9 +77,8 @@ class UsuariosDAO {
         return $resultados;
     }
 
-    
 
-    
+
 
 
     /*--  INSERTAR  --*/
@@ -82,7 +125,7 @@ class UsuariosDAO {
     /*--  EDITAR  --*/
 
     public function selectById($id){
-        $sql = "SELECT * FROM usuario WHERE id_usuario = :id";
+        $sql = "SELECT * FROM usuario, rol WHERE (id_usuario = :id and rol_id = id_rol)";
         $stmt = $this->con->prepare($sql);
         $data = ['id' => $id];
         $stmt->execute($data);
@@ -91,19 +134,37 @@ class UsuariosDAO {
         return $resultado;
     }
 
-    public function update($usu){
+    public function updateRol($usu){
         try{
-            $sql = "UPDATE usuario SET usuario = :usuario, contrasenia = :contrasenia, rol_id = :rol_id WHERE id_usuario=:id";
+            $sql = "UPDATE usuario SET rol_id = :rol_id WHERE id_usuario = :id";
 
             $sentencia = $this->con->prepare($sql);
             $data = [            
-                'usuario' =>  $usu->getNombre(),
-                'contrasenia' =>  $usu->getContrasenia(),
                 'rol_id' =>  $usu->getRol(),   
                 'id' =>  $usu->getUsuarioId()
             ];
             $sentencia->execute($data);
+          
+            if ($sentencia->rowCount() <= 0) {
+                return false;
+            }
+        }catch(Exception $e){
+            return false;
+        }    
+        return true;        
+    }
 
+    public function updatePass($usu){
+        try{
+            $sql = "UPDATE usuario SET contrasenia = :contrasenia WHERE id_usuario = :id";
+
+            $sentencia = $this->con->prepare($sql);
+            $data = [            
+                'contrasenia' =>  $usu->getContrasenia(),
+                'id' =>  $usu->getUsuarioId()
+            ];
+            $sentencia->execute($data);
+          
             if ($sentencia->rowCount() <= 0) {
                 return false;
             }
