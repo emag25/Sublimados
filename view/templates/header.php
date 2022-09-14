@@ -127,25 +127,12 @@
             <li style="text-align:center;" class="boton7">
                 <a style="width:145px;" href="index.php?c=Usuarios&f=index"><?php 
                     if(isset($_SESSION['rol'])) {
-                        echo "MI CUENTA";                        
+                        echo "CERRAR SESION";                        
                     } 
                     else{
                         echo "INICIAR SESION";
                     } 
-                    ?></a>                
-                <ul>
-                    <?php if(isset($_SESSION['rol'])) { ?>
-                        <li><a style="width:145px;" href="index.php?c=Usuarios&f=view_edit_pass" class="submenu submenu11">Cambiar contraseña</a></li> 
-                    <?php
-                    }
-                    ?>
-                    
-                    <?php if(isset($_SESSION['rol'])) { ?>
-                        <li><a style="width:145px;" href="index.php?c=Usuarios&f=index" class="submenu submenu11">Cerrar sesión</a></li> 
-                    <?php
-                    }
-                    ?>                    
-                </ul>
+                    ?></a> 
             </li>
         </ul>
                 

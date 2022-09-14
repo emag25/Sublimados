@@ -1,4 +1,3 @@
-<!--   AUTOR: APRAEZ GONZALEZ EMELY MISHELL  -->
 <?php 
     if(!isset($_SESSION)){ 
         session_start();
@@ -126,7 +125,7 @@
 
             <section class="seccion-segundo">            
                 <div class="contendor-form">
-                    <form method="POST" action="index.php?c=Usuarios&f=edit_rol" id="formulario" style="display: flex; flex-direction: column; justify-content:center; align-items:center; padding: 10px 5px;">
+                    <form method="POST" action="index.php?c=Usuarios&f=edit" id="formulario" style="display: flex; flex-direction: column; justify-content:center; align-items:center; padding: 10px 5px;">
                         <input type="hidden" name="id" id="id" value="<?php echo $usu->id_usuario; ?>"/>
                         
                         <label><b>Nombre de usuario: </b></label>

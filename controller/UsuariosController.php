@@ -164,14 +164,25 @@ class UsuariosController {
 
   /* ---------------- EDITAR ----------------  */
 
-  public function view_edit_rol() {   
-    $id = $_REQUEST['id'];     
-    $usu = $this->model->selectById($id);
+  public function view_edit() {   
+    $id = $_REQUEST['id'];   
     
-    require_once VUSUARIOS.'edit.php';
+    if(!isset($_SESSION)){ 
+      session_start();
+    }
+
+    if($id != $_SESSION['id']){
+      $usu = $this->model->selectById($id);    
+      require_once VUSUARIOS.'edit.php';
+    
+    }else{
+      $_SESSION['mensaje'] = "ERROR: No puede editar su propio usuario";
+      $_SESSION['color'] = "rojo";
+      header('Location:index.php?c=Usuarios&f=view_list');
+    }     
   }
 
-  public function edit_Rol(){
+  public function edit(){
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         
       $usu = new Usuario();
@@ -205,7 +216,7 @@ class UsuariosController {
       }else{
         $_SESSION['mensaje'] = "ERROR: No se pudo editar el usuario. Intentalo de nuevo.";
         $_SESSION['color'] = "rojo";
-      }
+      }        
       
       header('Location:index.php?c=Usuarios&f=view_list');
     
@@ -221,24 +232,28 @@ class UsuariosController {
 
   public function delete(){
     
-    $id= $_REQUEST['id'];
-    $usu = new Usuario();
-    $usu->setUsuarioId(htmlentities($_REQUEST['id']));
-    $exito = $this->model->delete($usu);
-    
     if(!isset($_SESSION)){ 
       session_start();
     }
 
-    if ($exito) {
-      $_SESSION['mensaje'] = "Usuario eliminado exitosamente!";
-      $_SESSION['color'] = "azul";
-    }else{
-      if ( (!isset($_SESSION['mensaje'])) and (!isset($_SESSION['color'])) ){
+    if($_REQUEST['id'] != $_SESSION['id']){
+      
+      $usu = new Usuario();
+      $usu->setUsuarioId(htmlentities($_REQUEST['id']));
+      $exito = $this->model->delete($usu);     
+
+      if ($exito) {
+        $_SESSION['mensaje'] = "Usuario eliminado exitosamente!";
+        $_SESSION['color'] = "azul";
+      }else{
         $_SESSION['mensaje'] = "ERROR: No se pudo eliminar el usuario. Intentalo de nuevo.";
-        $_SESSION['color'] = "rojo";
+        $_SESSION['color'] = "rojo";       
       }
-    }
+
+    }else{
+      $_SESSION['mensaje'] = "ERROR: No puede eliminar su propio usuario";
+      $_SESSION['color'] = "rojo";
+    } 
 
     header('Location:index.php?c=Usuarios&f=view_list');    
   }

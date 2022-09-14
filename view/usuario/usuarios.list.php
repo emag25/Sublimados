@@ -1,4 +1,3 @@
-<!--   AUTOR: APRAEZ GONZALEZ EMELY MISHELL  -->
 <?php 
     if(!isset($_SESSION)){ 
         session_start();
@@ -93,7 +92,7 @@
                             <td><?php echo $fila->usuario;?></td>
                             <td><?php echo $fila->rol;?></td>                            
                             <td>
-                                <a class="accion-boton editar" href="index.php?c=Usuarios&f=view_edit_rol&id=<?php echo $fila->id_usuario;?>"><i class='bx bxs-pencil' ></i></a>
+                                <a class="accion-boton editar" href="index.php?c=Usuarios&f=view_edit&id=<?php echo $fila->id_usuario;?>"><i class='bx bxs-pencil' ></i></a>
                                 <a class="accion-boton borrar" href="index.php?c=Usuarios&f=delete&id=<?php echo $fila->id_usuario;?>" 
                                 onclick="if(!confirm('Esta seguro que desea eliminar el usuario?'))return false;"><i class='bx bxs-trash-alt' ></i></a>
                             </td>
