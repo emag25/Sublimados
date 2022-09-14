@@ -92,7 +92,7 @@ class ReseniasController {
       }    
 
       $res->setUsuarioId($_SESSION['id']);
-      
+
       $exito = $this->model->insert($res);
             
       
@@ -123,21 +123,9 @@ class ReseniasController {
     $id = $_REQUEST['id'];     
     $res = $this->model->selectById($id);
 
-    // Para que NO permita editar una reseña publicada (estado = 1)
-    if ($res != "") {
+    require_once VRESENIAS.'edit.php';
+    header('Location:index.php?c=Resenias&f=view_list');
       
-      require_once VRESENIAS.'edit.php';
-    
-    }else{
-
-      if(!isset($_SESSION)){ 
-        session_start();
-      }
-      $_SESSION['mensaje'] = "ERROR: No puede editar una reseña publicada.";
-      $_SESSION['color'] = "rojo";
-
-      header('Location:index.php?c=Resenias&f=view_list');
-    }    
   }
 
   public function edit(){
@@ -156,6 +144,8 @@ class ReseniasController {
         $res->setServicio("Internacional");
       }
 
+      $res->setEstado(htmlentities($_POST['radius']));
+      
       $res->setResenia(htmlentities($_POST['nuevaResenia']));
       
       if (isset($_POST['recibiremail'])) {

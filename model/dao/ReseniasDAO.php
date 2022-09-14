@@ -90,17 +90,13 @@ class ReseniasDAO {
         $stmt->execute($data);
         $resultado = $stmt->fetch(PDO::FETCH_OBJ);
 
-        // Comprueba si la reseña está publicada o no
-        if ($resultado->estado == 1){            
-            $resultado="";        
-        }
         return $resultado;
     }
 
     public function update($res){
         try{
             $sql = "UPDATE resenia SET nombre = :nombre, email = :email, valoracion = :valoracion, servicio = :servicio, 
-                                       resenia = :nuevaResenia, recibir_promo = :recibiremail WHERE resenia_id=:id";
+                                       resenia = :nuevaResenia, recibir_promo = :recibiremail, estado = :estado WHERE resenia_id=:id";
 
             $sentencia = $this->con->prepare($sql);
             $data = [            
@@ -110,6 +106,7 @@ class ReseniasDAO {
                 'servicio' =>  $res->getServicio(),
                 'nuevaResenia' =>  $res->getResenia(),
                 'recibiremail' =>  $res->getRecibirPromo(),
+                'estado' =>  $res->getEstado(),
                 'id' =>  $res->getReseniaId()
             ];
             $sentencia->execute($data);
@@ -133,7 +130,7 @@ class ReseniasDAO {
             // Para que NO permita eliminar una reseña publicada (estado = 1)
             $resultado = $this->selectById($res->getReseniaId());           
             
-            if ($resultado != ""){
+            if ($resultado->estado == "0"){
                           
                 $sql = "DELETE FROM resenia WHERE resenia_id = :id";
                 $sentencia = $this->con->prepare($sql); 

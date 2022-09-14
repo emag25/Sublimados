@@ -268,7 +268,6 @@
 
         function mensaje(cadenaMensaje, elemento) {
 
-            elemento.focus();
             elemento.style.boxShadow = '0 0 5px red, 0 0 5px red';
 
             if (elemento.id === "contenedorRadios") {
