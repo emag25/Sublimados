@@ -81,6 +81,7 @@
                 <table>
                     <thead>
                         <th>ID</th>
+                        <th>USUARIO</th>
                         <th>NOMBRE</th>
                         <th>EMAIL</th>
                         <th>VALORACIÓN</th>
@@ -96,6 +97,12 @@
                         ?>
                         <tr>
                             <td><?php echo $fila->resenia_id;?></td>
+                            <td><?php 
+                            if($fila->activo == 1){
+                                echo $fila->usuario;
+                            }else{
+                                echo $fila->usuario." (inactivo)";
+                            } ?></td>
                             <td><?php echo $fila->nombre;?></td>
                             <td><?php echo $fila->email;?></td>
                             <td><?php if ($fila->valoracion == 1) echo "1 estrella"; else echo $fila->valoracion; ?> estrellas</td>

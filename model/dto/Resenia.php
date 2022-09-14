@@ -5,7 +5,7 @@
 class Resenia {
 
     private $resenia_id, $nombre, $email, $valoracion, $servicio, $resenia, 
-    $recibir_promo, $estado;
+    $recibir_promo, $estado, $usuario_id;
 
     function __construct() {    }
 
@@ -42,6 +42,10 @@ class Resenia {
         return $this->estado;
     }
 
+    function getUsuarioId() {
+        return $this->usuario_id;
+    }
+
 
 
     function setReseniaId($resenia_id) {
@@ -74,7 +78,11 @@ class Resenia {
 
     function setEstado($estado) {
         $this->estado = $estado;
-    }    
+    }  
+    
+    function setUsuarioId($usuario_id) {
+        $this->usuario_id = $usuario_id;
+    }  
 
     
     public function __set($nombre, $valor) {

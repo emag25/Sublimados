@@ -86,12 +86,16 @@ class ReseniasController {
       }else{
         $res->setRecibirPromo(0);
       }
-            
-      $exito = $this->model->insert($res);
-            
+
       if(!isset($_SESSION)){ 
         session_start();
-      }
+      }    
+
+      $res->setUsuarioId($_SESSION['id']);
+      
+      $exito = $this->model->insert($res);
+            
+      
 
       if ($exito) {
         $_SESSION['mensaje'] = "Reseña guardada exitosamente!";

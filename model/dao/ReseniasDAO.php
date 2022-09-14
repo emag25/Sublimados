@@ -27,7 +27,7 @@ class ReseniasDAO {
     /*--  CONSULTAR RESEÑA  --*/
 
     public function selectAll() {      
-        $sql = "SELECT * FROM resenia";
+        $sql = "SELECT * FROM resenia, usuario WHERE usuario_id = id_usuario";
         $stmt = $this->con->prepare($sql);
         $stmt->execute();
         $resultados = $stmt->fetchAll(PDO::FETCH_OBJ);
@@ -53,8 +53,8 @@ class ReseniasDAO {
 
     public function insert($res) {
         try{
-            $sql = "INSERT INTO resenia (nombre, email, valoracion, servicio, resenia, recibir_promo) VALUES 
-            (:nombre, :email,:valoracion, :servicio, :nuevaResenia, :recibiremail)";
+            $sql = "INSERT INTO resenia (nombre, email, valoracion, servicio, resenia, recibir_promo, usuario_id) VALUES 
+            (:nombre, :email,:valoracion, :servicio, :nuevaResenia, :recibiremail, :usuario_id)";
         
             $sentencia = $this->con->prepare($sql);
             $data = [
@@ -63,7 +63,8 @@ class ReseniasDAO {
                 'valoracion' =>  $res->getValoracion(),
                 'servicio' =>  $res->getServicio(),
                 'nuevaResenia' =>  $res->getResenia(),
-                'recibiremail' =>  $res->getRecibirPromo()
+                'recibiremail' =>  $res->getRecibirPromo(),
+                'usuario_id' =>  $res->getUsuarioId()
             ];
             $sentencia->execute($data);
             
