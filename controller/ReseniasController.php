@@ -1,6 +1,4 @@
-<!--  AUTOR: APRAEZ GONZALEZ EMELY MISHELL  -->
-
-<?php
+<?php  // AUTOR: APRAEZ GONZALEZ EMELY MISHELL
 
 require_once 'model/dao/ReseniasDAO.php';
 require_once 'model/dto/Resenia.php';
@@ -27,31 +25,21 @@ class ReseniasController {
   }
 
   public function search() {
-    $name = (!empty($_POST["b"]))?htmlentities($_POST["b"]):"";
+    $name = (!empty($_GET["b"]))?htmlentities($_GET["b"]):"";
 
-    if (empty($name)) {
-      
-      if(!isset($_SESSION)){ 
-        session_start();
-      }
-      $_SESSION['mensaje'] = "ERROR: Debe ingresar un nombre.";
-      $_SESSION['color'] = "rojo";
-      
+    if (empty($name)) {            
       $resultados = $this->model->selectAll();
+      array_push($resultados, (object) array('mensaje_error'=>'ERROR: Debe ingresar un nombre.'));     
     
     }else{
       $resultados = $this->model->selectByName($name);
+      
       if (count($resultados)==0) {
-        if(!isset($_SESSION)){ 
-          session_start();
-        }
-        $_SESSION['mensaje'] = "ERROR: Nombre de autor de la reseña no encontrado.";
-        $_SESSION['color'] = "rojo";
         $resultados = $this->model->selectAll();
-      }
+        array_push($resultados, (object) array('mensaje_error'=>'ERROR: Nombre de autor de la reseña no encontrado.'));     
+      }          
     }
-    
-    require_once VRESENIAS.'list.php';  
+    echo json_encode($resultados);
   }
 
 

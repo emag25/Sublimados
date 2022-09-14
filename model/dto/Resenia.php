@@ -1,6 +1,4 @@
-<!--  AUTOR: APRAEZ GONZALEZ EMELY MISHELL  -->
-
-<?php
+<?php  //  AUTOR: APRAEZ GONZALEZ EMELY MISHELL
 
 class Resenia {
 

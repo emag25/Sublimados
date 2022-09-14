@@ -23,7 +23,10 @@
             flex-direction: column;            
         }
 
-
+        .divMensaje{
+            display:none;
+            margin-top: 60px;
+        }
     </style>
 </head>
 
@@ -56,28 +59,28 @@
 
             <section class="seccion-segundo">            
                 <div class="row">                    
-                    <form action="index.php?c=Resenias&f=search" method="POST" id="formBuscar">
+                    
                         <div class="contenedor-buscar">
                             <input type="text" name="b" id="busqueda"  placeholder="Buscar por nombre..."/>
                             <button class="btn-buscar" type="submit"><i class='bx bx-search' ></i>Buscar</button>
                         </div>
-                    </form>       
+                        
                     <div>
                         <a href="index.php?c=Resenias&f=view_new"><button class="btn-nuevo" type="button"><i class='bx bx-plus' ></i>Nuevo</button></a>
                     </div>
                 </div>
-                <?php                
+
+                <div class="divMensaje<?php                
                 if (!empty($_SESSION['mensaje'])) {
-                    ?>
-                    <div style="margin-top: 60px;" class="alert-<?php echo $_SESSION['color']; ?>">
-                    <i class='bx bx-<?php if ($_SESSION['color']=="rojo") { echo "x";} else{ echo "check";} ?>'></i>
-                    <?php echo $_SESSION['mensaje']; ?>  
-                    </div>
-                    <?php
-                    unset($_SESSION['mensaje']);
-                    unset($_SESSION['color']);
-                }
-                ?>
+                    echo ' alert-'.$_SESSION['color']; 
+                    ?>" style="display:block;"><i class='bx bx-<?php                    
+                    if ($_SESSION["color"] == "rojo") { echo "x";} 
+                    else{ echo "check";} ?>'></i><?php echo $_SESSION['mensaje']; ?></div>
+                <?php
+                unset($_SESSION['mensaje']);
+                unset($_SESSION['color']);
+                }else{?>"></div><?php } ?>
+                
                 <table>
                     <thead>
                         <th>ID</th>
@@ -91,7 +94,7 @@
                         <th>ESTADO</th>
                         <th>ACCIONES</th>
                     </thead>
-                    <tbody>
+                    <tbody class="tabladatos">
                         <?php                 
                         foreach ($resultados as $fila) {
                         ?>
@@ -113,7 +116,7 @@
                             <td>
                                 <a class="accion-boton editar" href="index.php?c=Resenias&f=view_edit&id=<?php echo $fila->resenia_id;?>"><i class='bx bxs-pencil' ></i></a>
                                 <a class="accion-boton borrar" href="index.php?c=Resenias&f=delete&id=<?php echo $fila->resenia_id;?>" 
-                                onclick="if(!confirm('Esta seguro que desea eliminar la reseña?'))return false;"><i class='bx bxs-trash-alt' ></i></a>
+                                onclick="if(!confirm('Está seguro que desea eliminar la reseña?'))return false;"><i class='bx bxs-trash-alt' ></i></a>
                             </td>
                         </tr>
                         <?php 
@@ -123,6 +126,103 @@
                 </table>
             </section>
         </main>
+        <script type="text/javascript">
+            
+            var txtBuscar = document.querySelector("#busqueda");
+            var btn = document.querySelector(".btn-buscar");
+            btn.addEventListener('click', cargarResenias);
+            
+            function cargarResenias() {
+              
+                var bus = txtBuscar.value;                
+                var url = "index.php?c=Resenias&f=search&b=" + bus;
+                var xmlh = new XMLHttpRequest();
+                xmlh.open("GET", url, true);
+                xmlh.send();
+                
+                xmlh.onreadystatechange = function () {
+                    if (xmlh.readyState === 4 && xmlh.status === 200) {
+                        var respuesta = xmlh.responseText;                     
+                        actualizar(respuesta);
+                    }
+                }
+            }
+
+            function actualizar(respuesta) {
+                
+                var tbody = document.querySelector('.tabladatos');
+                var divMensaje = document.querySelector('.divMensaje');
+                var resenias = JSON.parse(respuesta); 
+                
+                var user = ""; var valoracion = ""; var promo = ""; var estado = ""; 
+                var resultados = ''; var tamanio = 0;                               
+
+                if (resenias[resenias.length - 1].mensaje_error == undefined) {                    
+                    tamanio = resenias.length;
+                    divMensaje.style.display = "none";
+                }else{
+                    tamanio = resenias.length - 1; 
+                    divMensaje.className = "divMensaje alert-rojo";
+                    divMensaje.style.display = "block";
+                    divMensaje.innerHTML = '<i class="bx bx-x"></i>'+resenias[tamanio].mensaje_error;
+                }
+                console.log(resenias);
+
+                for (var i = 0; i < tamanio; i++) {
+                    resultados += '<tr>';
+                    
+                    resultados += '<td>' + resenias[i].resenia_id + '</td>';                
+                                                            
+                    if(resenias[i].activo == 1){
+                        user = resenias[i].usuario;
+                    }else{
+                        user = resenias[i].usuario + " (inactivo)";
+                    }
+                    resultados += '<td>' + user + '</td>';
+                    
+                    resultados += '<td>' + resenias[i].nombre + '</td>';
+                    
+                    resultados += '<td>' + resenias[i].email + '</td>';
+
+                    if (resenias[i].valoracion == 1) {
+                        valoracion = "1 estrella"; 
+                    }else{
+                        valoracion = resenias[i].valoracion +" estrellas"; 
+                    }
+                    resultados += '<td>' + valoracion + '</td>';
+
+                    resultados += '<td>' + resenias[i].servicio + '</td>';
+
+                    resultados += '<td>' + resenias[i].resenia + '</td>';
+
+                    if (resenias[i].recibir_promo == 0) {
+                        promo = "NO"; 
+                    }else{
+                        promo = "SI";
+                    }
+                    resultados += '<td>' + promo + '</td>';
+
+                    if (resenias[i].estado == 0) {
+                        estado = "En revisión"; 
+                    }else{
+                        estado = "Publicada";
+                    }
+                    resultados += '<td>' + estado + '</td>';
+
+                    resultados += '<td>' +
+                        "<a class='accion-boton editar' href='index.php?c=Resenias&f=view_edit&id=" + resenias[i].resenia_id
+                        + "'><i class='bx bxs-pencil' ></i></a>" 
+                        + "<a class='accion-boton borrar' href='index.php?c=Resenias&f=delete&id=" + resenias[i].resenia_id 
+                        + "' onclick =" + '"if(!confirm(' + "'¿Está seguro que desea eliminar la reseña?'" + '))return false;"' + " ><i class='bx bxs-trash-alt' ></i></a>" 
+                        + '</td>';
+                    
+                    resultados += '</tr>';
+                }
+                tbody.innerHTML = resultados;
+                txtBuscar.value = "";
+                txtBuscar.focus();
+            }
+        </script>
         <?php require_once FOOTER; ?>
     </div>
 </body>

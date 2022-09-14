@@ -1,6 +1,4 @@
-<!--  AUTOR: APRAEZ GONZALEZ EMELY MISHELL  -->
-
-<?php
+<?php  // AUTOR: APRAEZ GONZALEZ EMELY MISHELL
 
 require_once 'config/Conexion.php';
 
@@ -36,7 +34,7 @@ class ReseniasDAO {
     }
 
     public function selectByName($name) { 
-        $sql = "SELECT * FROM resenia WHERE (nombre like :name)";
+        $sql = "SELECT * FROM resenia, usuario WHERE (nombre like :name AND usuario_id = id_usuario)";
         $stmt = $this->con->prepare($sql);
         $conlike = '%' . $name . '%';
         $data = array('name' => $conlike);
