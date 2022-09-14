@@ -134,34 +134,22 @@ class UsuariosController {
   }
 
   public function search() {
-    $name = (!empty($_POST["b"]))?htmlentities($_POST["b"]):"";
+    $name = (!empty($_GET["b"]))?htmlentities($_GET["b"]):"";
 
-    if (empty($name)) {
-      
-      if(!isset($_SESSION)){ 
-        session_start();
-      }
-      $_SESSION['mensaje'] = "ERROR: Debe ingresar un nombre de usuario.";
-      $_SESSION['color'] = "rojo";
-      
+    if (empty($name)) {            
       $resultados = $this->model->selectAll();
+      array_push($resultados, (object) array('mensaje_error'=>'ERROR: Debe ingresar un nombre.'));     
     
     }else{
       $resultados = $this->model->selectByLike($name);
+      
       if (count($resultados)==0) {
-        if(!isset($_SESSION)){ 
-          session_start();
-        }
-        $_SESSION['mensaje'] = "ERROR: Nombre usuario no encontrado.";
-        $_SESSION['color'] = "rojo";
         $resultados = $this->model->selectAll();
-      }
+        array_push($resultados, (object) array('mensaje_error'=>'ERROR: Nombre no encontrado.'));     
+      }          
     }
-    
-    require_once VUSUARIOS.'list.php';  
+    echo json_encode($resultados);  
   }
-
-
 
 
 

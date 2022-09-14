@@ -21,7 +21,10 @@
             height: auto;
             flex-direction: column;            
         }
-
+        .divMensaje{
+            display:none;
+            margin-top: 60px;
+        }
 
     </style>
 </head>
@@ -54,28 +57,28 @@
 
             <section class="seccion-segundo">            
                 <div class="row">                    
-                    <form action="index.php?c=Usuarios&f=search" method="POST" id="formBuscar">
+                    
                         <div class="contenedor-buscar">
                             <input type="text" name="b" id="busqueda"  placeholder="Buscar por nombre..."/>
                             <button class="btn-buscar" type="submit"><i class='bx bx-search' ></i>Buscar</button>
                         </div>
-                    </form> <!--      
+                    <!--      
                     <div>
                         <a href="index.php?c=Usuarios&f=view_new"><button class="btn-nuevo" type="button"><i class='bx bx-plus' ></i>Nuevo</button></a>
                     </div> -->
                 </div>
-                <?php                
+
+                <div class="divMensaje<?php                
                 if (!empty($_SESSION['mensaje'])) {
-                    ?>
-                    <div style="margin-top: 60px;" class="alert-<?php echo $_SESSION['color']; ?>">
-                    <i class='bx bx-<?php if ($_SESSION['color']=="rojo") { echo "x";} else{ echo "check";} ?>'></i>
-                    <?php echo $_SESSION['mensaje']; ?>  
-                    </div>
-                    <?php
-                    unset($_SESSION['mensaje']);
-                    unset($_SESSION['color']);
-                }
-                ?>
+                    echo ' alert-'.$_SESSION['color']; 
+                    ?>" style="display:block;"><i class='bx bx-<?php                    
+                    if ($_SESSION["color"] == "rojo") { echo "x";} 
+                    else{ echo "check";} ?>'></i><?php echo $_SESSION['mensaje']; ?></div>
+                <?php
+                unset($_SESSION['mensaje']);
+                unset($_SESSION['color']);
+                }else{?>"></div><?php } ?>
+
                 <table>
                     <thead>
                         <th>ID</th>
@@ -83,7 +86,7 @@
                         <th>ROL</th>
                         <th>ACCIONES</th>
                     </thead>
-                    <tbody>
+                    <tbody class="tabladatos">
                         <?php                 
                         foreach ($resultados as $fila) {
                         ?>
@@ -104,6 +107,66 @@
                 </table>
             </section>
         </main>
+        <script type="text/javascript">
+            
+            var txtBuscar = document.querySelector("#busqueda");
+            var btn = document.querySelector(".btn-buscar");
+            btn.addEventListener('click', cargarUsuarios);
+            
+            function cargarUsuarios() {
+              
+                var bus = txtBuscar.value;                
+                var url = "index.php?c=Usuarios&f=search&b=" + bus;
+                var xmlh = new XMLHttpRequest();
+                xmlh.open("GET", url, true);
+                xmlh.send();
+                
+                xmlh.onreadystatechange = function () {
+                    if (xmlh.readyState === 4 && xmlh.status === 200) {
+                        var respuesta = xmlh.responseText;                     
+                        actualizar(respuesta);
+                    }
+                }
+            }
+
+            function actualizar(respuesta) {
+                
+                var tbody = document.querySelector('.tabladatos');
+                var divMensaje = document.querySelector('.divMensaje');
+                var usuarios = JSON.parse(respuesta); 
+                
+                var resultados = ''; var tamanio = 0;                               
+
+                if (usuarios[usuarios.length - 1].mensaje_error == undefined) {                    
+                    tamanio = usuarios.length;
+                    divMensaje.style.display = "none";
+                }else{
+                    tamanio = usuarios.length - 1; 
+                    divMensaje.className = "divMensaje alert-rojo";
+                    divMensaje.style.display = "block";
+                    divMensaje.innerHTML = '<i class="bx bx-x"></i>'+usuarios[tamanio].mensaje_error;
+                }
+
+                for (var i = 0; i < tamanio; i++) {
+                    resultados += '<tr>';   
+
+                    resultados += '<td>' + usuarios[i].id_usuario + '</td>';                    
+                    resultados += '<td>' + usuarios[i].usuario + '</td>';
+                    resultados += '<td>' + usuarios[i].rol + '</td>';
+                    resultados += '<td>' +
+                        "<a class='accion-boton editar' href='index.php?c=usuarios&f=view_edit&id=" + usuarios[i].id_usuario
+                        + "'><i class='bx bxs-pencil' ></i></a>" 
+                        + "<a class='accion-boton borrar' href='index.php?c=usuarios&f=delete&id=" + usuarios[i].id_usuario 
+                        + "' onclick =" + '"if(!confirm(' + "'¿Está seguro que desea eliminar el usuario?'" + '))return false;"' + " ><i class='bx bxs-trash-alt' ></i></a>" 
+                        + '</td>';       
+
+                    resultados += '</tr>';
+                }
+                tbody.innerHTML = resultados;
+                txtBuscar.value = "";
+                txtBuscar.focus();
+            }
+        </script>
         <?php require_once FOOTER; ?>
     </div>
 </body>
