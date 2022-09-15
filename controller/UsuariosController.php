@@ -29,52 +29,60 @@ class UsuariosController {
   }
 
   public function new() {
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {         
-
-      // validar que el usuario no exista
-      $encontrado = $this->model->selectByName(htmlentities($_POST['nombre']));
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       
       if(!isset($_SESSION)){
         session_start();
       }
       
-      if($encontrado){
+      if (!empty($_POST['nombre']) && !empty($_POST['contrasenia']) && !empty($_POST['radio'])) {
 
-        $_SESSION['mensaje'] = "ERROR: Usuario ya registrado. Inicia sesion!";
-        $_SESSION['color'] = "rojo";
+        // validar que el usuario no exista
+        $encontrado = $this->model->selectByName(htmlentities($_POST['nombre']));           
+        
+        if($encontrado){
+
+          $_SESSION['mensaje'] = "ERROR: Usuario ya registrado. Inicia sesion!";
+          $_SESSION['color'] = "rojo";
+
+        }else{
+
+          $usu = new Usuario();
+        
+          $usu->setNombre(htmlentities($_POST['nombre']));
+          $usu->setContrasenia(htmlentities($_POST['contrasenia'])); 
+
+          if (htmlentities($_POST['radio']) == "Cliente") {
+            $rol = $this->model->selectByRol("cliente");
+          
+          }else if (htmlentities($_POST['radio']) == "Administrador"){
+            $rol = $this->model->selectByRol("administrador");
+          
+          }else if (htmlentities($_POST['radio']) == "Marketing"){
+            $rol = $this->model->selectByRol("marketing");
+          }
+
+          if($rol != -1){
+            $usu->setRol($rol);
+            $exito = $this->model->insert($usu);
+          }else{
+            $exito = false;
+          }
+
+          if ($exito) {
+            $_SESSION['mensaje'] = "Usuario registrado exitosamente. Ya puedes inicar sesión!";
+            $_SESSION['color'] = "azul";
+          }else{
+            $_SESSION['mensaje'] = "ERROR: No se pudo registrar al usuario. Intentalo de nuevo.";
+            $_SESSION['color'] = "rojo";
+          }
+        }
 
       }else{
+        $_SESSION['mensaje'] = "ERROR: No se pudo registrar al usuario. Intentalo de nuevo.";
+        $_SESSION['color'] = "rojo";
+      }
 
-        $usu = new Usuario();
-      
-        $usu->setNombre(htmlentities($_POST['nombre']));
-        $usu->setContrasenia(htmlentities($_POST['contrasenia'])); 
-
-        if (htmlentities($_POST['radio']) == "Cliente") {
-          $rol = $this->model->selectByRol("cliente");
-        
-        }else if (htmlentities($_POST['radio']) == "Administrador"){
-          $rol = $this->model->selectByRol("administrador");
-        
-        }else if (htmlentities($_POST['radio']) == "Marketing"){
-          $rol = $this->model->selectByRol("marketing");
-        }
-
-        if($rol != -1){
-          $usu->setRol($rol);
-          $exito = $this->model->insert($usu);
-        }else{
-          $exito = false;
-        }
-
-        if ($exito) {
-          $_SESSION['mensaje'] = "Usuario registrado exitosamente. Ya puedes inicar sesión!";
-          $_SESSION['color'] = "azul";
-        }else{
-          $_SESSION['mensaje'] = "ERROR: No se pudo registrar al usuario. Intentalo de nuevo.";
-          $_SESSION['color'] = "rojo";
-        }
-      } 
       header('Location:index.php?c=Usuarios&f=view_login');            
     }
   }
@@ -93,28 +101,35 @@ class UsuariosController {
   public function iniciar() { 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       
-      $resultado = $this->model->selectByNamePass(htmlentities($_POST['nombre']), htmlentities($_POST['contrasenia'])); 
-     
       if(!isset($_SESSION)){ 
         session_start();
       }
 
-      if($resultado != -1){
+      if (!empty($_POST['nombre']) && !empty($_POST['contrasenia'])) {
 
-        if($resultado->activo == '1'){
-          $_SESSION['rol'] = $resultado->rol;
-          $_SESSION['id'] = $resultado->id_usuario;
-          $_SESSION['nombre'] = $resultado->usuario;
-          header('Location:index.php?c=inicio&f=index');
-        
+        $resultado = $this->model->selectByNamePass(htmlentities($_POST['nombre']), htmlentities($_POST['contrasenia'])); 
+      
+        if($resultado != -1){
+
+          if($resultado->activo == '1'){
+            $_SESSION['rol'] = $resultado->rol;
+            $_SESSION['id'] = $resultado->id_usuario;
+            $_SESSION['nombre'] = $resultado->usuario;
+            header('Location:index.php?c=inicio&f=index');
+          
+          }else{
+            $_SESSION['mensaje'] = "ERROR: Su cuenta ha sido desactivada.";
+            $_SESSION['color'] = "rojo";
+            header('Location:index.php?c=Usuarios&f=view_login');
+          }
+          
         }else{
-          $_SESSION['mensaje'] = "ERROR: Su cuenta ha sido desactivada.";
+          $_SESSION['mensaje'] = "ERROR: Usuario o contraseña incorrecta.";
           $_SESSION['color'] = "rojo";
           header('Location:index.php?c=Usuarios&f=view_login');
         }
-        
       }else{
-        $_SESSION['mensaje'] = "ERROR: Usuario o contraseña incorrecta.";
+        $_SESSION['mensaje'] = "ERROR: No se pudieron obtener los datos. Intenta de nuevo";
         $_SESSION['color'] = "rojo";
         header('Location:index.php?c=Usuarios&f=view_login');
       }
@@ -179,24 +194,30 @@ class UsuariosController {
 
   public function edit(){
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        
-      $usu = new Usuario();
-      
-      $usu->setUsuarioId(htmlentities($_POST['id']));
-      
-      if (htmlentities($_POST['radio']) == "Cliente") {
-        $rol = $this->model->selectByRol("cliente");
-      
-      }else if (htmlentities($_POST['radio']) == "Administrador"){
-        $rol = $this->model->selectByRol("administrador");
-      
-      }else if (htmlentities($_POST['radio']) == "Marketing"){
-        $rol = $this->model->selectByRol("marketing");
-      }
 
-      if($rol != -1){
-        $usu->setRol($rol);
-        $exito = $this->model->updateRol($usu);
+      if (!empty($_POST['id']) && !empty($_POST['radio'])) {
+        
+        $usu = new Usuario();
+        
+        $usu->setUsuarioId(htmlentities($_POST['id']));
+        
+        if (htmlentities($_POST['radio']) == "Cliente") {
+          $rol = $this->model->selectByRol("cliente");
+        
+        }else if (htmlentities($_POST['radio']) == "Administrador"){
+          $rol = $this->model->selectByRol("administrador");
+        
+        }else if (htmlentities($_POST['radio']) == "Marketing"){
+          $rol = $this->model->selectByRol("marketing");
+        }
+
+        if($rol != -1){
+          $usu->setRol($rol);
+          $exito = $this->model->updateRol($usu);
+        }else{
+          $exito = false;
+        }        
+        
       }else{
         $exito = false;
       }
@@ -213,8 +234,7 @@ class UsuariosController {
         $_SESSION['color'] = "rojo";
       }        
       
-      header('Location:index.php?c=Usuarios&f=view_list');
-    
+      header('Location:index.php?c=Usuarios&f=view_list'); 
     }
   }
 

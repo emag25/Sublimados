@@ -54,36 +54,39 @@ class ReseniasController {
 
   public function new() {
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        
-      $res = new Resenia();
-      
-      $res->setNombre(htmlentities($_POST['nombre']));
-      $res->setEmail(htmlentities($_POST['email']));
-      $res->setValoracion(htmlentities($_POST['valoracion']));      
-      
-      if (htmlentities($_POST['radio']) == 1) {
-        $res->setServicio("A domicilio");
-      }else if (htmlentities($_POST['radio']) == 2){
-        $res->setServicio("Internacional");
-      }
-
-      $res->setResenia(htmlentities($_POST['nuevaResenia']));
-      
-      if (isset($_POST['recibiremail'])) {
-        $res->setRecibirPromo(1);
-      }else{
-        $res->setRecibirPromo(0);
-      }
 
       if(!isset($_SESSION)){ 
         session_start();
-      }    
-
-      $res->setUsuarioId($_SESSION['id']);
-
-      $exito = $this->model->insert($res);
-            
+      }
       
+      if (!empty($_POST['nombre']) && !empty($_POST['email']) && !empty($_POST['valoracion']) && 
+      !empty($_POST['radio']) && !empty($_POST['nuevaResenia'])) {
+        
+        $res = new Resenia();
+        
+        $res->setUsuarioId($_SESSION['id']);
+        $res->setNombre(htmlentities($_POST['nombre']));
+        $res->setEmail(htmlentities($_POST['email']));
+        $res->setValoracion(htmlentities($_POST['valoracion']));
+        $res->setResenia(htmlentities($_POST['nuevaResenia']));      
+        
+        if (htmlentities($_POST['radio']) == 1) {
+          $res->setServicio("A domicilio");
+        }else if (htmlentities($_POST['radio']) == 2){
+          $res->setServicio("Internacional");
+        }        
+        
+        if (isset($_POST['recibiremail'])) {
+          $res->setRecibirPromo(1);
+        }else{
+          $res->setRecibirPromo(0);
+        }        
+
+        $exito = $this->model->insert($res);
+
+      }else{
+        $exito = false;
+      } 
 
       if ($exito) {
         $_SESSION['mensaje'] = "Reseña guardada exitosamente!";
@@ -97,8 +100,7 @@ class ReseniasController {
         header('Location:index.php?c=Inicio&f=index');
       }else{
         header('Location:index.php?c=Resenias&f=view_list');
-      }
-      
+      }     
     }
   }
   
@@ -118,31 +120,37 @@ class ReseniasController {
 
   public function edit(){
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+      if (!empty($_POST['id']) && !empty($_POST['nombre']) && !empty($_POST['email']) && !empty($_POST['valoracion']) && 
+      !empty($_POST['radio']) && !empty($_POST['nuevaResenia'])) {
  
-      $res = new Resenia();
+        $res = new Resenia();
 
-      $res->setReseniaId(htmlentities($_POST['id']));
-      $res->setNombre(htmlentities($_POST['nombre']));
-      $res->setEmail(htmlentities($_POST['email']));
-      $res->setValoracion(htmlentities($_POST['valoracion']));      
+        $res->setReseniaId(htmlentities($_POST['id']));
+        $res->setNombre(htmlentities($_POST['nombre']));
+        $res->setEmail(htmlentities($_POST['email']));
+        $res->setValoracion(htmlentities($_POST['valoracion']));      
+        $res->setEstado(htmlentities($_POST['radius']));        
+        $res->setResenia(htmlentities($_POST['nuevaResenia']));
+        
+        if (htmlentities($_POST['radio']) == 1) {
+          $res->setServicio("A domicilio");
+        }else if (htmlentities($_POST['radio']) == 2){
+          $res->setServicio("Internacional");
+        }
+        
+        if (isset($_POST['recibiremail'])) {
+          $res->setRecibirPromo(1);
+        }else{
+          $res->setRecibirPromo(0);
+        }
+        
+        $exito = $this->model->update($res);        
       
-      if (htmlentities($_POST['radio']) == 1) {
-        $res->setServicio("A domicilio");
-      }else if (htmlentities($_POST['radio']) == 2){
-        $res->setServicio("Internacional");
-      }
-
-      $res->setEstado(htmlentities($_POST['radius']));
-      
-      $res->setResenia(htmlentities($_POST['nuevaResenia']));
-      
-      if (isset($_POST['recibiremail'])) {
-        $res->setRecibirPromo(1);
       }else{
-        $res->setRecibirPromo(0);
+        $exito = false;
       }
-      
-      $exito = $this->model->update($res);
+
       if(!isset($_SESSION)){ 
         session_start();
       }
