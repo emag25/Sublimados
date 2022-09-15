@@ -1,4 +1,10 @@
 <!--   AUTOR: ELIZALDE GAIBOR MILTON ALEXANDER  -->
+<?php 
+    if(!isset($_SESSION)){ 
+        session_start();
+    }
+    //echo $_SESSION['rol'];
+?> 
 
 <!DOCTYPE html>
 <html lang="es">
@@ -9,6 +15,7 @@
     <meta name="description" content="ESTA PAGINA ES LA PAGINA PRINCIPAL DE LA FAMOSA EMPRESA SUPEIRUM - ENCARGADA DE SERVICIOS DE SUBLIMADOS!!">
     <meta name="keywords" content="Sublimados, Estampados, Camisetas, Tazas, Servicio A Domicilio,Envios Internacionales">
     <link rel="stylesheet" href="assets/css/style.css">
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
     <title>INICIO</title>
     <style>
          /*selector universal*/
@@ -224,9 +231,11 @@
 </head>
 <body>
     <div class="contenedor-principal">
-    <?php require_once HEADER; ?>       
+    <?php 
+    require_once HEADER; ?>       
     
         <main>
+        
             <section class="seccion-primero">
                 <div class="dividir-seccion-uno">
                     <div  style="display: flex; flex-direction: column; justify-content: center; align-items: center; margin-left: auto;
@@ -250,6 +259,18 @@
                 </div>
 
             </section>
+            <?php                
+                if (!empty($_SESSION['mensaje'])) {
+                    ?>
+                    <div style="margin: 60px;" class="alert-<?php echo $_SESSION['color']; ?>">
+                    <i class='bx bx-<?php if ($_SESSION['color']=="rojo") { echo "x";} else{ echo "check";} ?>'></i>
+                    <?php echo $_SESSION['mensaje']; ?>  
+                    </div>
+                    <?php
+                    unset($_SESSION['mensaje']);
+                    unset($_SESSION['color']);
+                }
+                ?>
             <section class="seccion-segundo">
                 <div class="bloque bloque-uno">
                     <div style="display: flex; flex-direction: row; justify-content: center; align-items: center;">

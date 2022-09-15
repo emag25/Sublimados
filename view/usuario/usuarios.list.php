@@ -1,4 +1,3 @@
-<!--   AUTOR: APRAEZ GONZALEZ EMELY MISHELL  -->
 <?php 
     if(!isset($_SESSION)){ 
         session_start();
@@ -16,17 +15,17 @@
     <meta name="keywords" content="Sublimados, Estampados, Camisetas, Tazas, Reseñas, Formulario">
     <link rel="stylesheet" href="assets/css/style.css">
     <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
-    <title>CONSULTAR RESEÑAS</title>
+    <title>CONSULTAR USUARIOS</title>
     <style>
         .seccion-segundo {
             height: auto;
             flex-direction: column;            
         }
-
         .divMensaje{
             display:none;
             margin-top: 60px;
         }
+
     </style>
 </head>
 
@@ -41,11 +40,10 @@
                 <div class="dividir-seccion-uno">
                     <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; margin-left: auto;
                     margin-right:auto ;">
-                        <h2 id="encabezado">¡REVISA LAS RESEÑAS!</h2>
+                        <h2 id="encabezado">¡REVISA LOS USUARIOS!</h2>
                         <h3 style="margin-top: -10px;">SUPERIUM</h3>
                         <p id="parrafo">
-                            Este espacio es dedicado para tí. Puedes revisar las opiniones acerca de nuestros
-                            productos y servicios.</p>
+                            Aquí podrás consultar los usuarios registrados, su rol etc.</p>
                     </div>
                     <div class="seccion-uno-derecho">
                         <div class="circulo" id="circulo-arriba"></div>
@@ -64,10 +62,10 @@
                             <input type="text" name="b" id="busqueda"  placeholder="Buscar por nombre..."/>
                             <button class="btn-buscar" type="submit"><i class='bx bx-search' ></i>Buscar</button>
                         </div>
-                        
+                    <!--      
                     <div>
-                        <a href="index.php?c=Resenias&f=view_new"><button class="btn-nuevo" type="button"><i class='bx bx-plus' ></i>Nuevo</button></a>
-                    </div>
+                        <a href="index.php?c=Usuarios&f=view_new"><button class="btn-nuevo" type="button"><i class='bx bx-plus' ></i>Nuevo</button></a>
+                    </div> -->
                 </div>
 
                 <div class="divMensaje<?php                
@@ -80,18 +78,12 @@
                 unset($_SESSION['mensaje']);
                 unset($_SESSION['color']);
                 }else{?>"></div><?php } ?>
-                
+
                 <table>
                     <thead>
                         <th>ID</th>
-                        <th>USUARIO</th>
-                        <th>NOMBRE</th>
-                        <th>EMAIL</th>
-                        <th>VALORACIÓN</th>
-                        <th>SERVICIO</th>
-                        <th>RESEÑA</th>
-                        <th>RECIBIR PROM.</th>
-                        <th>ESTADO</th>
+                        <th>NOMBRE DE USUARIO</th>
+                        <th>ROL</th>
                         <th>ACCIONES</th>
                     </thead>
                     <tbody class="tabladatos">
@@ -99,24 +91,13 @@
                         foreach ($resultados as $fila) {
                         ?>
                         <tr>
-                            <td><?php echo $fila->resenia_id;?></td>
-                            <td><?php 
-                            if($fila->activo == 1){
-                                echo $fila->usuario;
-                            }else{
-                                echo $fila->usuario." (inactivo)";
-                            } ?></td>
-                            <td><?php echo $fila->nombre;?></td>
-                            <td><?php echo $fila->email;?></td>
-                            <td><?php if ($fila->valoracion == 1) echo "1 estrella"; else echo $fila->valoracion; ?> estrellas</td>
-                            <td><?php echo $fila->servicio;?></td>
-                            <td><?php echo $fila->resenia;?></td>
-                            <td><?php if ($fila->recibir_promo == 1) echo "SI"; else echo "NO";?></td>
-                            <td><?php if ($fila->estado == 1) echo "Publicada"; else echo "En revisión";?></td>
+                            <td><?php echo $fila->id_usuario;?></td>
+                            <td><?php echo $fila->usuario;?></td>
+                            <td><?php echo $fila->rol;?></td>                            
                             <td>
-                                <a class="accion-boton editar" href="index.php?c=Resenias&f=view_edit&id=<?php echo $fila->resenia_id;?>"><i class='bx bxs-pencil' ></i></a>
-                                <a class="accion-boton borrar" href="index.php?c=Resenias&f=delete&id=<?php echo $fila->resenia_id;?>" 
-                                onclick="if(!confirm('Está seguro que desea eliminar la reseña?'))return false;"><i class='bx bxs-trash-alt' ></i></a>
+                                <a class="accion-boton editar" href="index.php?c=Usuarios&f=view_edit&id=<?php echo $fila->id_usuario;?>"><i class='bx bxs-pencil' ></i></a>
+                                <a class="accion-boton borrar" href="index.php?c=Usuarios&f=delete&id=<?php echo $fila->id_usuario;?>" 
+                                onclick="if(!confirm('Esta seguro que desea eliminar el usuario?'))return false;"><i class='bx bxs-trash-alt' ></i></a>
                             </td>
                         </tr>
                         <?php 
@@ -130,12 +111,12 @@
             
             var txtBuscar = document.querySelector("#busqueda");
             var btn = document.querySelector(".btn-buscar");
-            btn.addEventListener('click', cargarResenias);
+            btn.addEventListener('click', cargarUsuarios);
             
-            function cargarResenias() {
+            function cargarUsuarios() {
               
                 var bus = txtBuscar.value;                
-                var url = "index.php?c=Resenias&f=search&b=" + bus;
+                var url = "index.php?c=Usuarios&f=search&b=" + bus;
                 var xmlh = new XMLHttpRequest();
                 xmlh.open("GET", url, true);
                 xmlh.send();
@@ -152,70 +133,33 @@
                 
                 var tbody = document.querySelector('.tabladatos');
                 var divMensaje = document.querySelector('.divMensaje');
-                var resenias = JSON.parse(respuesta); 
+                var usuarios = JSON.parse(respuesta); 
                 
-                var user = ""; var valoracion = ""; var promo = ""; var estado = ""; 
                 var resultados = ''; var tamanio = 0;                               
 
-                if (resenias[resenias.length - 1].mensaje_error == undefined) {                    
-                    tamanio = resenias.length;
+                if (usuarios[usuarios.length - 1].mensaje_error == undefined) {                    
+                    tamanio = usuarios.length;
                     divMensaje.style.display = "none";
                 }else{
-                    tamanio = resenias.length - 1; 
+                    tamanio = usuarios.length - 1; 
                     divMensaje.className = "divMensaje alert-rojo";
                     divMensaje.style.display = "block";
-                    divMensaje.innerHTML = '<i class="bx bx-x"></i>'+resenias[tamanio].mensaje_error;
+                    divMensaje.innerHTML = '<i class="bx bx-x"></i>'+usuarios[tamanio].mensaje_error;
                 }
-                console.log(resenias);
 
                 for (var i = 0; i < tamanio; i++) {
-                    resultados += '<tr>';
-                    
-                    resultados += '<td>' + resenias[i].resenia_id + '</td>';                
-                                                            
-                    if(resenias[i].activo == 1){
-                        user = resenias[i].usuario;
-                    }else{
-                        user = resenias[i].usuario + " (inactivo)";
-                    }
-                    resultados += '<td>' + user + '</td>';
-                    
-                    resultados += '<td>' + resenias[i].nombre + '</td>';
-                    
-                    resultados += '<td>' + resenias[i].email + '</td>';
+                    resultados += '<tr>';   
 
-                    if (resenias[i].valoracion == 1) {
-                        valoracion = "1 estrella"; 
-                    }else{
-                        valoracion = resenias[i].valoracion +" estrellas"; 
-                    }
-                    resultados += '<td>' + valoracion + '</td>';
-
-                    resultados += '<td>' + resenias[i].servicio + '</td>';
-
-                    resultados += '<td>' + resenias[i].resenia + '</td>';
-
-                    if (resenias[i].recibir_promo == 0) {
-                        promo = "NO"; 
-                    }else{
-                        promo = "SI";
-                    }
-                    resultados += '<td>' + promo + '</td>';
-
-                    if (resenias[i].estado == 0) {
-                        estado = "En revisión"; 
-                    }else{
-                        estado = "Publicada";
-                    }
-                    resultados += '<td>' + estado + '</td>';
-
+                    resultados += '<td>' + usuarios[i].id_usuario + '</td>';                    
+                    resultados += '<td>' + usuarios[i].usuario + '</td>';
+                    resultados += '<td>' + usuarios[i].rol + '</td>';
                     resultados += '<td>' +
-                        "<a class='accion-boton editar' href='index.php?c=Resenias&f=view_edit&id=" + resenias[i].resenia_id
+                        "<a class='accion-boton editar' href='index.php?c=usuarios&f=view_edit&id=" + usuarios[i].id_usuario
                         + "'><i class='bx bxs-pencil' ></i></a>" 
-                        + "<a style='margin-left:3px;' class='accion-boton borrar' href='index.php?c=Resenias&f=delete&id=" + resenias[i].resenia_id 
-                        + "' onclick =" + '"if(!confirm(' + "'¿Está seguro que desea eliminar la reseña?'" + '))return false;"' + " ><i class='bx bxs-trash-alt' ></i></a>" 
-                        + '</td>';
-                    
+                        + "<a style='margin-left:3px;' class='accion-boton borrar' href='index.php?c=usuarios&f=delete&id=" + usuarios[i].id_usuario 
+                        + "' onclick =" + '"if(!confirm(' + "'¿Está seguro que desea eliminar el usuario?'" + '))return false;"' + " ><i class='bx bxs-trash-alt' ></i></a>" 
+                        + '</td>';       
+
                     resultados += '</tr>';
                 }
                 tbody.innerHTML = resultados;

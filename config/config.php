@@ -1,7 +1,7 @@
 <?php
 
 //controlador y funcion predefinida
-define("CONTROLADOR_PRINCIPAL","inicio");
+define("CONTROLADOR_PRINCIPAL","usuarios");
 define("FUNCION_PRINCIPAL", "index");
 
 
@@ -29,6 +29,10 @@ define("VRESENIAS", "view/resenias/resenias.");
 
 // MODULO CONTACTO
 define("VCONTACTO", "view/contacto/contacto.");
+
+
+// MODULO USUARIOS
+define("VUSUARIOS", "view/usuario/usuarios.");
 
 
 // CONEXION BD

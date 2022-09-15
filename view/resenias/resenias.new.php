@@ -1,4 +1,9 @@
 <!--   AUTOR: APRAEZ GONZALEZ EMELY MISHELL  -->
+<?php 
+    if(!isset($_SESSION)){ 
+        session_start();
+    }
+?>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -263,7 +268,6 @@
 
         function mensaje(cadenaMensaje, elemento) {
 
-            elemento.focus();
             elemento.style.boxShadow = '0 0 5px red, 0 0 5px red';
 
             if (elemento.id === "contenedorRadios") {

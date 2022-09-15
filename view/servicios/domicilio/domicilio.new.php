@@ -1,4 +1,9 @@
 <!--   AUTOR: ELIZALDE GAIBOR MILTON ALEXANDER  -->
+<?php 
+    if(!isset($_SESSION)){ 
+        session_start();
+    }
+?>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -51,10 +56,12 @@
         #correo{
             width: 30%;
         }
+    
 
-        div{
+        .formulario div{
             padding: 10px 0 10px 0;
         }
+        
         .formulario{
             margin-top: 20px;
             display: flex;

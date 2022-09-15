@@ -1,4 +1,9 @@
 <!--   AUTOR: YANEZ GUILLEN PAULA ADRIANA  -->
+<?php 
+    if(!isset($_SESSION)){ 
+        session_start();
+    }
+?> 
 
 <!DOCTYPE html>
 <html lang="es">

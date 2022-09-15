@@ -1,4 +1,9 @@
 <!--   AUTOR: APRAEZ GONZALEZ EMELY MISHELL  -->
+<?php 
+    if(!isset($_SESSION)){ 
+        session_start();
+    }
+?>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -27,7 +32,7 @@
             align-items: center;
             background-color: #2B2729;
             width: 450px;
-            height: 540px;
+            height: au  to;
             color: rgb(255, 255, 255);
             border-radius: 40px;
             padding: 40px;
@@ -209,6 +214,26 @@
                                     <label>Internacional</label>
                                 </div>
                             </div>
+                            <label><b>Estado: </b><span>*</span></label>
+                            <div id="contenedorRadius" class="box" onmouseover="mostrarError('radius')"
+                                onmouseout="ocultarError('radius')">
+                                <div id="divRadio1">
+                                    <?php      
+                                    $revision = ""; $publicado = "";                              
+                                    if($res->estado == "0"){
+                                        $revision = 'checked';                                        
+                                    }else if ($res->estado == "1"){
+                                        $publicado = 'checked';                                        
+                                    }
+                                    ?>
+                                    <input type="radio" id="radio3" name="radius" value="0" class="radius" <?php echo $revision; ?>>
+                                    <label>En revisión</label>
+                                </div>
+                                <div id="divRadio2">
+                                    <input type="radio" id="radio4" name="radius" value="1" class="radius" <?php echo $publicado; ?>>
+                                    <label>Publicado</label>
+                                </div>
+                            </div>
                         </div>
                         <label><b>Reseña: </b><span>*</span></label>
                         <div id="areaNewReseña">
@@ -250,6 +275,7 @@
             var email = document.getElementById("email");
             var valoracion = document.getElementById("valoracion");
             var radio = document.getElementsByName("radio");
+            var radius = document.getElementsByName("radius");
             var resenia = document.getElementById("resenia");
 
             limpiarMensajes();
@@ -290,6 +316,12 @@
                 mensaje("Especifique el tipo de servicio.", radio[0].parentNode.parentNode);
             }
 
+            // validación campo estado
+            if (!radius[0].checked && !radius[1].checked) {
+                valido = false;
+                mensaje("Especifique el estado.", radius[0].parentNode.parentNode);
+            }
+
             // validación campo reseña
             if (resenia.value === '') {
                 valido = false;
@@ -306,10 +338,10 @@
 
         function mensaje(cadenaMensaje, elemento) {
 
-            elemento.focus();
+            
             elemento.style.boxShadow = '0 0 5px red, 0 0 5px red';
 
-            if (elemento.id === "contenedorRadios") {
+            if ((elemento.id === "contenedorRadios") || (elemento.id === "contenedorRadius")) {
                 var nodoPadre = elemento;
             } else {
                 var nodoPadre = elemento.parentNode;
@@ -332,6 +364,10 @@
                 case "contenedorRadios":
                     nodoMensaje.style.marginTop = '-35px';
                     nodoMensaje.setAttribute("id", "error-radio");
+                    break;
+                case "contenedorRadius":
+                    nodoMensaje.style.marginTop = '-35px';
+                    nodoMensaje.setAttribute("id", "error-radius");
                     break;
                 case "resenia":
                     nodoMensaje.style.marginTop = '-180px';

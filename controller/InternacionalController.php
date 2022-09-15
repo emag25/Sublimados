@@ -76,7 +76,12 @@ class InternacionalController {
         $_SESSION['color'] = "rojo";
       }
 
-      header('Location:index.php?c=Servicios&f=view_internacional_list');
+      if(($_SESSION['rol']=="cliente") or ($_SESSION['rol']=="marketing")){
+        header('Location:index.php?c=Inicio&f=index');
+      }else{
+        header('Location:index.php?c=Servicios&f=view_internacional_list');
+      }
+      
     }
   }
   

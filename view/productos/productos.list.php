@@ -1,4 +1,10 @@
 <!--AUTOR:SICHA VEGA BETSY ARLETTE-->
+<?php 
+    if(!isset($_SESSION)){ 
+        session_start();
+    }
+?> 
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -74,9 +80,6 @@
 <body>
     <div class="contenedor-principal">
     <?php 
-    if(!isset($_SESSION)){ 
-        session_start();
-    } 
     require_once HEADER;
     ?>      
         <main>
