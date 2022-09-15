@@ -156,7 +156,7 @@
                     resultados += '<td>' +
                         "<a class='accion-boton editar' href='index.php?c=usuarios&f=view_edit&id=" + usuarios[i].id_usuario
                         + "'><i class='bx bxs-pencil' ></i></a>" 
-                        + "<a class='accion-boton borrar' href='index.php?c=usuarios&f=delete&id=" + usuarios[i].id_usuario 
+                        + "<a style='margin-left:3px;' class='accion-boton borrar' href='index.php?c=usuarios&f=delete&id=" + usuarios[i].id_usuario 
                         + "' onclick =" + '"if(!confirm(' + "'¿Está seguro que desea eliminar el usuario?'" + '))return false;"' + " ><i class='bx bxs-trash-alt' ></i></a>" 
                         + '</td>';       
 

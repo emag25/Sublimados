@@ -212,7 +212,7 @@
                     resultados += '<td>' +
                         "<a class='accion-boton editar' href='index.php?c=Resenias&f=view_edit&id=" + resenias[i].resenia_id
                         + "'><i class='bx bxs-pencil' ></i></a>" 
-                        + "<a class='accion-boton borrar' href='index.php?c=Resenias&f=delete&id=" + resenias[i].resenia_id 
+                        + "<a style='margin-left:3px;' class='accion-boton borrar' href='index.php?c=Resenias&f=delete&id=" + resenias[i].resenia_id 
                         + "' onclick =" + '"if(!confirm(' + "'¿Está seguro que desea eliminar la reseña?'" + '))return false;"' + " ><i class='bx bxs-trash-alt' ></i></a>" 
                         + '</td>';
                     
