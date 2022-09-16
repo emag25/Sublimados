@@ -11,7 +11,7 @@ class ProductosDAO {
 
     // CONSULTAR DISEÑO DE PRODUCTO
     public function selectAll() {      
-        $sql = "SELECT * FROM disenio_producto";
+        $sql = "SELECT * FROM disenio_producto, usuario WHERE usuario_id = id_usuario";
         $stmt = $this->con->prepare($sql);
         $stmt->execute();
         $resultados = $stmt->fetchAll(PDO::FETCH_OBJ);
@@ -20,7 +20,7 @@ class ProductosDAO {
     }
 
     public function selectByName($name) { 
-        $sql = "SELECT * FROM disenio_producto WHERE cliente = :name";
+        $sql = "SELECT * FROM disenio_producto, usuario WHERE (cliente like :name AND usuario_id = id_usuario)";
         $stmt = $this->con->prepare($sql);
         $data = ['name' => $name];
         $stmt->execute($data);
@@ -33,7 +33,7 @@ class ProductosDAO {
     public function insert($prod){
         try{
         $sql = "INSERT INTO disenio_producto (producto, cliente, telefono, colores, disenio, modelo, observaciones) VALUES 
-        (:producto, :cliente, :telefono, :colores, :disenio, :modelo, :observaciones)";
+        (:producto, :cliente, :telefono, :colores, :disenio, :modelo, :observaciones, :usuario_id)";
 
         $sentencia = $this->con->prepare($sql);
         $data = [
@@ -43,7 +43,8 @@ class ProductosDAO {
         'colores' => $prod->getColores(),
         'disenio' =>  $prod->getDisenio(),
         'modelo' =>  $prod->getModelo(),
-        'observaciones' => $prod->getObservaciones()
+        'observaciones' => $prod->getObservaciones(),
+        'usuario_id' => $prod->getUsuarioId()
         ];
   
         $sentencia->execute($data);

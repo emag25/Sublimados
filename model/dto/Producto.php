@@ -3,7 +3,7 @@
 
 class Producto {
 
-    private $disenio_id, $producto, $cliente, $telefono, $colores, $disenio, $modelo, $observaciones;
+    private $disenio_id, $producto, $cliente, $telefono, $colores, $disenio, $modelo, $observaciones, $usuario_id;
 
     function __construct() {
         
@@ -41,6 +41,10 @@ class Producto {
         return $this->observaciones;
     }
 
+    function getUsuarioId(){
+        return $this->usuario_id;
+    }
+
     
 
     function setDisenioId($disenio_id) {
@@ -75,7 +79,9 @@ class Producto {
         $this->observaciones = $observaciones;
     }
 
-    
+    function setUsuarioId($usuario_id){
+        $this->usuario_id = $usuario_id;
+    }
     
 
     public function __set($nombre, $valor) {

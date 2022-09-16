@@ -26,7 +26,11 @@ class ProductosController {
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
       $prod = new Producto();
+
+      //ID DE USUARIO
+      $prod->setUsuarioId($_SESSION['id']);
       
+      //PRODUCTO
       if (htmlentities($_POST['producto']) == '1') {
         $prod->setProducto("camiseta");
       }else if (htmlentities($_POST['producto']) == '2'){
@@ -39,9 +43,11 @@ class ProductosController {
         $prod->setProducto("bolso");
       }
 
-      
+      //CLIENTE
       $prod->setCliente(htmlentities($_POST['cliente']));
+      //TELEFONO
       $prod->setTelefono(htmlentities($_POST['telefono']));
+      //COLORES
       $colores="";
       foreach($_POST['colores'] as $color){
         if(htmlentities($color)=="1"){
@@ -68,7 +74,7 @@ class ProductosController {
       $prod->setColores($colores);
 
 
-
+      //DISEÑO
       if (htmlentities($_POST['disenio']) == '1') {
         $prod->setDisenio("personalizado");
       }else if (htmlentities($_POST['disenio']) == '2'){
@@ -77,7 +83,7 @@ class ProductosController {
         $prod->setDisenio("sorpresa");
       }
 
-      
+      //MODELO
 
       if (htmlentities($_POST['modelo']) == 'real') {
         $prod->setModelo("Realista");
@@ -87,6 +93,7 @@ class ProductosController {
         $prod->setModelo("Anime");
       }
       
+      //OBSERVACIONES
       $prod->setObservaciones(htmlentities($_POST['observaciones']));
       
 
@@ -183,8 +190,10 @@ class ProductosController {
 
       $prod = new Producto();
 
+      //DISEÑO ID
       $prod->setDisenioId(htmlentities($_POST['id']));
 
+      //PRODUCTO
       if (htmlentities($_POST['producto']) == '1') {
         $prod->setProducto("camiseta");
       }else if (htmlentities($_POST['producto']) == '2'){
@@ -197,9 +206,12 @@ class ProductosController {
         $prod->setProducto("bolso");
       }
 
+      //CLIENTE
       $prod->setCliente(htmlentities($_POST['cliente']));
+      //TELEFONO
       $prod->setTelefono(htmlentities($_POST['telefono']));
 
+      //COLORES
       $colores="";
       foreach($_POST['colores'] as $color){
         if(htmlentities($color)=="1"){
@@ -225,7 +237,7 @@ class ProductosController {
       }
       $prod->setColores($colores);
 
-      
+      //DISEÑO
       if (htmlentities($_POST['disenio']) == '1') {
         $prod->setDisenio("personalizado");
       }else if (htmlentities($_POST['disenio']) == '2'){
@@ -234,6 +246,7 @@ class ProductosController {
         $prod->setDisenio("sorpresa");
       }
 
+      //MODELO
       if (htmlentities($_POST['modelo']) == 'real') {
         $prod->setModelo("Realista");
       }else if (htmlentities($_POST['modelo']) == 'cari'){
@@ -242,6 +255,7 @@ class ProductosController {
         $prod->setModelo("Anime");
       }
       
+      //OBSERVACIONES
       $prod->setObservaciones(htmlentities($_POST['observaciones']));
 
       
