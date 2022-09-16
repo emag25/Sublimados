@@ -149,6 +149,7 @@
             <div class="newDisenio"> 
                     <form id="creaDisenio" method="POST" action="index.php?c=Productos&f=edit">
                         <div class="infoDisenio">
+                        <input type="hidden" name="usuario_id" id="id" value="<?php echo $prod->usuario_id; ?>"/>
                         <input type="hidden" name="id" id="id" value="<?php echo $prod->disenio_id; ?>"/>
                         
                             <div>

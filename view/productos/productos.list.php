@@ -117,7 +117,7 @@
                 <form action="index.php?c=Productos&f=search" method="POST" id="formBuscar">
                         <div class="contenedor-buscar">
                             <input type="text" name="b" id="busqueda"  placeholder="Buscar por cliente..."/>
-                            <button class="btn-buscar" type="submit"><i class='bx bx-search' ></i>Buscar</button>
+                            <button id="filtro" class="btn-buscar" type="submit"><i class='bx bx-search' ></i>Buscar</button>
                         </div>
                     </form> 
                     <div>
@@ -128,7 +128,7 @@
                 <?php                
                 if (!empty($_SESSION['mensaje'])) {
                     ?>
-                    <div style="margin-top: 60px;" class="div alert-<?php echo $_SESSION['color']; ?>">
+                    <div style="margin-top: 60px;" class="alert-<?php echo $_SESSION['color']; ?>">
                     <i class='bx bx-<?php if ($_SESSION['color']=="rojo") { echo "x";} else{ echo "check";} ?>'></i>
                     <?php echo $_SESSION['mensaje']; ?>  
                     </div>
@@ -191,7 +191,7 @@
         <script type="text/javascript">
 
             var txtBuscar = document.getElementById("busqueda");
-            var boton = document.getElementsByClassName("btn-buscar");
+            var boton = document.getElementById("filtro");
             boton.addEventListener('click', mostrarDisenio);
 
             function mostrarDisenio(){

@@ -17,13 +17,17 @@ class ProductosController {
   } 
 
   // FUNCION INSERTAR NUEVO DISEÑO DE PRODUCTO
-  public function view_new() {     
+  public function view_new() {        
     require_once VPRODUCTOS.'new.php';
   }
 
   public function new() {
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+      if (!empty($_POST['producto']) && !empty($_POST['cliente']) && !empty($_POST['telefono'])
+      && !empty($_POST['colores']) && !empty($_POST['disenio']) && !empty($_POST['modelo'])
+      && !empty($_POST['observaciones'])){
 
       $prod = new Producto();
 
@@ -116,7 +120,7 @@ class ProductosController {
       }else{
         header('Location:index.php?c=Productos&f=view_list');
       }
-      
+    }
     } 
   }
 
@@ -188,7 +192,14 @@ class ProductosController {
   public function edit(){
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
+      if (!empty($_POST['producto']) && !empty($_POST['cliente']) && !empty($_POST['telefono'])
+      && !empty($_POST['colores']) && !empty($_POST['disenio']) && !empty($_POST['modelo'])
+      && !empty($_POST['observaciones'])){
+
       $prod = new Producto();
+
+      //USUARIO ID
+      $prod->setUsuarioId(htmlentities($_POST['usuario_id']));
 
       //DISEÑO ID
       $prod->setDisenioId(htmlentities($_POST['id']));
@@ -275,5 +286,6 @@ class ProductosController {
       
       header('Location:index.php?c=Productos&f=view_list');           
     } 
+  }
   }
 }
