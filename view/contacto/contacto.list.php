@@ -24,6 +24,11 @@
             flex-direction: column;
         }
 
+        .divMensaje{
+            display:none;
+            margin-top: 60px;
+        }
+
     </style>
 </head>
 
@@ -58,32 +63,32 @@
             <section class="seccion-segundo" id="seccion-2">
 
                     <div class="row">                    
-                        <form action="index.php?c=Contacto&f=search" method="POST" id="formBuscar">
                             <div class="contenedor-buscar">
                                 <input type="text" name="b" id="busqueda"  placeholder="Buscar por nombre..."/>
                                 <button class="btn-buscar" type="submit"><i class='bx bx-search' ></i>Buscar</button>
-                            </div>
-                        </form>       
+                            </div>     
                         <div>
                             <a href="index.php?c=Contacto&f=view_new"><button class="btn-nuevo" type="button"><i class='bx bx-plus' ></i>Nuevo</button></a>
                         </div>
                     </div>
-                    <?php 
+                    
+                    <div class="divMensaje<?php                
                     if (!empty($_SESSION['mensaje'])) {
-                        ?>
-                        <div style="margin-top: 60px;" class="alert-<?php echo $_SESSION['color']; ?>">
-                        <i class='bx bx-<?php if ($_SESSION['color']=="rojo") { echo "x";} else{ echo "check";} ?>'></i>
-                        <?php echo $_SESSION['mensaje']; ?>  
-                        </div>
-                        <?php
-                        unset($_SESSION['mensaje']);
-                        unset($_SESSION['color']);
-                    }                
-                    ?>
+                        echo ' alert-'.$_SESSION['color']; 
+                        ?>" style="display:block;"><i class='bx bx-<?php                    
+                        if ($_SESSION["color"] == "rojo") { echo "x";} 
+                        else{ echo "check";} ?>'></i><?php echo $_SESSION['mensaje']; ?></div>
+                    <?php
+                    unset($_SESSION['mensaje']);
+                    unset($_SESSION['color']);
+                    }else{?>"></div><?php } ?>
+
+
                     <table>
                     <thead>
                         <tr>
                             <th>ID</th>
+                            <th>USUARIO</th>
                             <th>NOMBRE</th>
                             <th>APELLIDO</th>
                             <th>CELULAR</th>
@@ -96,12 +101,18 @@
                             <th>ACCIONES</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="tabladatos">
                         <?php
                         foreach ($result as $fila) {
                         ?>
                             <tr>
                                 <td><?php echo $fila->contacto_id ?></td>
+                                <td><?php 
+                                if($fila->activo == 1){
+                                    echo $fila->usuario;
+                                }else{
+                                    echo $fila->usuario." (inactivo)";
+                                } ?></td>
                                 <td><?php echo $fila->nombre ?></td>
                                 <td><?php echo $fila->apellido ?></td>
                                 <td><?php echo $fila->celular ?></td>
@@ -124,8 +135,99 @@
                     </table>
                 
             </section>
-
         </main>
+        <script type="text/javascript">
+            
+            var txtBuscar = document.querySelector("#busqueda");
+            var btn = document.querySelector(".btn-buscar");
+            btn.addEventListener('click', cargarContacto);
+            
+            function cargarContacto() {
+              
+                var bus = txtBuscar.value;                
+                var url = "index.php?c=Contacto&f=search&b=" + bus;
+                var xmlh = new XMLHttpRequest();
+                xmlh.open("GET", url, true);
+                xmlh.send();
+                
+                xmlh.onreadystatechange = function () {
+                    if (xmlh.readyState === 4 && xmlh.status === 200) {
+                        var respuesta = xmlh.responseText;                     
+                        actualizar(respuesta);
+                    }
+                }
+            }
+
+            function actualizar(respuesta) {
+                
+                var tbody = document.querySelector('.tabladatos');
+                var divMensaje = document.querySelector('.divMensaje');
+                var contacto = JSON.parse(respuesta); 
+                
+                var user = ""; var intereses = ""; //var estado = ""; var estado_civil = "";
+                var $result = ''; var tamanio = 0;                               
+
+                if (contacto[contacto.length - 1].mensaje_error == undefined) {                    
+                    tamanio = contacto.length;
+                    divMensaje.style.display = "none";
+                }else{
+                    tamanio = contacto.length - 1; 
+                    divMensaje.className = "divMensaje alert-rojo";
+                    divMensaje.style.display = "block";
+                    divMensaje.innerHTML = '<i class="bx bx-x"></i>'+contacto[tamanio].mensaje_error;
+                }
+                console.log(contacto);
+
+                for (var i = 0; i < tamanio; i++) {
+                    $result += '<tr>';
+                    
+                    $result += '<td>' + contacto[i].contacto_id + '</td>';                
+                                                            
+                    if(contacto[i].activo == 1){
+                        user = contacto[i].usuario;
+                    }else{
+                        user = contacto[i].usuario + " (inactivo)";
+                    }
+                    $result += '<td>' + user + '</td>';
+                    
+                    $result += '<td>' + contacto[i].nombre + '</td>';
+                    
+                    $result += '<td>' + contacto[i].apellido + '</td>';
+
+                    $result += '<td>' + contacto[i].celular + '</td>';
+
+                    $result += '<td>' + contacto[i].email + '</td>';
+
+                    $result += '<td>' + contacto[i].genero + '</td>';
+
+                    $result += '<td>' + contacto[i].estado_civil + '</td>';
+
+                    if (contacto[i].intereses == 0) {
+                        intereses = "NO"; 
+                    }else{
+                        intereses = "SI";
+                    }
+                    $result += '<td>' + intereses + '</td>';
+
+                    $result += '<td>' + contacto[i].fecha_nacimiento + '</td>';
+
+                    $result += '<td>' + contacto[i].comentario + '</td>';
+
+
+                    $result += '<td>' +
+                        "<a class='accion-boton editar' href='index.php?c=Contacto&f=view_edit&id=" + contacto[i].contacto_id
+                        + "'><i class='bx bxs-pencil' ></i></a>" 
+                        + "<a style='margin-left:3px;' class='accion-boton borrar' href='index.php?c=Contacto&f=delete&id=" + contacto[i].contacto_id 
+                        + "' onclick =" + '"if(!confirm(' + "'¿Está seguro que desea eliminar el contacto?'" + '))return false;"' + " ><i class='bx bxs-trash-alt' ></i></a>" 
+                        + '</td>';
+                    
+                        $result += '</tr>';
+                }
+                tbody.innerHTML = $result;
+                txtBuscar.value = "";
+                txtBuscar.focus();
+            }
+        </script>
 
         <?php  require_once FOOTER ?>
     </div>
