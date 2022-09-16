@@ -189,17 +189,11 @@
                         user = contacto[i].usuario + " (inactivo)";
                     }
                     $result += '<td>' + user + '</td>';
-                    
                     $result += '<td>' + contacto[i].nombre + '</td>';
-                    
                     $result += '<td>' + contacto[i].apellido + '</td>';
-
                     $result += '<td>' + contacto[i].celular + '</td>';
-
                     $result += '<td>' + contacto[i].email + '</td>';
-
                     $result += '<td>' + contacto[i].genero + '</td>';
-
                     $result += '<td>' + contacto[i].estado_civil + '</td>';
 
                     if (contacto[i].intereses == 0) {
@@ -208,11 +202,8 @@
                         intereses = "SI";
                     }
                     $result += '<td>' + intereses + '</td>';
-
                     $result += '<td>' + contacto[i].fecha_nacimiento + '</td>';
-
                     $result += '<td>' + contacto[i].comentario + '</td>';
-
 
                     $result += '<td>' +
                         "<a class='accion-boton editar' href='index.php?c=Contacto&f=view_edit&id=" + contacto[i].contacto_id

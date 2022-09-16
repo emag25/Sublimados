@@ -58,7 +58,7 @@ class ContactoController {
         }
         
         if (!empty($_POST['nombre']) && !empty($_POST['apellido']) && !empty($_POST['celular'])&& 
-        !empty($_POST['email']) && !empty($_POST['radio']) && !empty($_POST['fecha'])){
+        !empty($_POST['email']) && !empty($_POST['radio']) && !empty($_POST['estado']) && !empty($_POST['fecha'])){
           
         $cont = new Contacto();
         
@@ -100,10 +100,6 @@ class ContactoController {
           $exito = false;
         } 
               
-        if(!isset($_SESSION)){ 
-          session_start();
-        }
-  
         if ($exito) {
           $_SESSION['mensaje'] = "Contacto guardado exitosamente!";
           $_SESSION['color'] = "azul";
@@ -128,50 +124,56 @@ class ContactoController {
       $cont = $this->model->selectById($id);
 
       require_once VCONTACTO.'edit.php';
+      header('Location:index.php?c=Contacto&f=view_list');
     }
 
     public function edit(){
       if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-   
-        $cont = new Contacto();
-  
-        $cont->setContactoId(htmlentities($_POST['id']));
-        $cont->setNombre(htmlentities($_POST['nombre']));
-        $cont->setApellido(htmlentities($_POST['apellido']));
-        $cont->setCelular(htmlentities($_POST['celular']));
-        $cont->setEmail(htmlentities($_POST['email']));     
+        if (!empty($_POST['nombre']) && !empty($_POST['apellido']) && !empty($_POST['celular'])&& 
+        !empty($_POST['email']) && !empty($_POST['radio']) && !empty($_POST['estado']) && !empty($_POST['fecha'])){
         
-        /* validación de genero */
-        if (htmlentities($_POST['radio']) == 1) {
-          $cont->setGenero("Femenino");
-        }else if (htmlentities($_POST['radio']) == 2){
-          $cont->setGenero("Masculino");
-        }else if (htmlentities($_POST['radio']) == 3){
-          $cont->setGenero("Otro");
-        }
-                
-      /*   validación de estado civil */
-        if (htmlentities($_POST['estado']) == 1) {
-          $cont->setEstadoCivil("Soltero");
-        }else if (htmlentities($_POST['estado']) == 2){
-          $cont->setEstadoCivil("Casado");
-        }else if (htmlentities($_POST['estado']) == 3){
-          $cont->setEstadoCivil("Viudo");
-        }
-        
-        /* valoración intereses */
-        
-        if (isset($_POST['intereses'])) {
-          $cont->setIntereses(1);
-        }else{
-          $cont->setIntereses(0);
-        } 
+          $cont = new Contacto();
+    
+          $cont->setContactoId(htmlentities($_POST['id']));
+          $cont->setNombre(htmlentities($_POST['nombre']));
+          $cont->setApellido(htmlentities($_POST['apellido']));
+          $cont->setCelular(htmlentities($_POST['celular']));
+          $cont->setEmail(htmlentities($_POST['email']));     
+          
+          /* validación de genero */
+          if (htmlentities($_POST['radio']) == 1) {
+            $cont->setGenero("Femenino");
+          }else if (htmlentities($_POST['radio']) == 2){
+            $cont->setGenero("Masculino");
+          }else if (htmlentities($_POST['radio']) == 3){
+            $cont->setGenero("Otro");
+          }
+                  
+        /*   validación de estado civil */
+          if (htmlentities($_POST['estado']) == 1) {
+            $cont->setEstadoCivil("Soltero");
+          }else if (htmlentities($_POST['estado']) == 2){
+            $cont->setEstadoCivil("Casado");
+          }else if (htmlentities($_POST['estado']) == 3){
+            $cont->setEstadoCivil("Viudo");
+          }
+          
+          /* valoración intereses */
+          
+          if (isset($_POST['intereses'])) {
+            $cont->setIntereses(1);
+          }else{
+            $cont->setIntereses(0);
+          } 
 
-        $cont->setFechaNacimiento(htmlentities($_POST['fecha']));
-        $cont->setComentario(($_POST['comentario']));
-        
-              
-      $exito = $this->model->update($cont);
+          $cont->setFechaNacimiento(htmlentities($_POST['fecha']));
+          $cont->setComentario(($_POST['comentario']));
+          
+                
+        $exito = $this->model->update($cont);
+        }else{
+          $exito = false;
+        }
       if(!isset($_SESSION)){ 
         session_start();
       };

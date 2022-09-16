@@ -34,9 +34,10 @@ class ContactoDAO {
     }
 
     public function selectByName($name) { 
-        $sql = "SELECT * FROM contacto, usuario WHERE nombre = :name AND usuario_id = id_usuario";
+        $sql = "SELECT * FROM contacto, usuario WHERE (nombre like :name AND usuario_id = id_usuario)";
         $stmt = $this->con->prepare($sql);
-        $data = ['name' => $name];
+        $conlike = '%' . $name . '%';
+        $data = array('name' => $conlike);
         $stmt->execute($data);
         $result = $stmt->fetchAll(PDO::FETCH_OBJ);
         
@@ -95,7 +96,6 @@ class ContactoDAO {
         
             $sentencia = $this->con->prepare($sql);
             $data = [
-            'id' =>  $cont->getContactoId(),
             'nombre' =>  $cont->getNombre(),
             'apellido' =>  $cont->getApellido(),
             'celular' =>  $cont->getCelular(),
@@ -104,7 +104,8 @@ class ContactoDAO {
             'estado' =>  $cont->getEstadoCivil(),
             'intereses' =>  $cont->getIntereses(),
             'fecha' =>  $cont->getFechaNacimiento(),
-            'comentario' =>  $cont->getComentario()
+            'comentario' =>  $cont->getComentario(),
+            'id' =>  $cont->getContactoId()
             ];
             $sentencia->execute($data);
             
