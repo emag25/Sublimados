@@ -1,6 +1,5 @@
-<!--  AUTOR: YANEZ GUILLEN PAULA ADRIANA  -->
 
-<?php
+<?php //AUTOR  YANEZ GUILLEN PAULA ADRIANA 
 
 require_once 'config/Conexion.php';
 
@@ -15,7 +14,8 @@ class InternacionalDAO {
     /*--  CONSULTAR  --*/
 
     public function selectAll() {      
-        $sql = "SELECT * FROM envio_internacional";
+        $sql = "SELECT * FROM envio_internacional,usuario WHERE usuario_id = id_usuario";
+
         $stmt = $this->con->prepare($sql);
         $stmt->execute();
         $resultados = $stmt->fetchAll(PDO::FETCH_OBJ);
@@ -24,9 +24,10 @@ class InternacionalDAO {
     }
 
     public function selectByName($name) { 
-        $sql = "SELECT * FROM envio_internacional WHERE nombres = :name";
+        $sql = "SELECT * FROM envio_internacional, usuario WHERE (nombre like :name AND usuario_id = id_usuario)";
         $stmt = $this->con->prepare($sql);
-        $data = ['name' => $name];
+        $conlike = '%' . $name . '%';
+        $data = array('name' => $conlike);
         $stmt->execute($data);
         $resultados = $stmt->fetchAll(PDO::FETCH_OBJ);
         
@@ -40,8 +41,8 @@ class InternacionalDAO {
 
     public function insert($inter) {
         try{
-            $sql = "INSERT INTO envio_internacional (nombres,apellidos,telefono, email, direccion, recibir_via, pais,recibir_info,especificaciones) VALUES 
-            (:nombre,:apellidos,:telefono,:email,:direccion, :recibir_via,:pais, :recibirinfo, :especificaciones)";
+            $sql = "INSERT INTO envio_internacional (nombres,apellidos,telefono, email, direccion, recibir_via, pais,recibir_info,especificaciones, usuario_id) VALUES 
+            (:nombre,:apellidos,:telefono,:email,:direccion, :recibir_via,:pais, :recibirinfo, :especificaciones, :usuario_id)";
         
             $sentencia = $this->con->prepare($sql);
             $data = [
@@ -53,7 +54,9 @@ class InternacionalDAO {
             'recibir_via' =>  $inter->getVia(),
             'pais' =>  $inter->getPais(),
             'recibirinfo' =>  $inter->getinfo(),
-            'especificaciones' =>  $inter->getesp()
+            'especificaciones' =>  $inter->getesp(),
+            'usuario_id' =>  $res->getUsuarioId()
+
 
             ];
             $sentencia->execute($data);

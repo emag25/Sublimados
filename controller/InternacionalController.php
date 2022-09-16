@@ -1,6 +1,5 @@
-<!--  AUTOR  YANEZ GUILLEN PAULA ADRIANA  -->
 
-<?php
+<?php //AUTOR  YANEZ GUILLEN PAULA ADRIANA 
 require_once 'model/dao/InternacionalDAO.php';
 require_once 'model/dto/Internacional.php';
 
@@ -29,9 +28,18 @@ class InternacionalController {
 
   public function int_new() {
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+      if(!isset($_SESSION)){ 
+        session_start();
+      }
+      
+      if (!empty($_POST['nombres']) && !empty($_POST['apellidos']) && !empty($_POST['telefono']) && 
+      !empty($_POST['email']) && !empty($_POST['direccion'])&& !empty($_POST['recibir_via'])&& !empty($_POST['pais'])) {
+      
         
       $inter = new Internacional();
-      
+
+      $inter->setUsuarioId($_SESSION['id']);
       $inter->setNombre(htmlentities($_POST['nombres']));
       $inter->setApellido(htmlentities($_POST['apellidos']));
       $inter->setTelefono(htmlentities($_POST['telefono']));
@@ -63,18 +71,23 @@ class InternacionalController {
       $inter->setesp(htmlentities($_POST['especificaciones']));
             
       $exito = $this->model2->insert($inter);
-            
-      if(!isset($_SESSION)){ 
-        session_start();
-      }
+    }else{
+      $exito = false;
+    } 
 
-      if ($exito) {
-        $_SESSION['mensaje'] = "Envío guardado exitosamente!";
-        $_SESSION['color'] = "azul";
-      }else{
-        $_SESSION['mensaje'] = "ERROR: No se pudo guardar el envío. Intentalo de nuevo.";
-        $_SESSION['color'] = "rojo";
-      }
+    if ($exito) {
+      $_SESSION['mensaje'] = "Envío guardado exitosamente!";
+      $_SESSION['color'] = "azul";
+    }else{
+      $_SESSION['mensaje'] = "ERROR: No se pudo guardar el envío. Intentalo de nuevo.";
+      $_SESSION['color'] = "rojo";
+    }
+
+    if(($_SESSION['rol']=="cliente") or ($_SESSION['rol']=="marketing")){
+      header('Location:index.php?c=Inicio&f=index');
+    }else{
+      header('Location:index.php?c=internacional&f=view_list');
+    }         
 
       if(($_SESSION['rol']=="cliente") or ($_SESSION['rol']=="marketing")){
         header('Location:index.php?c=Inicio&f=index');
@@ -94,32 +107,25 @@ class InternacionalController {
   }
 
   public function int_search() {
-    $name = (!empty($_POST["b"]))?htmlentities($_POST["b"]):"";
+    $name = (!empty($_GET["b"]))?htmlentities($_GET["b"]):"";
 
-    if (empty($name)) {
-      
-      if(!isset($_SESSION)){ 
-        session_start();
-      }
-      $_SESSION['mensaje'] = "ERROR: Debe ingresar un nombre.";
-      $_SESSION['color'] = "rojo";
-      
+    if (empty($name)) {            
       $resultados = $this->model2->selectAll();
+      array_push($resultados, (object) array('mensaje_error'=>'ERROR: Debe ingresar un nombre.'));     
     
     }else{
       $resultados = $this->model2->selectByName($name);
+      
       if (count($resultados)==0) {
-        if(!isset($_SESSION)){ 
-          session_start();
-        }
-        $_SESSION['mensaje'] = "ERROR: Nombre de usuario no encontrado.";
-        $_SESSION['color'] = "rojo";
         $resultados = $this->model2->selectAll();
-      }
+        array_push($resultados, (object) array('mensaje_error'=>'ERROR: Nombre de autor de la reseña no encontrado.'));     
+      }          
     }
-    
-    require_once VSERVICIOS.'internacional/internacional.list.php';
+    echo json_encode($resultados);
   }
+
+    
+  
 
 
   //    EDITAR
@@ -133,6 +139,13 @@ class InternacionalController {
 
   public function int_edit(){
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      if(!isset($_SESSION)){ 
+        session_start();
+      }
+      
+      if (!empty($_POST['nombres']) && !empty($_POST['apellidos']) && !empty($_POST['telefono']) && 
+      !empty($_POST['email']) && !empty($_POST['direccion'])&& !empty($_POST['recibir_via'])&& !empty($_POST['pais'])) {
+
   
       $inter = new Internacional();
       $id= $_REQUEST['id'];
@@ -172,20 +185,27 @@ class InternacionalController {
       
       $exito = $this->model2->update($inter);
       
-      if(!isset($_SESSION)){ 
-        session_start();
-      }
-
-      if ($exito) {
-        $_SESSION['mensaje'] = "Envío editado exitosamente!";
-        $_SESSION['color'] = "azul";
-      }else{
-        $_SESSION['mensaje'] = "ERROR: No se pudo editado el envío. Intentalo de nuevo.";
-        $_SESSION['color'] = "rojo";
-      }
-
-      header('Location:index.php?c=Servicios&f=view_internacional_list');
+      
+    }else{
+      $exito = false;
     } 
+
+    if ($exito) {
+      $_SESSION['mensaje'] = "Envío guardado exitosamente!";
+      $_SESSION['color'] = "azul";
+    }else{
+      $_SESSION['mensaje'] = "ERROR: No se pudo guardar el envío. Intentalo de nuevo.";
+      $_SESSION['color'] = "rojo";
+    }
+
+    if(($_SESSION['rol']=="cliente") or ($_SESSION['rol']=="marketing")){
+      header('Location:index.php?c=Inicio&f=index');
+    }else{
+      header('Location:index.php?c=internacional&f=view_list');
+    }         
+
+
+    }
   }
 
 
