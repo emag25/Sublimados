@@ -157,13 +157,13 @@
                     }
                 }
             }
-
+            
             function actualizar(respuesta) {
                 
                 var tbody = document.querySelector('.tabladatos');
                 var divMensaje = document.querySelector('.divMensaje');
                 var contacto = JSON.parse(respuesta); 
-                
+                console.log(contacto);
                 var user = ""; var intereses = ""; //var estado = ""; var estado_civil = "";
                 var $result = ''; var tamanio = 0;                               
 

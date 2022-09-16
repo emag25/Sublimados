@@ -1,6 +1,4 @@
-<!--  AUTOR: QUITO YAMBAY RUTH MARIA  -->
-
-<?php
+<?php //AUTOR: QUITO YAMBAY RUTH MARIA 
 require_once 'model/dao/ContactoDAO.php';
 require_once 'model/dto/Contacto.php';
 
@@ -35,7 +33,7 @@ class ContactoController {
       if (count($result)==0) {
         
         $result = $this->model->selectAll();
-        array_push($result, (object) array('mensaje_error'=>'ERROR: Debe ingresar un nombre.'));
+        array_push($result, (object) array('mensaje_error'=>'ERROR: Nombre no encontrado.'));
       }
     }       
     echo json_encode($result); 

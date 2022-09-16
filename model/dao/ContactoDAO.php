@@ -1,6 +1,4 @@
-<!--  AUTOR: QUITO YAMBAY RUTH MARIA  -->
-
-<?php
+<?php //AUTOR: QUITO YAMBAY RUTH MARIA 
 
 require_once 'config/Conexion.php';
 
