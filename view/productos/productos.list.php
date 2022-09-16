@@ -125,18 +125,17 @@
                     </div>
                 </div>
 
-                <?php                
+                <div class="divMensaje<?php                
                 if (!empty($_SESSION['mensaje'])) {
-                    ?>
-                    <div style="margin-top: 60px;" class="alert-<?php echo $_SESSION['color']; ?>">
-                    <i class='bx bx-<?php if ($_SESSION['color']=="rojo") { echo "x";} else{ echo "check";} ?>'></i>
-                    <?php echo $_SESSION['mensaje']; ?>  
-                    </div>
-                    <?php
-                    unset($_SESSION['mensaje']);
-                    unset($_SESSION['color']);
-                }
-                ?>
+                    echo ' alert-'.$_SESSION['color']; 
+                    ?>" style="display:block;"><i class='bx bx-<?php                    
+                    if ($_SESSION["color"] == "rojo") { echo "x";} 
+                    else{ echo "check";} ?>'></i><?php echo $_SESSION['mensaje']; ?></div>
+                <?php
+                unset($_SESSION['mensaje']);
+                unset($_SESSION['color']);
+                }else{?>"></div><?php } ?>
+                
                 <table>
                     <thead>
                         <th>ID</th>
@@ -212,8 +211,8 @@
             
             function actualizar(respuesta){
 
-                var tblDatos = document.getElementsByClassName("tblDatos");
-                var div = document.getElementsByClassName("div");
+                var tblDatos = document.querySelector(".tblDatos");
+                var divMensaje = document.querySelector('.divMensaje');
                 var productos = JSON.parse(respuesta);
 
                 var user = "";
@@ -222,12 +221,12 @@
 
                 if (productos[productos.length - 1].mensaje_error == undefined) {                    
                     tamanio = productos.length;
-                    div.style.display = "none";
+                    divMensaje.style.display = "none";
                 }else{
                     tamanio = productos.length - 1; 
-                    div.className = "div alert-rojo";
-                    div.style.display = "block";
-                    div.innerHTML = '<i class="bx bx-x"></i>'+productos[tamanio].mensaje_error;
+                    divMensaje.className = "divMensaje alert-rojo";
+                    divMensaje.style.display = "block";
+                    divMensaje.innerHTML = '<i class="bx bx-x"></i>'+productos[tamanio].mensaje_error;
                 }
                 console.log(productos);
                 

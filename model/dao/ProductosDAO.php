@@ -22,7 +22,8 @@ class ProductosDAO {
     public function selectByName($name) { 
         $sql = "SELECT * FROM disenio_producto, usuario WHERE (cliente like :name AND usuario_id = id_usuario)";
         $stmt = $this->con->prepare($sql);
-        $data = ['name' => $name];
+        $conlike = '%' . $name . '%';
+        $data = array('name' => $conlike);
         $stmt->execute($data);
         $resultados = $stmt->fetchAll(PDO::FETCH_OBJ);
         
@@ -32,7 +33,7 @@ class ProductosDAO {
     // INSERTAR DISEÑO DE PRODUCTO
     public function insert($prod){
         try{
-        $sql = "INSERT INTO disenio_producto (producto, cliente, telefono, colores, disenio, modelo, observaciones) VALUES 
+        $sql = "INSERT INTO disenio_producto (producto, cliente, telefono, colores, disenio, modelo, observaciones, usuario_id) VALUES 
         (:producto, :cliente, :telefono, :colores, :disenio, :modelo, :observaciones, :usuario_id)";
 
         $sentencia = $this->con->prepare($sql);
@@ -56,7 +57,6 @@ class ProductosDAO {
     }catch(Exception $e){
         return false;
     }
-
         return true;
     }
 
