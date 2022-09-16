@@ -1,7 +1,4 @@
-<!--  AUTOR: ELIZALDE GAIBOR MILTON ALEXANDER 
--->
-
-<?php
+<?php // AUTOR: ELIZALDE GAIBOR MILTON ALEXANDER 
 
 require_once 'model/dao/DomicilioDAO.php';
 require_once 'model/dto/Domicilio.php';
@@ -68,7 +65,7 @@ class DomiciliosController {
         if(($_SESSION['rol']=="cliente") or ($_SESSION['rol']=="marketing")){
           header('Location:index.php?c=Inicio&f=index');
         }else{
-          header('Location:index.php?c=Servicios&f=view_domicilio_list');
+          header('Location:index.php?c=domicilios&f=view_domicilio_list');
         }        
       } 
     }
@@ -79,11 +76,11 @@ class DomiciliosController {
   
   public function view_domicilio_search(){
           // lectura de parametros enviados
-    $parametro = (!empty($_POST["b"]))?htmlentities($_POST["b"]):"";
+    $parametro = (!empty($_GET["b"]))?htmlentities($_GET["b"]):"";
     //comunica con el modelo (enviar datos o obtener datos)
     $resultados = $this->model->selectMatches($parametro);
     // comunicarnos a la vista
-    require_once VSERVICIOS.'domicilio/domicilio.list.php';
+    echo json_encode($resultados);  
   }
 
   public function view_domicilio_list() {      
@@ -106,10 +103,10 @@ class DomiciliosController {
       
       if (!empty($_POST['cedula']) && !empty($_POST['celular']) && !empty($_POST['correo']) && 
       !empty($_POST['cities']) && !empty($_POST['postal']) && !empty($_POST['gen']) 
-      && !empty($_POST['env']) && !empty($_POST['referencias'])) {
+      && !empty($_POST['env']) && !empty($_POST['referencias'])&& !empty($_POST['usuario_id'])) {
         
         $prod = new Domicilio();
-
+        $prod->setUsuarioId(htmlentities($_POST['usuario_id']));
         $prod->setDomicilioId(htmlentities($_POST['id']));
         $prod->setCedula(htmlentities($_POST['cedula']));
         $prod->setCelular(htmlentities($_POST['celular']));
@@ -139,7 +136,7 @@ class DomiciliosController {
           $_SESSION['color'] = "rojo";
         }
   
-        header('Location:index.php?c=Servicios&f=view_domicilio_list');
+        header('Location:index.php?c=domicilios&f=view_domicilio_list');
       } 
     } 
   }
@@ -165,7 +162,7 @@ class DomiciliosController {
       $_SESSION['color'] = "rojo";
     }
 
-    header('Location:index.php?c=Servicios&f=view_domicilio_list');
+    header('Location:index.php?c=domicilios&f=view_domicilio_list');
   }
 
 }
