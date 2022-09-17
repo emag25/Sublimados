@@ -143,7 +143,7 @@
             function cargarInternacional() {
               
                 var bus = txtBuscar.value;                
-                var url = "index.php?c=internacional&f=search&b=" + bus;
+                var url = "index.php?c=internacional&f=int_search&b=" + bus;
                 var xmlh = new XMLHttpRequest();
                 xmlh.open("GET", url, true);
                 xmlh.send();
@@ -213,9 +213,9 @@
                     
 
                     resultados += '<td>' +
-                        "<a class='accion-boton editar' href='index.php?c=internacional&f=view_edit&id=" + envio_internacional[i].internacional_id
+                        "<a class='accion-boton editar' href='index.php?c=internacional&f=view_internacional_edit&id=" + envio_internacional[i].internacional_id
                         + "'><i class='bx bxs-pencil' ></i></a>" 
-                        + "<a style='margin-left:3px;' class='accion-boton borrar' href='index.php?c=internacional&f=delete&id=" + envio_internacional[i].internacional_id 
+                        + "<a style='margin-left:3px;' class='accion-boton borrar' href='index.php?c=internacional&f=int_delete&id=" + envio_internacional[i].internacional_id 
                         + "' onclick =" + '"if(!confirm(' + "'¿Está seguro que desea eliminar la reseña?'" + '))return false;"' + " ><i class='bx bxs-trash-alt' ></i></a>" 
                         + '</td>';
                     

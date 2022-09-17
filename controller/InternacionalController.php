@@ -143,8 +143,8 @@ class InternacionalController {
         session_start();
       }
       
-      if (!empty($_POST['nombres']) && !empty($_POST['apellidos']) && !empty($_POST['telefono']) && 
-      !empty($_POST['email']) && !empty($_POST['direccion'])&& !empty($_POST['recibir_via'])&& !empty($_POST['pais'])) {
+      if (!empty($_POST['nombre']) && !empty($_POST['apellido']) && !empty($_POST['telefono']) && 
+      !empty($_POST['email']) && !empty($_POST['direccion'])&& !empty($_POST['radio'])&& !empty($_POST['destino'])) {
 
   
       $inter = new Internacional();
@@ -201,7 +201,7 @@ class InternacionalController {
     if(($_SESSION['rol']=="cliente") or ($_SESSION['rol']=="marketing")){
       header('Location:index.php?c=Inicio&f=index');
     }else{
-      header('Location:index.php?c=internacional&f=view_list');
+      header('Location:index.php?c=internacional&f=view_internacional_list');
     }         
 
 
