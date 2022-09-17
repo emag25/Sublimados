@@ -22,7 +22,7 @@ class InternacionalController {
   //    INSERTAR
 
   public function view_internacional_new() {  
-    $modeloInternacional = new InternacionalDAO();    
+    $model2 = new InternacionalDAO();    
     require_once VSERVICIOS.'internacional/internacional.new.php';
   }
 
@@ -34,7 +34,7 @@ class InternacionalController {
       }
       
       if (!empty($_POST['nombres']) && !empty($_POST['apellidos']) && !empty($_POST['telefono']) && 
-      !empty($_POST['email']) && !empty($_POST['direccion'])&& !empty($_POST['recibir_via'])&& !empty($_POST['pais'])) {
+      !empty($_POST['email']) && !empty($_POST['direccion'])&& !empty($_POST['radio'])&& !empty($_POST['destino'])&& !empty($_POST['especificaciones'])) {
       
         
       $inter = new Internacional();
@@ -45,6 +45,8 @@ class InternacionalController {
       $inter->setTelefono(htmlentities($_POST['telefono']));
       $inter->setEmail(htmlentities($_POST['email']));
       $inter->setDireccion(htmlentities($_POST['direccion']));
+      $inter->setesp(htmlentities($_POST['especificaciones']));      
+
       
       if (htmlentities($_POST['radio']) == "S") {
         $inter->setVia("Servientrega");
@@ -68,7 +70,6 @@ class InternacionalController {
         $inter->setinfo(0);
       }
 
-      $inter->setesp(htmlentities($_POST['especificaciones']));
             
       $exito = $this->model2->insert($inter);
     }else{
@@ -86,13 +87,13 @@ class InternacionalController {
     if(($_SESSION['rol']=="cliente") or ($_SESSION['rol']=="marketing")){
       header('Location:index.php?c=Inicio&f=index');
     }else{
-      header('Location:index.php?c=internacional&f=view_list');
+      header('Location:index.php?c=internacional&f=view_internacional_list');
     }         
 
       if(($_SESSION['rol']=="cliente") or ($_SESSION['rol']=="marketing")){
         header('Location:index.php?c=Inicio&f=index');
       }else{
-        header('Location:index.php?c=Servicios&f=view_internacional_list');
+        header('Location:index.php?c=internacional&f=view_internacional_list');
       }
       
     }
@@ -105,7 +106,7 @@ class InternacionalController {
     $resultados = $this->model2->selectAll();       
     require_once VSERVICIOS.'internacional/internacional.list.php';
   }
-
+//BUSCAR
   public function int_search() {
     $name = (!empty($_GET["b"]))?htmlentities($_GET["b"]):"";
 
@@ -118,7 +119,7 @@ class InternacionalController {
       
       if (count($resultados)==0) {
         $resultados = $this->model2->selectAll();
-        array_push($resultados, (object) array('mensaje_error'=>'ERROR: Nombre de autor de la reseña no encontrado.'));     
+        array_push($resultados, (object) array('mensaje_error'=>'ERROR: Nombre de solicitante de envío no encontrado.'));     
       }          
     }
     echo json_encode($resultados);
@@ -230,7 +231,7 @@ class InternacionalController {
       $_SESSION['color'] = "rojo";
     }
 
-    header('Location:index.php?c=Servicios&f=view_internacional_list');    
+    header('Location:index.php?c=Internacional&f=view_internacional_list');    
   }
 
 }

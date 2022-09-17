@@ -24,7 +24,7 @@ class InternacionalDAO {
     }
 
     public function selectByName($name) { 
-        $sql = "SELECT * FROM envio_internacional, usuario WHERE (nombre like :name AND usuario_id = id_usuario)";
+        $sql = "SELECT * FROM envio_internacional,usuario WHERE (nombres like :name AND usuario_id = id_usuario)";
         $stmt = $this->con->prepare($sql);
         $conlike = '%' . $name . '%';
         $data = array('name' => $conlike);
@@ -55,9 +55,7 @@ class InternacionalDAO {
             'pais' =>  $inter->getPais(),
             'recibirinfo' =>  $inter->getinfo(),
             'especificaciones' =>  $inter->getesp(),
-            'usuario_id' =>  $res->getUsuarioId()
-
-
+            'usuario_id' => $inter->getUsuarioId()
             ];
             $sentencia->execute($data);
             

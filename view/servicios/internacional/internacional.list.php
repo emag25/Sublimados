@@ -1,4 +1,6 @@
-<?php //AUTOR  YANEZ GUILLEN PAULA ADRIANA 
+<!--   AUTOR  YANEZ GUILLEN PAULA ADRIANA  -->
+
+<?php 
 
     if(!isset($_SESSION)){ 
         session_start();
@@ -68,18 +70,17 @@
                         <a href="index.php?c=internacional&f=view_internacional_new"><button class="btn-nuevo" type="button"><i class='bx bx-plus' ></i>Nuevo</button></a>
                     </div>
                 </div>
-                <?php                
+                  <div class="divMensaje<?php                
                 if (!empty($_SESSION['mensaje'])) {
-                    ?>
-                    <div style="margin-top: 60px;" class="alert-<?php echo $_SESSION['color']; ?>">
-                    <i class='bx bx-<?php if ($_SESSION['color']=="rojo") { echo "x";} else{ echo "check";} ?>'></i>
-                    <?php echo $_SESSION['mensaje']; ?>  
-                    </div>
-                    <?php
-                    unset($_SESSION['mensaje']);
-                    unset($_SESSION['color']);
-                }
-                ?>
+                    echo ' alert-'.$_SESSION['color']; 
+                    ?>" style="display:block;"><i class='bx bx-<?php                    
+                    if ($_SESSION["color"] == "rojo") { echo "x";} 
+                    else{ echo "check";} ?>'></i><?php echo $_SESSION['mensaje']; ?></div>
+                <?php
+                unset($_SESSION['mensaje']);
+                unset($_SESSION['color']);
+                }else{?>"></div><?php } ?>
+
                 <table> 
                     <thead>
                         <th>ID</th>
@@ -95,7 +96,7 @@
                         <th>ESPECIFICACIONES</th>
                         <th>ACCIONES</th>
                     </thead>
-                    <tbody>
+                    <tbody class="tabladatos">
                         <?php                 
                         foreach ($resultados as $fila) {
                         ?>
@@ -107,7 +108,6 @@
                             }else{
                                 echo $fila->usuario." (inactivo)";
                             } ?></td>
-                            <td><?php echo $fila->internacional_id;?></td>
                             <td><?php echo $fila->nombres;?></td>
                             <td><?php echo $fila->apellidos;?></td>
                             <td><?php echo $fila->telefono;?></td>
@@ -160,13 +160,13 @@
                 
                 var tbody = document.querySelector('.tabladatos');
                 var divMensaje = document.querySelector('.divMensaje');
-                var resenias = JSON.parse(respuesta); 
+                var envio_internacional = JSON.parse(respuesta); 
                 
-                var user = ""; var valoracion = ""; var info = "";  
+                var user = ""; var info = "";  
                 var resultados = ''; var tamanio = 0;                               
 
                 if (envio_internacional[envio_internacional.length - 1].mensaje_error == undefined) {                    
-                    tamanio = envio_internacionalinternacional.length;
+                    tamanio = envio_internacional.length;
                     divMensaje.style.display = "none";
                 }else{
                     tamanio = envio_internacional.length - 1; 
@@ -188,20 +188,19 @@
                     }
                     resultados += '<td>' + user + '</td>';
                     
-                    resultados += '<td>' + envio_internacional[i].nombre + '</td>';
+                    resultados += '<td>' + envio_internacional[i].nombres + '</td>';
                     
+                    resultados += '<td>' + envio_internacional[i].apellidos + '</td>';
+                  
+                    resultados += '<td>' + envio_internacional[i].telefono + '</td>';
+
                     resultados += '<td>' + envio_internacional[i].email + '</td>';
 
-                    if (envio_internacional[i].valoracion == 1) {
-                        valoracion = "Panamá"; 
-                    }else{
-                        valoracion = envio_internacional[i].pais ; 
-                    }
-                    resultados += '<td>' + valoracion + '</td>';
+                    resultados += '<td>' + envio_internacional[i].direccion + '</td>';
 
                     resultados += '<td>' + envio_internacional[i].recibir_via + '</td>';
 
-                    resultados += '<td>' + envio_internacional[i].envio_internacional+ '</td>';
+                    resultados += '<td>' + envio_internacional[i].pais + '</td>';
 
                     if (envio_internacional[i].recibir_info == 0) {
                         info = "NO"; 
@@ -210,13 +209,18 @@
                     }
                     resultados += '<td>' + info+ '</td>';
 
+
+
+                    resultados += '<td>' + envio_internacional[i].especificaciones+ '</td>';
+
+
                     
 
                     resultados += '<td>' +
                         "<a class='accion-boton editar' href='index.php?c=internacional&f=view_internacional_edit&id=" + envio_internacional[i].internacional_id
                         + "'><i class='bx bxs-pencil' ></i></a>" 
                         + "<a style='margin-left:3px;' class='accion-boton borrar' href='index.php?c=internacional&f=int_delete&id=" + envio_internacional[i].internacional_id 
-                        + "' onclick =" + '"if(!confirm(' + "'¿Está seguro que desea eliminar la reseña?'" + '))return false;"' + " ><i class='bx bxs-trash-alt' ></i></a>" 
+                        + "' onclick =" + '"if(!confirm(' + "'¿Está seguro que desea eliminar envío?'" + '))return false;"' + " ><i class='bx bxs-trash-alt' ></i></a>" 
                         + '</td>';
                     
                     resultados += '</tr>';

@@ -1,5 +1,5 @@
-<!--   AUTOR: YANEZ GUILLEN PAULA ADRIANA  -->
-<?php
+<?php //   AUTOR: YANEZ GUILLEN PAULA ADRIANA  
+
 
 class ServiciosController {
   
