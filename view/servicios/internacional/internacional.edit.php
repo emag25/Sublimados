@@ -306,7 +306,7 @@
 				mensaje("Direccion debe tener maximo 90 caracteres", txtDireccion);
 			}
 			//validacion telefono
-			if (txtTelefono.value === "") {
+			if (txtTelefono.value ==0) {
 				valido = false;
 				mensaje("Telefono es requerido", txtTelefono);
 			} else if (!telefonoreg.test(txtTelefono.value)) {
