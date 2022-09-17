@@ -327,7 +327,7 @@
     <script>
 
         let cont = 0;
-        function validar(e) {
+        function validar() {
             // variable para retornar
             var valido = true;
             // obtencion de los elementos a validar
@@ -418,11 +418,12 @@
                 valido = false;
                 mensaje("Debe seleccionar una opcion", radiosVia[0]);
             }
-           
+            //validacion especificaciones
+
             if (especificaciones.value === '') {
                 valido = false;
                 mensaje("El campo 'especificaciones' es requerido.", especificaciones);
-            } else if (resenia.value.length > 200) {
+            } else if (especificaciones.value.length > 200) {
                 valido = false;
                 mensaje("Ingrese máximo 200 caracteres.", );especificaciones
             }

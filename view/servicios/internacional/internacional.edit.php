@@ -342,10 +342,12 @@
 				mensaje("Debe seleccionar una opcion", radio[0]);
 			}
 			
+			//validacion especificaciones
+
 			if (especificaciones.value === '') {
                 valido = false;
                 mensaje("El campo 'especificaciones' es requerido.", especificaciones);
-            } else if (resenia.value.length > 200) {
+            } else if (especificaciones.value.length > 200) {
                 valido = false;
                 mensaje("Ingrese máximo 200 caracteres.", );especificaciones
             }
