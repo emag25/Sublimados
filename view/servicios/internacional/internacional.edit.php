@@ -255,13 +255,15 @@
 			// variable para retornar
 			var valido = true;
 			// obtencion de los elementos a validar
-			var txtNombres = document.getElementById("nombre");//document.querySelector("input[name='nombres']"); // reotrna el primer input que tenga name ='nombres'
-			var txtApellidos = document.getElementById("apellido");
-			var txtDireccion = document.getElementById("direccion");
-			var txtTelefono = document.getElementById("telefono");
-			var destino = document.getElementById("destino");
-			var radio = document.getElementById("radio");
-			var txtemail = document.getElementById("correo");
+			var txtNombres = document.getElementById("nombres");//document.querySelector("input[name='nombres']"); // reotrna el primer input que tenga name ='nombres'
+            var txtApellidos = document.getElementById("apellidos");
+            var txtDireccion = document.getElementById("direccion");
+            var txtTelefono = document.getElementById("telefono");
+            var selectDestino = document.getElementById("destino");
+            var radiosVia = document.getElementsByClassName("via");//retorna un arreglo;
+            var chkAcc = document.getElementById("acc1");
+            var txtemail = document.getElementById("correo");
+            var especificaciones = document.getElementById("texto");
 
 
 			var letra = /^[a-z ,.'-]+$/i;// letrasyespacio   ///^[A-Z]+$/i;// solo letras
@@ -339,6 +341,14 @@
 				valido = false;
 				mensaje("Debe seleccionar una opcion", radio[0]);
 			}
+			
+			if (especificaciones.value === '') {
+                valido = false;
+                mensaje("El campo 'especificaciones' es requerido.", especificaciones);
+            } else if (resenia.value.length > 200) {
+                valido = false;
+                mensaje("Ingrese máximo 200 caracteres.", );especificaciones
+            }
 
 
 
