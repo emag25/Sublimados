@@ -129,6 +129,9 @@
             }
 
         }
+        table{
+            width:100%;
+        }
     </style>
 </head>
 <body>
@@ -155,12 +158,10 @@
             </section>
             <section class="seccion-segundo">            
                 <div class="row">                    
-                    <form action="index.php?c=domicilios&f=view_domicilio_search" method="POST" id="formBuscar">
                         <div class="contenedor-buscar">
-                            <input type="text" name="b" id="busqueda"  placeholder="Buscar por ciudad"/>
-                            <button class="btn-buscar" type="submit"><i class='bx bx-search' ></i>Buscar</button>
+                            <input type="text" name="b" id="buscador"  placeholder="Buscar por ciudad"/>
+                            <button class="btn-buscar" id="filtro" type="submit"><i class='bx bx-search' ></i>Buscar</button>
                         </div>
-                    </form>       
                     <div>
                         <a href="index.php?c=domicilios&f=view_domicilio_new"><button class="btn-nuevo" type="button"><i class='bx bx-plus' ></i>Nuevo</button></a>
                     </div>
@@ -188,9 +189,11 @@
                         <th>TIPO ENVIO</th>
                         <th>PRODUCTOS</th>
                         <th>CIUDAD</th>
+                        <th>USUARIO ID</th>
                         <th>ACCIONES</th>
+                        
                     </thead>
-                    <tbody>
+                    <tbody id="misDatos">
                         <?php   
                         if (isset($resultados)&&!empty($resultados)){   
     
@@ -206,6 +209,7 @@
                             <td><?php echo $fila->tipo_envio; ?></td>
                             <td><?php echo $fila->productos; ?></td>
                             <td><?php echo $fila->ciudad; ?></td>
+                            <td><?php echo $fila->usuario_id; ?></td>
                             <td>
                                 <a class="accion-boton editar" href="index.php?c=domicilios&f=view_domicilio_edit&id=<?php echo $fila->domicilio_id;?>"><i class='bx bxs-pencil' ></i></a>
                                 <a class="accion-boton borrar" href="index.php?c=domicilios&f=view_domicilio_delete&id=<?php echo $fila->domicilio_id;?>" 
@@ -239,151 +243,50 @@
 
 <?php require_once FOOTER; ?>
     </div>
-        <script>
-        var valido=true;
-        var patron_celular=/^[0]+[9]+[0-9]{8}$/i; //el celular debe empezar con 09
-        var patron_cedula=/^[0-2]+[0-9]+[0-9]{8}$/i;//las cedulas deben ser euatorianas
-        var patron_correo= /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-        var patron_postal=/^[0-9]{6}$/i;
-        
-        var myForm=document.getElementById("myForm");
-        myForm.addEventListener("submit",enviar_data);
-        var cedula=document.getElementById("cedula");
-        var celular=document.getElementById("celular");
-        var correo=document.getElementById("correo");
-        var postal=document.getElementById("postal");
-        var envio=document.getElementsByName("gen");
-        var productos=document.getElementsByName("env");
-        var ciudades=document.getElementById("ciudad");
-        var referencia=document.getElementById("area_referencias");
-        let arreglo_errores=[];
-        
-        cedula.setAttribute("placeholder","0912318942");
-        celular.setAttribute("placeholder","0933312143");
-        correo.setAttribute("placeholder","test@gmail.com");
-        postal.setAttribute("placeholder","030103");
+    <script type="text/javascript">
+        var buscador = document.querySelector("#buscador");
+        var filtro= document.getElementById("filtro");
+        filtro.addEventListener('click',filtrar);
 
-        cedula.addEventListener("keypress",comprobarNumeros);
-        celular.addEventListener("keypress",comprobarNumeros);
-        correo.addEventListener("keypress",comprobarCorreo);
-        postal.addEventListener("keypress",comprobarPostal);
-
-        cedula.addEventListener("keyup",comprobarNumeros);
-        celular.addEventListener("keyup",comprobarNumeros);
-        correo.addEventListener("keyup",comprobarCorreo);
-        postal.addEventListener("keyup",comprobarPostal);
-        
-        
-        function enviar_data(e){
+        function filtrar() {
+            var ciudad = buscador.value;
+            var rasultado = "index.php?c=domicilios&f=view_domicilio_search&b="+ciudad;
             
-            if(!patron_cedula.test(cedula.value)){ colorear(cedula);valido=false; arreglo_errores.push("cedula");}
+            console.log(rasultado);
+            var Peticion = new XMLHttpRequest();
+            var permitir=true;
+            Peticion.open("GET",rasultado, permitir);
+            Peticion.send();
             
-            if(!patron_celular.test(celular.value)){colorear(celular);valido=false; console.log(celular.value); arreglo_errores.push("celular");}
-           
-            if(!patron_postal.test(postal.value)){colorear(postal); valido=false; arreglo_errores.push("postal");}
-           
-            if(!patron_correo.test(correo.value)){colorear(correo); valido=false; arreglo_errores.push("correo");}
-            
-            let auxOption=false;
-            for(option of envio){
-                if(option.checked){
-                    auxOption=true;
-                }
-            }
-            let auxCheck=false;
-            for(check of productos){
-                if(check.checked){
-                    auxCheck=true; 
-                }
-            }
-          
-            if(auxOption==false){valido=false; arreglo_errores.push("tipo_envio");}
-            if(auxCheck==false){valido=false; arreglo_errores.push("productos");}
-            if(referencia.value.length==0){colorear(referencia);valido=false; arreglo_errores.push("referencias");}
+            Peticion.onreadystatechange = function () {
+                if (Peticion.readyState === 4 && Peticion.status === 200) {
+                    var resultado = Peticion.responseText;
+                    var JsonResponse = JSON.parse(resultado);
+                    console.log(JsonResponse);
+                    var myBody=document.querySelector("#misDatos");
+                    var result="";
+                    for(var i=0;i<JsonResponse.length;i++){
+                        result+="<tr>";
+                        result+="<td>"+JsonResponse[i].domicilio_id+"</td>";
+                        result+="<td>"+JsonResponse[i].cedula+"</td>";
+                        result+="<td>"+JsonResponse[i].celular+"</td>";
+                        result+="<td>"+JsonResponse[i].correo+"</td>";
+                        result+="<td>"+JsonResponse[i].postal+"</td>";
+                        result+="<td>"+JsonResponse[i].referencias+"</td>";
+                        result+="<td>"+JsonResponse[i].tipo_envio+"</td>";
+                        result+="<td>"+JsonResponse[i].productos+"</td>";
+                        result+="<td>"+JsonResponse[i].ciudad+"</td>";
+                        result+="<td>"+JsonResponse[i].usuario_id+"</td>";
+                        result+="<td><a class='accion-boton editar' href='index.php?c=domicilios&f=view_domicilio_edit&id="+JsonResponse[i].domicilio_id+"'><i class='bx bxs-pencil'></i></a> <a class='accion-boton borrar' href='index.php?c=domicilios&f=view_domicilio_delete&id="+JsonResponse[i].domicilio_id+"'  onclick='if(!confirm('Estas a punto de eliminarlo, estas seguro?'))return false;'><i class='bx bxs-trash-alt' ></i></a></td>";
+                        result+="</tr>";
+                    }
 
-            if(ciudades.selectedIndex==0){
-                valido=false;
-                arreglo_errores.push("ciudad");
-            }
+                        myBody.innerHTML=result;
 
-            
-            if(valido==true){
-                alert("SU FORMULARIO SE ENVIO EXITOSAMENTE");
-            }else{
-                
-                alert("ERROR: RELLENE CORRECTAMENTE LOS SIGUIENTES CAMPOS.");
-                let errores;
-                for(dato of arreglo_errores){
-                    errores+=dato+" ";
-                }
-                errores=errores.replace("undefined","");
-                alert(errores);
-                arreglo_errores=[];
-                e.preventDefault();
+                        
+                    }}
             }
-            valido=true;
-        }
-
-        function colorear(elemento){
-            elemento.style.backgroundColor="red";
-            elemento.style.color="white"; 
-            elemento.style.border="2px solid red";
-        }
-
-        //Este metodo evita que se ingresen valores no numericos
-        function comprobarNumeros(e){
-            
-            let letra=e.charCode;
-            if(!(letra >=48 && letra <=57))
-            {
-                e.preventDefault();
-            }
-            if(this.value.length!=10 ){
-                this.style.backgroundColor="red";
-                this.style.color="white"; 
-                this.style.border="2px solid red";
-            }else{
-                this.style.backgroundColor="lightgreen";
-                this.style.color="black";
-                this.style.border="2px solid green;";
-
-            }
-            
-        }
-
-        //Este metodo comprueba postal
-        function comprobarPostal(e){
-            let letra=e.charCode;
-            if(!(letra >=48 && letra <=57))
-            {
-                e.preventDefault();
-            }
-            if(this.value.length!=6){
-                this.style.backgroundColor="red";
-                this.style.color="white";
-                this.style.border="2px solid red";
-            }else{
-                this.style.backgroundColor="lightgreen";
-                this.style.color="black";
-                this.style.border="2px solid green;";
-            }
-            
-        }
-
-       //Este metodo permite dar a conocer al cliente que el correo esta mal escrito antes de enviarlo
-       function comprobarCorreo(){
-            if(!patron_correo.test(this.value))
-            {
-                this.style.backgroundColor="red";
-                this.style.color="white";
-                this.style.border="2px solid red";
-            }else{
-                this.style.backgroundColor="lightgreen";
-                this.style.color="black";
-                this.style.border="2px solid green;";
-            }
-        }
-    </script>
+        </script>
 </body>
 </html>
 

@@ -1,5 +1,4 @@
-<!--   AUTOR: ELIZALDE GAIBOR MILTON ALEXANDER  -->
-<?php 
+<?php // AUTOR: ELIZALDE GAIBOR MILTON ALEXANDER 
     if(!isset($_SESSION)){ 
         session_start();
     }
