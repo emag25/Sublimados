@@ -1,11 +1,10 @@
-<!--  AUTOR: YANEZ GUILLEN PAULA ADRIANA  -->
+<?php //AUTOR  YANEZ GUILLEN PAULA ADRIANA 
 
-<?php
 
 class Internacional {
   
     private $id, $nombre,$apellido,$telefono, $email, $direccion, 
-    $via, $pais, $info,$esp;
+    $via, $pais, $info,$esp,$usuario_id;
 
     function __construct() {
         
@@ -54,6 +53,11 @@ class Internacional {
     function getesp() {
         return $this->esp;
     }
+    function getUsuarioId() {
+        return $this->usuario_id;
+    }
+
+
 
     function setInternacionalId($id) {
         $this->id = $id;
@@ -95,6 +99,10 @@ class Internacional {
     function setesp($esp) {
         $this->esp= $esp;
     }
+    function setUsuarioId($usuario_id) {
+        $this->usuario_id = $usuario_id;
+    }  
+
     
     // Methods get y set parametrizados
     public function __set($nombre, $valor) {

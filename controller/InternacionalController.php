@@ -1,6 +1,5 @@
-<!--  AUTOR  YANEZ GUILLEN PAULA ADRIANA  -->
 
-<?php
+<?php //AUTOR  YANEZ GUILLEN PAULA ADRIANA 
 require_once 'model/dao/InternacionalDAO.php';
 require_once 'model/dto/Internacional.php';
 
@@ -23,20 +22,31 @@ class InternacionalController {
   //    INSERTAR
 
   public function view_internacional_new() {  
-    $modeloInternacional = new InternacionalDAO();    
+    $model2 = new InternacionalDAO();    
     require_once VSERVICIOS.'internacional/internacional.new.php';
   }
 
   public function int_new() {
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+      if(!isset($_SESSION)){ 
+        session_start();
+      }
+      
+      if (!empty($_POST['nombres']) && !empty($_POST['apellidos']) && !empty($_POST['telefono']) && 
+      !empty($_POST['email']) && !empty($_POST['direccion'])&& !empty($_POST['radio'])&& !empty($_POST['destino'])&& !empty($_POST['especificaciones'])) {
+      
         
       $inter = new Internacional();
-      
+
+      $inter->setUsuarioId($_SESSION['id']);
       $inter->setNombre(htmlentities($_POST['nombres']));
       $inter->setApellido(htmlentities($_POST['apellidos']));
       $inter->setTelefono(htmlentities($_POST['telefono']));
       $inter->setEmail(htmlentities($_POST['email']));
       $inter->setDireccion(htmlentities($_POST['direccion']));
+      $inter->setesp(htmlentities($_POST['especificaciones']));      
+
       
       if (htmlentities($_POST['radio']) == "S") {
         $inter->setVia("Servientrega");
@@ -60,26 +70,30 @@ class InternacionalController {
         $inter->setinfo(0);
       }
 
-      $inter->setesp(htmlentities($_POST['especificaciones']));
             
       $exito = $this->model2->insert($inter);
-            
-      if(!isset($_SESSION)){ 
-        session_start();
-      }
+    }else{
+      $exito = false;
+    } 
 
-      if ($exito) {
-        $_SESSION['mensaje'] = "Envío guardado exitosamente!";
-        $_SESSION['color'] = "azul";
-      }else{
-        $_SESSION['mensaje'] = "ERROR: No se pudo guardar el envío. Intentalo de nuevo.";
-        $_SESSION['color'] = "rojo";
-      }
+    if ($exito) {
+      $_SESSION['mensaje'] = "Envío guardado exitosamente!";
+      $_SESSION['color'] = "azul";
+    }else{
+      $_SESSION['mensaje'] = "ERROR: No se pudo guardar el envío. Intentalo de nuevo.";
+      $_SESSION['color'] = "rojo";
+    }
+
+    if(($_SESSION['rol']=="cliente") or ($_SESSION['rol']=="marketing")){
+      header('Location:index.php?c=Inicio&f=index');
+    }else{
+      header('Location:index.php?c=internacional&f=view_internacional_list');
+    }         
 
       if(($_SESSION['rol']=="cliente") or ($_SESSION['rol']=="marketing")){
         header('Location:index.php?c=Inicio&f=index');
       }else{
-        header('Location:index.php?c=Servicios&f=view_internacional_list');
+        header('Location:index.php?c=internacional&f=view_internacional_list');
       }
       
     }
@@ -92,34 +106,27 @@ class InternacionalController {
     $resultados = $this->model2->selectAll();       
     require_once VSERVICIOS.'internacional/internacional.list.php';
   }
-
+//BUSCAR
   public function int_search() {
-    $name = (!empty($_POST["b"]))?htmlentities($_POST["b"]):"";
+    $name = (!empty($_GET["b"]))?htmlentities($_GET["b"]):"";
 
-    if (empty($name)) {
-      
-      if(!isset($_SESSION)){ 
-        session_start();
-      }
-      $_SESSION['mensaje'] = "ERROR: Debe ingresar un nombre.";
-      $_SESSION['color'] = "rojo";
-      
+    if (empty($name)) {            
       $resultados = $this->model2->selectAll();
+      array_push($resultados, (object) array('mensaje_error'=>'ERROR: Debe ingresar un nombre.'));     
     
     }else{
       $resultados = $this->model2->selectByName($name);
+      
       if (count($resultados)==0) {
-        if(!isset($_SESSION)){ 
-          session_start();
-        }
-        $_SESSION['mensaje'] = "ERROR: Nombre de usuario no encontrado.";
-        $_SESSION['color'] = "rojo";
         $resultados = $this->model2->selectAll();
-      }
+        array_push($resultados, (object) array('mensaje_error'=>'ERROR: Nombre de solicitante de envío no encontrado.'));     
+      }          
     }
-    
-    require_once VSERVICIOS.'internacional/internacional.list.php';
+    echo json_encode($resultados);
   }
+
+    
+  
 
 
   //    EDITAR
@@ -133,6 +140,13 @@ class InternacionalController {
 
   public function int_edit(){
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      if(!isset($_SESSION)){ 
+        session_start();
+      }
+      
+      if (!empty($_POST['nombre']) && !empty($_POST['apellido']) && !empty($_POST['telefono']) && 
+      !empty($_POST['email']) && !empty($_POST['direccion'])&& !empty($_POST['radio'])&& !empty($_POST['destino'])) {
+
   
       $inter = new Internacional();
       $id= $_REQUEST['id'];
@@ -172,20 +186,27 @@ class InternacionalController {
       
       $exito = $this->model2->update($inter);
       
-      if(!isset($_SESSION)){ 
-        session_start();
-      }
-
-      if ($exito) {
-        $_SESSION['mensaje'] = "Envío editado exitosamente!";
-        $_SESSION['color'] = "azul";
-      }else{
-        $_SESSION['mensaje'] = "ERROR: No se pudo editado el envío. Intentalo de nuevo.";
-        $_SESSION['color'] = "rojo";
-      }
-
-      header('Location:index.php?c=Servicios&f=view_internacional_list');
+      
+    }else{
+      $exito = false;
     } 
+
+    if ($exito) {
+      $_SESSION['mensaje'] = "Envío guardado exitosamente!";
+      $_SESSION['color'] = "azul";
+    }else{
+      $_SESSION['mensaje'] = "ERROR: No se pudo guardar el envío. Intentalo de nuevo.";
+      $_SESSION['color'] = "rojo";
+    }
+
+    if(($_SESSION['rol']=="cliente") or ($_SESSION['rol']=="marketing")){
+      header('Location:index.php?c=Inicio&f=index');
+    }else{
+      header('Location:index.php?c=internacional&f=view_internacional_list');
+    }         
+
+
+    }
   }
 
 
@@ -210,7 +231,7 @@ class InternacionalController {
       $_SESSION['color'] = "rojo";
     }
 
-    header('Location:index.php?c=Servicios&f=view_internacional_list');    
+    header('Location:index.php?c=Internacional&f=view_internacional_list');    
   }
 
 }

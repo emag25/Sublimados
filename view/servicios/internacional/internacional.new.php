@@ -255,12 +255,12 @@
                                         placeholder="Ingresa aqui tu Apellido" />
                                 </div>
                                 <div>
-                                    <label>Telefono: &nbsp;</label>
+                                    <label>Telefono: &nbsp;&nbsp;</label>
                                     <input type="text" name="telefono" id="telefono" class="formItem"
                                         placeholder="Ingresa aqui tu teléfono" />
                                 </div>
                                 <div>
-                                    <label>Email:&nbsp; &nbsp; &nbsp;&nbsp;</label>
+                                    <label>Email:&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;</label>
                                     <input type="email" name="email" id="correo" class="formItem"
                                         placeholder="Ingresa aqui tu correo" />
                                 </div>
@@ -327,7 +327,7 @@
     <script>
 
         let cont = 0;
-        function validar(e) {
+        function validar() {
             // variable para retornar
             var valido = true;
             // obtencion de los elementos a validar
@@ -337,10 +337,10 @@
             var txtTelefono = document.getElementById("telefono");
             var selectDestino = document.getElementById("destino");
             var radiosVia = document.getElementsByClassName("via");//retorna un arreglo;
-            var radio1 = document.getElementById("v1");
             var chkAcc = document.getElementById("acc1");
             var txtemail = document.getElementById("correo");
-            var checkboxsAccionista = document.getElementsByClassName("acc");// retorna un arreglo
+            var especificaciones = document.getElementById("texto");
+
 
 
             var letra = /^[a-z ,.'-]+$/i;// letrasyespacio   ///^[A-Z]+$/i;// solo letras
@@ -383,7 +383,7 @@
                 mensaje("Direccion debe tener maximo 90 caracteres", txtDireccion);
             }
             //validacion telefono
-            if (txtTelefono.value === "") {
+            if (txtTelefono.value.length ==0) {
                 valido = false;
                 mensaje("Telefono es requerido", txtTelefono);
             } else if (!telefonoreg.test(txtTelefono.value)) {
@@ -418,15 +418,26 @@
                 valido = false;
                 mensaje("Debe seleccionar una opcion", radiosVia[0]);
             }
+            //validacion especificaciones
 
-
-
-
-            if(valido){
-                alert("Formulario enviado exitosamente.");
-            }else{
-                e.preventDefault();
+            if (especificaciones.value === '') {
+                valido = false;
+                mensaje("El campo 'especificaciones' es requerido.", especificaciones);
+            } else if (especificaciones.value.length > 200) {
+                valido = false;
+                mensaje("Ingrese máximo 200 caracteres.", );especificaciones
             }
+
+
+         /*   if(!valido){
+                e.preventDefault();
+            }else{
+                alert("Formulario enviado exitosamente.");
+
+            }*/
+
+             return valido;
+
         }
 
         function mensaje(cadenaMensaje, elemento) {
