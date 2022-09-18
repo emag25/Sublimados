@@ -1,5 +1,4 @@
-<!--AUTOR:SICHA VEGA BETSY ARLETTE-->
-<?php
+<?php // AUTOR:SICHA VEGA BETSY ARLETTE
 
 class Producto {
 

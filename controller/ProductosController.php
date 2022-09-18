@@ -1,5 +1,4 @@
-<!--AUTOR:SICHA VEGA BETSY ARLETTE-->
-<?php
+<?php // AUTOR:SICHA VEGA BETSY ARLETTE
 require_once 'model/dao/ProductosDAO.php';
 require_once 'model/dto/Producto.php';
 
@@ -131,30 +130,18 @@ class ProductosController {
   }
 
   public function search() {
-    $name = (!empty($_POST["b"]))?htmlentities($_POST["b"]):"";
+    $name = (!empty($_GET["b"]))?htmlentities($_GET["b"]):"";
 
-    if (empty($name)) {
-      
-      if(!isset($_SESSION)){ 
-        session_start();
-      }
-      $_SESSION['mensaje'] = "ERROR: Debe ingresar un nombre.";
-      $_SESSION['color'] = "rojo";
-      
+    if (empty($name)) {       
       $resultados = $this->model->selectAll();
-    
+  
     }else{
       $resultados = $this->model->selectByName($name);
-      if (count($resultados)==0) {
-        if(!isset($_SESSION)){ 
-          session_start();
-        }
-        $_SESSION['mensaje'] = "ERROR: Nombre no encontrado.";
-        $_SESSION['color'] = "rojo";
+      if (count($resultados)==0) {        
         $resultados = $this->model->selectAll();
       }
     }      
-    require_once VPRODUCTOS.'list.php';  
+    echo json_encode($resultados);
   }
 
   // FUNCIÓN ELIMINAR DISEÑO DE PRODUCTO

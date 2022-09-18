@@ -284,9 +284,6 @@
         </main>
     
         
-
-<?php require_once FOOTER; ?>
-    </div>
         <script>
         var valido=true;
         var patron_celular=/^[0]+[9]+[0-9]{8}$/i; //el celular debe empezar con 09
@@ -301,7 +298,7 @@
         var correo=document.getElementById("correo");
         var postal=document.getElementById("postal");
         var envio=document.getElementsByName("gen");
-        var productos=document.queryselectorAll(".env");
+        var productos=document.querySelectorAll(".env");
         var ciudades=document.getElementById("ciudad");
         var referencia=document.getElementById("area_referencias");
         let arreglo_errores=[];
@@ -433,6 +430,9 @@
             }
         }
     </script>
+<?php require_once FOOTER; ?>
+    </div>
+        
 </body>
 </html>
 

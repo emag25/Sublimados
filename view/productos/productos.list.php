@@ -1,5 +1,5 @@
-<!--AUTOR:SICHA VEGA BETSY ARLETTE-->
-<?php 
+
+<?php  // AUTOR:SICHA VEGA BETSY ARLETTE
     if(!isset($_SESSION)){ 
         session_start();
     }
@@ -114,12 +114,12 @@
             
             <section class="seccion-segundo">
                 <div class="dividir-seccion-dos"> 
-                <form action="index.php?c=Productos&f=search" method="POST" id="formBuscar">
+                
                         <div class="contenedor-buscar">
                             <input type="text" name="b" id="busqueda"  placeholder="Buscar por cliente..."/>
                             <button id="filtro" class="btn-buscar" type="submit"><i class='bx bx-search' ></i>Buscar</button>
                         </div>
-                    </form> 
+                   
                     <div>
                         <a href="index.php?c=Productos&f=view_new"><button class="btn-nuevo" type="button"><i class='bx bx-plus' ></i>Nuevo</button></a>
                     </div>
