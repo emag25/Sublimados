@@ -115,7 +115,7 @@
 				<div class="dividir-seccion-uno">
 					<div style="display: flex; flex-direction: column; justify-content: center; align-items: center; margin-left: auto;
 					margin-right:auto ;">
-						<h2 id="encabezado">ENVIOS INTERNACIONALES</h2>
+						<h2 id="encabezado">EDITA LOS ENVIOS INTERNACIONALES</h2>
 						<h3 style="margin-top: -10px;">SUPERIUM</h3>
 						<p id="parrafo">
 							Bienvenid@ a la sección de envíos internacionales. Aquí podrás realizar envíos a tu país y

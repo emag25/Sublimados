@@ -127,7 +127,7 @@
                     <div class="seccion-uno-derecho">
                         <div class="circulo" id="circulo-arriba"></div>
                         <div class="circulo" id="circulo-medio">
-                            <img src="assets/img/ema-escribir.png" alt="escribe reseña">
+                            <img src="assets/img/resenia.png" alt="escribe reseña">
                         </div>
                         <div class="circulo" id="circulo-abajo"></div>
                     </div>

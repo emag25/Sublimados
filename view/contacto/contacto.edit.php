@@ -109,17 +109,15 @@
                 <div class="dividir-seccion-uno">
                     <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; margin-left: auto;
                     margin-right:auto ;">
-                        <h2 id="encabezado">ESTAMOS PARA ATENDERTE</h2>
+                        <h2 id="encabezado">EDITA LOS MENSAJES DE CONTACTO</h2>
                         <h3 style="margin-top: -10px;">SUPERIUM</h3>
                         <p id="parrafo">
-                            Queremos saber de tí y conocer sobre tus intereses.
-                            <br><br><span style="font-weight: bold;">Siempre estaremos para tí!</span>
+                        En esta sección podrás editar los diseños de productos creados por los clientes.
                         </p>
                     </div>
                     <div class="seccion-uno-derecho">
                         <div class="circulo" id="circulo-arriba"></div>
                         <div class="circulo" id="circulo-medio">
-                            <!-- La imagen esta en  128px redondeada (fuente: flaticon.com) -->
                             <img style="width: 100%; height: 100%;" src="assets/img/emailR.gif" alt="correo">
                         </div>
                         <div class="circulo" id="circulo-abajo"></div>

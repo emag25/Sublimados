@@ -87,12 +87,10 @@
                 <div class="dividir-seccion-uno">
                     <div  style="display: flex; flex-direction: column; justify-content: center; align-items: center; margin-left: auto;
                     margin-right:auto ;">
-                        <h2 id="encabezado">CREA TU DISEÑO</h2>
+                        <h2 id="encabezado">¡ADMINISTRA LOS DISEÑOS!</h2>
                         <h3  style="margin-top: -10px;">SUPERIUM</h3>
                         <p id="parrafo" >
-                            Bienvenido Usuario en este apartado podrás dejar volar tu imaginación e idear tu producto deseado
-                            siguiendo algunos parámetros que te guiarán en la creación de tu diseño.
-                        <br><br><span style="font-weight: bold;">Una nueva forma de vestir, con elegancia y sobretodo a tu gusto!</span>
+                            En esta sección podrás ver los diseños creados por los clientes, además puedes editarlos y eliminarlos.
                         </p> <br>
                         <div id="enlaces">
                             <a class="enl" id="uno"  href="#"> CAMISETA</a>

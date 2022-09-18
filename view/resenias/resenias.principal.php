@@ -311,7 +311,7 @@
                             productos de calidad y un excelente servicio al cliente.
                             <br><br>Lee las reseñas de algunos de nuestros clientes, y si ya probaste alguno de nuestros
                             productos
-                            escribe tu reseña dando <a href="ApraezEmely2.html" id="escribe">click aquí</a>.
+                            escribe tu reseña dando <a href="index.php?c=Resenias&f=view_new" id="escribe">click aquí</a>.
                         </p>
                     </div>
 

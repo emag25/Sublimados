@@ -40,15 +40,15 @@
                 <div class="dividir-seccion-uno">
                     <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; margin-left: auto;
                     margin-right:auto ;">
-                        <h2 id="encabezado">¡REVISA LOS USUARIOS!</h2>
+                        <h2 id="encabezado">¡ADMINISTRA USUARIOS!</h2>
                         <h3 style="margin-top: -10px;">SUPERIUM</h3>
                         <p id="parrafo">
-                            Aquí podrás consultar los usuarios registrados, su rol etc.</p>
+                            En esta sección puedes ver la información acerca de los usuarios registrados, editar su rol y eliminarlos.</p>
                     </div>
                     <div class="seccion-uno-derecho">
                         <div class="circulo" id="circulo-arriba"></div>
                         <div class="circulo" id="circulo-medio">
-                            <img src="assets/img/ema-escribir.png" alt="escribe reseña">
+                            <img src="assets/img/user.png" alt="usuario">
                         </div>
                         <div class="circulo" id="circulo-abajo"></div>
                     </div>
@@ -56,16 +56,11 @@
             </section>
 
             <section class="seccion-segundo">            
-                <div class="row">                    
-                    
-                        <div class="contenedor-buscar">
-                            <input type="text" name="b" id="busqueda"  placeholder="Buscar por nombre..."/>
-                            <button class="btn-buscar" type="submit"><i class='bx bx-search' ></i>Buscar</button>
-                        </div>
-                    <!--      
-                    <div>
-                        <a href="index.php?c=Usuarios&f=view_new"><button class="btn-nuevo" type="button"><i class='bx bx-plus' ></i>Nuevo</button></a>
-                    </div> -->
+                <div class="row">                     
+                    <div class="contenedor-buscar">
+                        <input type="text" name="b" id="busqueda"  placeholder="Buscar por nombre..."/>
+                        <button class="btn-buscar" type="submit"><i class='bx bx-search' ></i>Buscar</button>
+                    </div>
                 </div>
 
                 <div class="divMensaje<?php                

@@ -41,16 +41,16 @@
                 <div class="dividir-seccion-uno">
                     <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; margin-left: auto;
                     margin-right:auto ;">
-                        <h2 id="encabezado">¡REVISA LAS RESEÑAS!</h2>
+                        <h2 id="encabezado">¡ADMINISTRA LAS RESEÑAS!</h2>
                         <h3 style="margin-top: -10px;">SUPERIUM</h3>
                         <p id="parrafo">
-                            Este espacio es dedicado para tí. Puedes revisar las opiniones acerca de nuestros
-                            productos y servicios.</p>
+                            En esta sección puedes revisar las reseñas de los clientes acerca de nuestros
+                            productos y servicios, además podrás editarlas y eliminarlas.</p>
                     </div>
                     <div class="seccion-uno-derecho">
                         <div class="circulo" id="circulo-arriba"></div>
                         <div class="circulo" id="circulo-medio">
-                            <img src="assets/img/ema-escribir.png" alt="escribe reseña">
+                            <img src="assets/img/resenia.png" alt="escribe reseña">
                         </div>
                         <div class="circulo" id="circulo-abajo"></div>
                     </div>

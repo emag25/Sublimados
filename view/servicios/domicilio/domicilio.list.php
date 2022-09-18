@@ -58,7 +58,7 @@
             width: 30%;
         }
 
-        div{
+        .formulario div{
             padding: 10px 0 10px 0;
         }
         .formulario{
@@ -143,8 +143,8 @@
             <section class="seccion-primero">
                 <div class="dividir-seccion-uno">
                     <div  style="display: flex; flex-direction: column; justify-content: center; align-items: center; margin-left: auto;
-                    margin-right:auto ;">
-                        <h2 id="encabezado">A DOMICILIO EN ECUADOR !</h2>
+                    margin-right:auto; padding-top: 10px;">
+                        <h2 id="encabezado">¡ADMINISTRA LOS ENVÍOS A DOMICILIO EN ECUADOR!</h2>
                         <h3  style="margin-top: -10px;">SUPERIUM</h3>
                         <p id="parrafo" >
                             Aprovecha nuestro servicio "HASTA LA PUERTA DE TU CASA" , con nosotros vas a recibir tus productos directamente en tu domicilio

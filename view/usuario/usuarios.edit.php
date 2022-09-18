@@ -15,7 +15,7 @@
     <meta name="keywords" content="Sublimados, Estampados, Camisetas, Tazas, Reseñas, Formulario">
     <link rel="stylesheet" href="assets/css/style.css">
     <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
-    <title>CONSULTAR USUARIOS</title>
+    <title>EDITAR USUARIOS</title>
     <style>
         .seccion-segundo {
             height: auto;
@@ -108,15 +108,15 @@
                 <div class="dividir-seccion-uno">
                     <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; margin-left: auto;
                     margin-right:auto ;">
-                        <h2 id="encabezado">¡ADMINISTRA USUARIOS!</h2>
+                        <h2 id="encabezado">¡EDITA USUARIOS!</h2>
                         <h3 style="margin-top: -10px;">SUPERIUM</h3>
                         <p id="parrafo">
-                            Aquí podrás consultar los usuarios registrados, su rol etc.</p>
+                            En esta sección puedes cambiar el rol de los usuarios registrados.</p>
                     </div>
                     <div class="seccion-uno-derecho">
                         <div class="circulo" id="circulo-arriba"></div>
                         <div class="circulo" id="circulo-medio">
-                            <img src="assets/img/ema-escribir.png" alt="escribe reseña">
+                            <img src="assets/img/user.png" alt="escribe reseña">
                         </div>
                         <div class="circulo" id="circulo-abajo"></div>
                     </div>
