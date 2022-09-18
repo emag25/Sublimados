@@ -115,9 +115,9 @@ class ProductosController {
       }      
     
       if(($_SESSION['rol']=="cliente") or ($_SESSION['rol']=="marketing")){
-        header('Location:index.php?c=Inicio&f=index');
+        require_once VINICIO.'principal.php';
       }else{
-        header('Location:index.php?c=Productos&f=view_list');
+        require_once VPRODUCTOS.'list.php';
       }
     }
     } 
@@ -166,7 +166,7 @@ class ProductosController {
       $_SESSION['color'] = "rojo";
     }
 
-    header('Location:index.php?c=Productos&f=view_list');
+    require_once VPRODUCTOS.'list.php';
   }
 
   // FUNCIÓN EDITAR DISEÑO DE PRODUCTO
@@ -271,7 +271,7 @@ class ProductosController {
         $_SESSION['color'] = "rojo";
       }
       
-      header('Location:index.php?c=Productos&f=view_list');           
+      require_once VPRODUCTOS.'list.php';        
     } 
   }
   }

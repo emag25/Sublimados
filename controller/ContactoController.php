@@ -107,9 +107,9 @@ class ContactoController {
         }
   
         if(($_SESSION['rol']=="cliente") or ($_SESSION['rol']=="marketing")){
-          header('Location:index.php?c=Inicio&f=index');
+          require_once VINICIO.'principal.php';
         }else{
-          header('Location:index.php?c=Contacto&f=view_list');
+          require_once VCONTACTO.'list.php';
         }
        
       }
@@ -122,7 +122,6 @@ class ContactoController {
       $cont = $this->model->selectById($id);
 
       require_once VCONTACTO.'edit.php';
-      header('Location:index.php?c=Contacto&f=view_list');
     }
 
     public function edit(){
@@ -174,7 +173,7 @@ class ContactoController {
         }
       if(!isset($_SESSION)){ 
         session_start();
-      };
+      }
 
       if ($exito) {
         $_SESSION['mensaje'] = "Contacto modificado exitosamente!";
@@ -184,7 +183,7 @@ class ContactoController {
         $_SESSION['color'] = "rojo";
       }
   
-        header('Location:index.php?c=Contacto&f=view_list');
+        require_once VCONTACTO.'list.php';
       } 
     }
 
@@ -212,10 +211,7 @@ class ContactoController {
         $_SESSION['color'] = "rojo";
       }
   
-      header('Location:index.php?c=Contacto&f=view_list');    
+      require_once VCONTACTO.'list.php';   
     }
-
-
-
 
 }

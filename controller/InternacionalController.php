@@ -85,15 +85,15 @@ class InternacionalController {
     }
 
     if(($_SESSION['rol']=="cliente") or ($_SESSION['rol']=="marketing")){
-      header('Location:index.php?c=Inicio&f=index');
+      require_once VINICIO.'principal.php';
     }else{
-      header('Location:index.php?c=internacional&f=view_internacional_list');
+      require_once VSERVICIOS.'internacional/internacional.list.php';
     }         
 
       if(($_SESSION['rol']=="cliente") or ($_SESSION['rol']=="marketing")){
-        header('Location:index.php?c=Inicio&f=index');
+        require_once VINICIO.'principal.php';
       }else{
-        header('Location:index.php?c=internacional&f=view_internacional_list');
+        require_once VSERVICIOS.'internacional/internacional.list.php';
       }
       
     }
@@ -200,9 +200,9 @@ class InternacionalController {
     }
 
     if(($_SESSION['rol']=="cliente") or ($_SESSION['rol']=="marketing")){
-      header('Location:index.php?c=Inicio&f=index');
+      require_once VINICIO.'principal.php';
     }else{
-      header('Location:index.php?c=internacional&f=view_internacional_list');
+      require_once VSERVICIOS.'internacional/internacional.list.php';
     }         
 
 
@@ -231,7 +231,7 @@ class InternacionalController {
       $_SESSION['color'] = "rojo";
     }
 
-    header('Location:index.php?c=Internacional&f=view_internacional_list');    
+    require_once VSERVICIOS.'internacional/internacional.list.php';
   }
 
 }

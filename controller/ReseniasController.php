@@ -97,9 +97,9 @@ class ReseniasController {
       }
 
       if(($_SESSION['rol']=="cliente") or ($_SESSION['rol']=="marketing")){
-        header('Location:index.php?c=Inicio&f=index');
+        require_once VINICIO.'principal.php';
       }else{
-        header('Location:index.php?c=Resenias&f=view_list');
+        require_once VRESENIAS.'list.php';
       }     
     }
   }
@@ -113,9 +113,7 @@ class ReseniasController {
     $id = $_REQUEST['id'];     
     $res = $this->model->selectById($id);
 
-    require_once VRESENIAS.'edit.php';
-    header('Location:index.php?c=Resenias&f=view_list');
-      
+    require_once VRESENIAS.'edit.php';      
   }
 
   public function edit(){
@@ -163,7 +161,7 @@ class ReseniasController {
         $_SESSION['color'] = "rojo";
       }
 
-      header('Location:index.php?c=Resenias&f=view_list');
+      require_once VRESENIAS.'list.php';
     } 
   }
 
@@ -194,6 +192,6 @@ class ReseniasController {
       }
     }
 
-    header('Location:index.php?c=Resenias&f=view_list');    
+    require_once VRESENIAS.'list.php';
   }
 }

@@ -25,9 +25,8 @@ class DomiciliosController {
   }
 
   public function view_domicilio_new_producto() {      
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {// insertar el producto
-      // considerar verificaciones
-      //if(!isset($_POST['codigo'])){ header('');}
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
       if (!empty($_POST['cedula']) && !empty($_POST['celular']) && !empty($_POST['correo']) && 
       !empty($_POST['cities']) && !empty($_POST['postal']) && !empty($_POST['gen']) 
       && !empty($_POST['env']) && !empty($_POST['referencias'])) {
@@ -63,9 +62,9 @@ class DomiciliosController {
         }
   
         if(($_SESSION['rol']=="cliente") or ($_SESSION['rol']=="marketing")){
-          header('Location:index.php?c=Inicio&f=index');
+          require_once VINICIO.'principal.php';
         }else{
-          header('Location:index.php?c=domicilios&f=view_domicilio_list');
+          require_once VSERVICIOS.'domicilio/domicilio.list.php';
         }        
       } 
     }
@@ -136,7 +135,7 @@ class DomiciliosController {
           $_SESSION['color'] = "rojo";
         }
   
-        header('Location:index.php?c=domicilios&f=view_domicilio_list');
+        require_once VSERVICIOS.'domicilio/domicilio.list.php';
       } 
     } 
   }
@@ -162,7 +161,7 @@ class DomiciliosController {
       $_SESSION['color'] = "rojo";
     }
 
-    header('Location:index.php?c=domicilios&f=view_domicilio_list');
+    require_once VSERVICIOS.'domicilio/domicilio.list.php';
   }
 
 }

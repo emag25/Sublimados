@@ -83,7 +83,7 @@ class UsuariosController {
         $_SESSION['color'] = "rojo";
       }
 
-      header('Location:index.php?c=Usuarios&f=view_login');            
+      require_once VUSUARIOS.'list.php';          
     }
   }
 
@@ -115,23 +115,23 @@ class UsuariosController {
             $_SESSION['rol'] = $resultado->rol;
             $_SESSION['id'] = $resultado->id_usuario;
             $_SESSION['nombre'] = $resultado->usuario;
-            header('Location:index.php?c=inicio&f=index');
+            require_once VINICIO.'principal.php';
           
           }else{
             $_SESSION['mensaje'] = "ERROR: Su cuenta ha sido desactivada.";
             $_SESSION['color'] = "rojo";
-            header('Location:index.php?c=Usuarios&f=view_login');
+            require_once VUSUARIOS.'login.php';  
           }
           
         }else{
           $_SESSION['mensaje'] = "ERROR: Usuario o contraseña incorrecta.";
           $_SESSION['color'] = "rojo";
-          header('Location:index.php?c=Usuarios&f=view_login');
+          require_once VUSUARIOS.'login.php';  
         }
       }else{
         $_SESSION['mensaje'] = "ERROR: No se pudieron obtener los datos. Intenta de nuevo";
         $_SESSION['color'] = "rojo";
-        header('Location:index.php?c=Usuarios&f=view_login');
+        require_once VUSUARIOS.'login.php';  
       }
     }
   }
@@ -188,7 +188,7 @@ class UsuariosController {
     }else{
       $_SESSION['mensaje'] = "ERROR: No puede editar su propio usuario";
       $_SESSION['color'] = "rojo";
-      header('Location:index.php?c=Usuarios&f=view_list');
+      require_once VUSUARIOS.'list.php';  
     }     
   }
 
@@ -234,7 +234,7 @@ class UsuariosController {
         $_SESSION['color'] = "rojo";
       }        
       
-      header('Location:index.php?c=Usuarios&f=view_list'); 
+      require_once VUSUARIOS.'list.php';  
     }
   }
 
@@ -271,6 +271,6 @@ class UsuariosController {
       $_SESSION['color'] = "rojo";
     } 
 
-    header('Location:index.php?c=Usuarios&f=view_list');    
+    require_once VUSUARIOS.'list.php';     
   }
 }
