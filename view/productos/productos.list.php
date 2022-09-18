@@ -117,7 +117,7 @@
                 <form action="index.php?c=Productos&f=search" method="POST" id="formBuscar">
                         <div class="contenedor-buscar">
                             <input type="text" name="b" id="busqueda"  placeholder="Buscar por cliente..."/>
-                            <button class="btn-buscar" type="submit"><i class='bx bx-search' ></i>Buscar</button>
+                            <button id="filtro" class="btn-buscar" type="submit"><i class='bx bx-search' ></i>Buscar</button>
                         </div>
                     </form> 
                     <div>
@@ -125,21 +125,21 @@
                     </div>
                 </div>
 
-                <?php                
+                <div class="divMensaje<?php                
                 if (!empty($_SESSION['mensaje'])) {
-                    ?>
-                    <div style="margin-top: 60px;" class="alert-<?php echo $_SESSION['color']; ?>">
-                    <i class='bx bx-<?php if ($_SESSION['color']=="rojo") { echo "x";} else{ echo "check";} ?>'></i>
-                    <?php echo $_SESSION['mensaje']; ?>  
-                    </div>
-                    <?php
-                    unset($_SESSION['mensaje']);
-                    unset($_SESSION['color']);
-                }
-                ?>
+                    echo ' alert-'.$_SESSION['color']; 
+                    ?>" style="display:block;"><i class='bx bx-<?php                    
+                    if ($_SESSION["color"] == "rojo") { echo "x";} 
+                    else{ echo "check";} ?>'></i><?php echo $_SESSION['mensaje']; ?></div>
+                <?php
+                unset($_SESSION['mensaje']);
+                unset($_SESSION['color']);
+                }else{?>"></div><?php } ?>
+                
                 <table>
                     <thead>
                         <th>ID</th>
+                        <th>USUARIO</th>
                         <th>PRODUCTO</th>
                         <th>CLIENTE</th>
                         <th>TELEFONO</th>
@@ -149,7 +149,7 @@
                         <th>OBSERVACIONES</th>
                         <th>ACCIONES</th>
                     </thead>
-                <tbody>
+                <tbody class="tblDatos">
 
                 <?php                 
                     foreach ($resultados as $fila) {
@@ -157,6 +157,12 @@
 
                 <tr>
                     <td><?php echo $fila->disenio_id;?></td>
+                    <td><?php 
+                            if($fila->activo == 1){
+                                echo $fila->usuario;
+                            }else{
+                                echo $fila->usuario." (inactivo)";
+                            } ?></td>
                     <td><?php echo $fila->producto; ?></td>
                     <td><?php echo $fila->cliente;?></td>
                     <td><?php echo $fila->telefono;?></td>
@@ -180,6 +186,80 @@
             </section>
             
         </main>
+
+        <script type="text/javascript">
+
+            var txtBuscar = document.getElementById("busqueda");
+            var boton = document.getElementById("filtro");
+            boton.addEventListener('click', mostrarDisenio);
+
+            function mostrarDisenio(){
+
+                var buscar = txtBuscar.value;
+                var url = "index.php?c=Productos&f=search&b=" + buscar;
+                var xmlh = new XMLHttpRequest();
+                xmlh.open('GET', url, true);
+                xmlh.send();
+
+                xmlh.onreadystatechange = function (){
+                    if (xmlh.readyState === 4 && xmlh.status === 200) {
+                        var respuesta = xmlh.responseText;                     
+                        actualizar(respuesta);
+                    }
+                }
+            }
+            
+            function actualizar(respuesta){
+
+                var tblDatos = document.querySelector(".tblDatos");
+                var divMensaje = document.querySelector('.divMensaje');
+                var productos = JSON.parse(respuesta);
+
+                var user = "";
+                var resultados ='';
+                var tamanio = 0;
+
+                if (productos[productos.length - 1].mensaje_error == undefined) {                    
+                    tamanio = productos.length;
+                    divMensaje.style.display = "none";
+                }else{
+                    tamanio = productos.length - 1; 
+                    divMensaje.className = "divMensaje alert-rojo";
+                    divMensaje.style.display = "block";
+                    divMensaje.innerHTML = '<i class="bx bx-x"></i>'+productos[tamanio].mensaje_error;
+                }
+                console.log(productos);
+                
+                for (var i = 0; i < tamanio; i++) {
+                    resultados += '<tr>';
+                    resultados += '<td>' + productos[i].disenio_id + '</td>';
+                    if(productos[i].activo == 1){
+                        user = productos[i].usuario;
+                    }else{
+                        user = productos[i].usuario + " (inactivo)";
+                    }
+                    resultados += '<td>' + user + '</td>';
+                    resultados += '<td>' + productos[i].producto + '</td>';
+                    resultados += '<td>' + productos[i].cliente + '</td>';
+                    resultados += '<td>' + productos[i].telefono + '</td>';
+                    resultados += '<td>' + productos[i].colores + '</td>';
+                    resultados += '<td>' + productos[i].disenio + '</td>';
+                    resultados += '<td>' + productos[i].modelo + '</td>';
+                    resultados += '<td>' + productos[i].observaciones + '</td>';
+                    resultados += '<td>' +
+                        "<a class='accion-boton editar' href='index.php?c=Productos&f=view_edit&id=" + productos[i].disenio_id 
+                        + "'><i class='bx bxs-pencil' ></i></a>" 
+                        + "<a style='margin-left:3px;' class='accion-boton borrar' href='index.php?c=Productos&f=delete&id=" + productos[i].disenio_id + "'" +
+                        + "' onclick =" + '"if(!confirm(' + "'¿Está seguro que desea eliminar el diseño?'" + '))return false;"' + " ><i class='bx bxs-trash-alt' ></i></a>" 
+                        + '</td>';
+                    resultados += '</tr>';
+                }
+                    tblDatos.innerHTML = resultados;
+                    txtBuscar.value = "";
+                    txtBuscar.focus();
+            }
+        </script>
+
         <?php require_once FOOTER; ?>
     </div>
 </body>
