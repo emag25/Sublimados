@@ -1,6 +1,4 @@
-<!--  AUTOR: QUITO YAMBAY RUTH MARIA  -->
-
-<?php
+<?php //AUTOR: QUITO YAMBAY RUTH MARIA 
 
 require_once 'config/Conexion.php';
 
@@ -25,7 +23,7 @@ class ContactoDAO {
     /*         CONSULTAR     */
 
     public function selectAll() {      
-        $sql = "SELECT * FROM contacto";
+        $sql = "SELECT * FROM contacto, usuario WHERE usuario_id = id_usuario";
         $stmt = $this->con->prepare($sql);
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_OBJ);
@@ -34,9 +32,10 @@ class ContactoDAO {
     }
 
     public function selectByName($name) { 
-        $sql = "SELECT * FROM contacto WHERE nombre = :name";
+        $sql = "SELECT * FROM contacto, usuario WHERE (nombre like :name AND usuario_id = id_usuario)";
         $stmt = $this->con->prepare($sql);
-        $data = ['name' => $name];
+        $conlike = '%' . $name . '%';
+        $data = array('name' => $conlike);
         $stmt->execute($data);
         $result = $stmt->fetchAll(PDO::FETCH_OBJ);
         
@@ -48,8 +47,8 @@ class ContactoDAO {
     /*             INSERTAR               */
     public function insert($cont) {
         try{
-            $sql = "INSERT INTO contacto (nombre, apellido, celular, email, genero, estado_civil, intereses, fecha_nacimiento, comentario) VALUES 
-            (:nombre, :apellido, :celular, :email, :genero, :estado, :intereses, :fecha, :comentario)";
+            $sql = "INSERT INTO contacto (nombre, apellido, celular, email, genero, estado_civil, intereses, fecha_nacimiento, comentario, usuario_id) VALUES 
+            (:nombre, :apellido, :celular, :email, :genero, :estado, :intereses, :fecha, :comentario, :usuario_id)";
         
             $sentencia = $this->con->prepare($sql);
             $data = [
@@ -61,7 +60,8 @@ class ContactoDAO {
             'estado' =>  $cont->getEstadoCivil(),
             'intereses' =>  $cont->getIntereses(),
             'fecha' =>  $cont->getFechaNacimiento(),
-            'comentario' =>  $cont->getComentario()
+            'comentario' =>  $cont->getComentario(),
+            'usuario_id' =>  $cont->getUsuarioId()
             ];
             $sentencia->execute($data);
             
@@ -94,7 +94,6 @@ class ContactoDAO {
         
             $sentencia = $this->con->prepare($sql);
             $data = [
-            'id' =>  $cont->getContactoId(),
             'nombre' =>  $cont->getNombre(),
             'apellido' =>  $cont->getApellido(),
             'celular' =>  $cont->getCelular(),
@@ -103,7 +102,8 @@ class ContactoDAO {
             'estado' =>  $cont->getEstadoCivil(),
             'intereses' =>  $cont->getIntereses(),
             'fecha' =>  $cont->getFechaNacimiento(),
-            'comentario' =>  $cont->getComentario()
+            'comentario' =>  $cont->getComentario(),
+            'id' =>  $cont->getContactoId()
             ];
             $sentencia->execute($data);
             

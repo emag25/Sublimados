@@ -1,11 +1,10 @@
-<!--  AUTOR: QUITO YAMBAY RUTH MARIA  -->
+<?php //AUTOR: QUITO YAMBAY RUTH MARIA 
 
-<?php
 // dto data transfer object
 class Contacto {
 
     private $contacto_id, $nombre, $apellido, $celular, $email, $genero, $estado_civil, $intereses, 
-    $fecha_nacimiento, $comentario;
+    $fecha_nacimiento, $comentario,  $usuario_id;
 
    /*  function __construct() {    } */
 
@@ -49,6 +48,11 @@ class Contacto {
     function getComentario() {
         return $this->comentario;
     }
+
+    function getUsuarioId() {
+        return $this->usuario_id;
+    }
+
 
 
 
@@ -99,6 +103,10 @@ class Contacto {
     function setComentario($comentario) {
         $this->comentario = $comentario;
     }
+
+    function setUsuarioId($usuario_id) {
+        $this->usuario_id = $usuario_id;
+    } 
 
     
     public function __set($nombre, $valor) {
